@@ -95,7 +95,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{flex:1;padding:40px 24px 112px;overflow-y:auto;animation:fu .16s ease;}
+.pg{flex:1;padding:44px 24px 128px;overflow-y:auto;animation:fu .16s ease;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -116,14 +116,14 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .sub{font-size:13px;font-weight:300;color:#9c9080;line-height:1.55;margin-bottom:28px;}
 
 /* ── STAT PILLS ── */
-.pills{display:flex;gap:8px;width:100%;margin-top:18px;margin-bottom:34px;}
+.pills{display:flex;gap:8px;width:100%;margin-top:20px;margin-bottom:48px;}
 .pill{flex:1;background:#fff;border-radius:100px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
 .app.dk .pill{background:#272219;}
 .pv{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1;}
 .pl{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;}
 
 /* ── RING ── */
-.ring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:14px;}
+.ring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:0;}
 .ring-pulse{position:absolute;inset:-14px;border-radius:50%;background:rgba(184,146,74,.06);opacity:0;pointer-events:none;}
 .ring-pulse.go{animation:rp .3s ease-out forwards;}
 @keyframes rp{0%{opacity:.4;transform:scale(.93)}100%{opacity:0;transform:scale(1.04)}}
@@ -227,8 +227,8 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── BOTTOM NAV — floating pill exactly as reference ── */
 /* Reference: white rounded pill, shadow, no active bg — only color change */
-.nav-wrap{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:calc(100% - 36px);max-width:394px;z-index:100;}
-.nav{background:#fff;border-radius:100px;display:flex;padding:4px;box-shadow:0 3px 16px rgba(0,0,0,.08);}
+.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:390px;z-index:100;}
+.nav{background:#fff;border-radius:100px;display:flex;padding:4px;box-shadow:0 2px 20px rgba(0,0,0,.07);}
 .app.dk .nav{background:#1e1b17;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .12s;letter-spacing:.01em;}
 .nb.on{color:#b8924a;}
@@ -310,7 +310,7 @@ function JapPage({state,dispatch}){
   const {count,malas,streak,mantra,dark}=state;
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
-  const R=104, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
+  const R=108, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
 
   function tap(){
     if(done)return;
@@ -342,19 +342,22 @@ function JapPage({state,dispatch}){
         h('div',{key:s.l,className:'pill'},h('div',{className:'pv'},s.v),h('div',{className:'pl'},s.l))
       )
     ),
-    // ring
-    h('div',{className:'ring',onClick:tap,style:{width:256,height:256,position:'relative'}},
+    // ring — two-ring structure matching reference exactly
+    h('div',{className:'ring',onClick:tap,style:{width:290,height:290,position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
-      h('svg',{width:256,height:256,style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:128,cy:128,r:R,fill:'none',stroke:dark?'#38322a':'#e8e2d8',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:128,cy:128,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
-          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 128 128)',
+      h('svg',{width:290,height:290,style:{position:'absolute',top:0,left:0}},
+        // outer ring — larger, very faint, creates depth
+        h('circle',{cx:145,cy:145,r:138,fill:'none',stroke:dark?'#2e2820':'#ede8df',strokeWidth:'1'}),
+        // inner ring — progress ring
+        h('circle',{cx:145,cy:145,r:R,fill:'none',stroke:dark?'#38322a':'#e4ddd8',strokeWidth:'1'}),
+        count>0&&h('circle',{cx:145,cy:145,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 145 145)',
           style:{transition:'stroke-dashoffset .1s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
         done
           ? h(React.Fragment,null,
-              h('div',{style:{fontSize:34}},'🙏'),
+              h('div',{style:{fontSize:36}},'🙏'),
               h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:300}})
             )
           : h(React.Fragment,null,
@@ -363,15 +366,16 @@ function JapPage({state,dispatch}){
             )
       )
     ),
-    // tap hint
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:12,marginBottom:12}},'Tap to count'),
+    // large breathing gap below ring — matches reference silence
+    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:56,marginBottom:16}},'Tap to count'),
+    done&&h('div',{style:{marginTop:56,fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginBottom:16}},'\u00a0'),
     // reset
     h('button',{
       onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
       style:{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,color:'#9c9080',fontSize:12,fontFamily:'Inter,sans-serif',fontWeight:300}},
       h(SvgRst),' Reset today'
     ),
-    done&&h('div',{style:{marginTop:22,textAlign:'center'}},
+    done&&h('div',{style:{marginTop:24,textAlign:'center'}},
       h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:16,color:'#b8924a',marginBottom:14}},'Mala complete'),
       h('button',{onClick:()=>dispatch({type:'NEW_MALA'}),
         style:{background:'#b8924a',color:'#fff',border:'none',borderRadius:'100px',padding:'10px 24px',fontFamily:'Inter,sans-serif',fontSize:12,fontWeight:300,cursor:'pointer'}},
