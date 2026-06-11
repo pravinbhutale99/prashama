@@ -116,7 +116,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── STAT PILLS ── */
 .pills{display:flex;gap:8px;width:100%;margin-top:20px;margin-bottom:48px;}
-.pill{flex:1;background:#ece7de;border-radius:100px;padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.pill{flex:1;background:#eae5db;border-radius:100px;padding:15px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;}
 .app.dk .pill{background:#272219;}
 .pv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;line-height:1;color:#28211a;}
 .app.dk .pv{color:#e4ddd4;}
@@ -310,7 +310,7 @@ function JapPage({state,dispatch}){
   const {count,malas,streak,mantra,dark}=state;
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
-  const R=108, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
+  const R=130, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
 
   function tap(){
     if(done)return;
@@ -343,12 +343,12 @@ function JapPage({state,dispatch}){
       )
     ),
     // ring — single ring, ref shows one circle with subtle tone
-    h('div',{className:'ring',onClick:tap,style:{width:280,height:280,position:'relative'}},
+    h('div',{className:'ring',onClick:tap,style:{width:320,height:320,position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
-      h('svg',{width:280,height:280,style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:140,cy:140,r:R,fill:'none',stroke:dark?'#38322a':'#ddd6ca',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:140,cy:140,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
-          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 140 140)',
+      h('svg',{width:320,height:320,style:{position:'absolute',top:0,left:0}},
+        h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#ddd6ca',strokeWidth:'1'}),
+        count>0&&h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 160 160)',
           style:{transition:'stroke-dashoffset .1s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
