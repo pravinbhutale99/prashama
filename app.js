@@ -88,7 +88,7 @@ const CSS=`
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body,#root{height:100%;}
-body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;color:#28211a;}
+body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;color:#28211a;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 
 /* ── APP SHELL ── */
 .app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f2ede4;color:#28211a;position:relative;}
@@ -108,18 +108,17 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── HEADINGS ── */
 /* Main page titles: Cormorant 300, ~32px — matches ref */
-.ttl{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1.15;letter-spacing:-.01em;margin-bottom:7px;}
-/* Guidance "How are you" is larger */
-.ttl-xl{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;line-height:1.1;letter-spacing:-.01em;margin-bottom:8px;}
-/* Guidance result emotion name */
-.ttl-em{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;line-height:1.05;letter-spacing:-.01em;text-align:center;margin-bottom:26px;}
-.sub{font-size:13px;font-weight:300;color:#9c9080;line-height:1.55;margin-bottom:28px;}
+.ttl{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;line-height:1.15;letter-spacing:.01em;margin-bottom:7px;}
+.ttl-xl{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;line-height:1.1;letter-spacing:.01em;margin-bottom:8px;}
+.ttl-em{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;line-height:1.05;letter-spacing:.01em;text-align:center;margin-bottom:26px;}
+.sub{font-size:13px;font-weight:300;color:#9c9080;line-height:1.6;margin-bottom:28px;}
 
 /* ── STAT PILLS ── */
 .pills{display:flex;gap:8px;width:100%;margin-top:20px;margin-bottom:48px;}
-.pill{flex:1;background:#fff;border-radius:100px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.pill{flex:1;background:#ece7de;border-radius:100px;padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;}
 .app.dk .pill{background:#272219;}
-.pv{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;line-height:1;}
+.pv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;line-height:1;color:#28211a;}
+.app.dk .pv{color:#e4ddd4;}
 .pl{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;}
 
 /* ── RING ── */
@@ -131,7 +130,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── TOP-RIGHT ICON BUTTONS ── */
 .hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0;}
 .hdr-btns{display:flex;gap:7px;padding-top:2px;}
-.ibtn{width:35px;height:35px;border-radius:100px;border:none;background:rgba(184,146,74,.1);color:#9c9080;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.ibtn{width:34px;height:34px;border-radius:100px;border:none;background:rgba(0,0,0,.04);color:#b5a89a;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .ibtn svg{width:15px;height:15px;}
 
 /* ── SETTINGS SHEET ── */
@@ -139,7 +138,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .sh{width:100%;max-width:430px;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 38px;max-height:80vh;overflow-y:auto;}
 .app.dk .sh{background:#272219;}
 .sh-drag{width:32px;height:3px;border-radius:2px;background:#ddd8ce;margin:0 auto 16px;}
-.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;background:#f5f0e8;border:1.5px solid transparent;}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;background:#f5f0e8;border:1.5px solid transparent;}
 .app.dk .mrow{background:#312b25;color:#e4ddd4;}
 .mrow.on{border-color:#b8924a;}
 .madd{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:11px;margin-bottom:18px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;background:#f5f0e8;}
@@ -162,33 +161,33 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .ecard{background:#272219;}
 .ecard.on{border-color:#b8924a;}
 .edot{width:6px;height:6px;border-radius:50%;background:#b8924a;}
-.elbl{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;line-height:1.2;margin-top:auto;padding-top:20px;}
+.elbl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.2;margin-top:auto;padding-top:20px;}
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:0 1px 4px rgba(0,0,0,.05);margin-bottom:0;}
+.gcard{background:#fff;border-radius:18px;padding:28px 22px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .gcard{background:#272219;}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:20px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;line-height:1.75;text-align:center;margin-bottom:18px;}
+.gverse{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.75;text-align:center;margin-bottom:18px;}
 .gdot{text-align:center;font-size:16px;color:#b8924a;margin:14px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:9px;}
-.gq{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:300;line-height:1.65;text-align:center;}
+.gq{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:400;line-height:1.65;text-align:center;}
 .gstep{font-size:13px;font-weight:300;line-height:1.8;text-align:center;color:#28211a;}
 .app.dk .gstep{color:#ccc6bc;}
-.gaff{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;font-weight:300;color:#9c9080;text-align:center;line-height:1.7;margin-top:26px;white-space:pre-line;}
+.gaff{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;font-weight:400;color:#9c9080;text-align:center;line-height:1.7;margin-top:26px;white-space:pre-line;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:20px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:18px;padding:22px 20px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:10px;}
+.dcard{background:#fff;border-radius:18px;padding:24px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:10px;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
-.dsk{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;line-height:1.6;margin-bottom:14px;}
+.dsk{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;line-height:1.6;margin-bottom:14px;}
 .ddiv{height:1px;background:#ede8df;margin:12px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;font-weight:300;line-height:1.8;margin-bottom:13px;}
+.dmt{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;font-weight:400;line-height:1.8;margin-bottom:13px;}
 .drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:6px;}
 .drefl{font-size:13px;font-weight:300;line-height:1.75;margin-bottom:16px;}
 .dacts{display:flex;align-items:center;gap:8px;}
@@ -204,10 +203,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:18px;padding:20px 18px 18px;box-shadow:0 1px 4px rgba(0,0,0,.04);margin-bottom:0;}
+.rfcard{background:#fff;border-radius:18px;padding:22px 20px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:7px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:5px 0 10px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;font-weight:300;color:#28211a;outline:none;transition:border-color .14s;display:block;margin-bottom:18px;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:5px 0 10px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;font-weight:400;color:#28211a;outline:none;transition:border-color .14s;display:block;margin-bottom:18px;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -220,7 +219,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .past-line{flex:1;height:1px;background:#e8e2d8;}
 .app.dk .past-line{background:#38322a;}
 .past-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;}
-.past-empty{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;font-weight:300;color:#9c9080;line-height:1.6;}
+.past-empty{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;font-weight:400;color:#9c9080;line-height:1.6;}
 
 /* ── CONTINUE BUTTON ── */
 .cont-btn{width:100%;padding:13px;border-radius:100px;border:none;background:#b8924a;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;cursor:pointer;}
@@ -288,7 +287,7 @@ function SettingsSheet({state,dispatch,close}){
               onChange:e=>setVal(e.target.value),
               onKeyDown:e=>{if(e.key==='Enter')add();if(e.key==='Escape'){setAdding(false);setVal('');}},
               placeholder:'Type your mantra…',
-              style:{width:'100%',background:'none',border:'none',borderBottom:'1px solid #e8e2d8',padding:'7px 0',fontFamily:'Cormorant Garamond,serif',fontSize:'17px',fontWeight:300,outline:'none',color:'inherit',marginBottom:8}}),
+              style:{width:'100%',background:'none',border:'none',borderBottom:'1px solid #e8e2d8',padding:'7px 0',fontFamily:'Cormorant Garamond,serif',fontSize:'17px',fontWeight:400,outline:'none',color:'inherit',marginBottom:8}}),
             h('div',{style:{display:'flex',gap:7}},
               h('button',{onClick:add,style:{flex:1,padding:'9px',borderRadius:'100px',border:'none',background:'#b8924a',color:'#fff',fontFamily:'Inter,sans-serif',fontSize:'12px',cursor:'pointer'}},'Add'),
               h('button',{onClick:()=>{setAdding(false);setVal('');},style:{flex:1,padding:'9px',borderRadius:'100px',border:'1px solid #e8e2d8',background:'none',fontFamily:'Inter,sans-serif',fontSize:'12px',cursor:'pointer',color:'#9c9080'}},'Cancel')
@@ -342,33 +341,29 @@ function JapPage({state,dispatch}){
         h('div',{key:s.l,className:'pill'},h('div',{className:'pv'},s.v),h('div',{className:'pl'},s.l))
       )
     ),
-    // ring — two-ring structure matching reference exactly
-    h('div',{className:'ring',onClick:tap,style:{width:290,height:290,position:'relative'}},
+    // ring — single ring, ref shows one circle with subtle tone
+    h('div',{className:'ring',onClick:tap,style:{width:280,height:280,position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
-      h('svg',{width:290,height:290,style:{position:'absolute',top:0,left:0}},
-        // outer ring — larger, very faint, creates depth
-        h('circle',{cx:145,cy:145,r:138,fill:'none',stroke:dark?'#2e2820':'#ede8df',strokeWidth:'1'}),
-        // inner ring — progress ring
-        h('circle',{cx:145,cy:145,r:R,fill:'none',stroke:dark?'#38322a':'#e4ddd8',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:145,cy:145,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
-          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 145 145)',
+      h('svg',{width:280,height:280,style:{position:'absolute',top:0,left:0}},
+        h('circle',{cx:140,cy:140,r:R,fill:'none',stroke:dark?'#38322a':'#ddd6ca',strokeWidth:'1'}),
+        count>0&&h('circle',{cx:140,cy:140,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 140 140)',
           style:{transition:'stroke-dashoffset .1s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
         done
           ? h(React.Fragment,null,
               h('div',{style:{fontSize:36}},'🙏'),
-              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:300}})
+              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:32,fontWeight:300,letterSpacing:'.02em',color:dark?'#e4ddd4':'#28211a'}},mantra||'Radhe'),
-              h('div',{style:{fontSize:12,color:'#9c9080',marginTop:6,letterSpacing:'.04em'}},`${count} / 108`)
+              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:34,fontWeight:400,letterSpacing:'.02em',color:dark?'#e4ddd4':'#28211a'}},mantra||'Radhe'),
+              h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
     ),
-    // large breathing gap below ring — matches reference silence
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:56,marginBottom:16}},'Tap to count'),
-    done&&h('div',{style:{marginTop:56,fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginBottom:16}},'\u00a0'),
+    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:52,marginBottom:16}},'Tap to count'),
+    done&&h('div',{style:{marginTop:52,marginBottom:16}}),
     // reset
     h('button',{
       onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
