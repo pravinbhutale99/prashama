@@ -1,477 +1,356 @@
 const { useState, useCallback, useRef, useEffect } = React;
 
-// ── THEME — cooler, softer, less warm ────────────────────────
+// ── THEME ─────────────────────────────────────────────────────
 const T = {
-  bg:          "#f8f7f4",   // cooler soft cream, less yellow
-  surface:     "#f2f0eb",
-  border:      "#e8e4dc",   // softer, lighter border
-  borderLight: "#eeece7",
-  text:        "#1c1917",
-  muted:       "#9c9488",
-  accent:      "#a0522d",   // slightly cooler sienna, less orange
-  accentLight: "#f5ede6",
-  gold:        "#b8975a",   // more muted gold
-  white:       "#ffffff",
+  bg:       '#f0ece4',
+  card:     '#ffffff',
+  border:   '#e8e3d9',
+  text:     '#2c2620',
+  muted:    '#9e9689',
+  accent:   '#b07d4a',
+  accentDim:'#c4a472',
+  navBg:    '#ffffff',
 };
 
-// ── WISDOM DATABASE — unchanged ──────────────────────────────
+// ── WISDOM DATABASE ───────────────────────────────────────────
 const WISDOM = {
-  angry:{emoji:'🔥',label:'Angry',
-    verse:{sanskrit:'क्रोधाद्भवति सम्मोहः सम्मोहात्स्मृतिविभ्रमः।',
-      transliteration:'krodhād bhavati sammohaḥ sammohāt smṛti-vibhramaḥ',
-      source:'Bhagavad Gita 2.63',
-      meaning:'From anger comes delusion. From delusion, the loss of memory. From the loss of memory, the destruction of discrimination — and from that, one perishes.'},
-    reflection:'Anger is not the enemy — it is a messenger. Ask what it is protecting.',
-    action:'Before you respond, pause. Take three slow breaths. The anger will still be there if you need it — but so will your wisdom.',
-    affirmation:'I am larger than this moment.'},
-  anxious:{emoji:'😰',label:'Anxious',
-    verse:{sanskrit:'नैनं छिन्दन्ति शस्त्राणि नैनं दहति पावकः।',
-      transliteration:'nainaṁ chindanti śastrāṇi nainaṁ dahati pāvakaḥ',
-      source:'Bhagavad Gita 2.23',
-      meaning:'The soul cannot be cut by weapons, nor burned by fire, nor moistened by water, nor dried by wind. What you truly are cannot be harmed.'},
-    reflection:'Anxiety lives in the future. You are only ever here, now, in this breath.',
-    action:'Name five things you can see right now. Return to the present. This moment is safe.',
-    affirmation:'I am held by something larger than my fear.'},
-  sad:{emoji:'💧',label:'Sad',
-    verse:{sanskrit:'जातस्य हि ध्रुवो मृत्युर्ध्रुवं जन्म मृतस्य च।',
-      transliteration:'jātasya hi dhruvo mṛtyur dhruvaṁ janma mṛtasya ca',
-      source:'Bhagavad Gita 2.27',
-      meaning:'For one who is born, death is certain. For one who dies, rebirth is certain. Therefore, grieve not for what is inevitable.'},
-    reflection:'Sadness is love with nowhere to go. Let yourself feel it — it means something mattered.',
-    action:'Do not rush out of this feeling. Sit with it gently for five minutes. Then drink water, and step outside if you can.',
-    affirmation:'This feeling is temporary. I am not.'},
-  lost:{emoji:'🌫️',label:'Lost',
-    verse:{sanskrit:'श्रेयान्स्वधर्मो विगुणः परधर्मात्स्वनुष्ठितात्।',
-      transliteration:'śreyān sva-dharmo viguṇaḥ para-dharmāt sv-anuṣṭhitāt',
-      source:'Bhagavad Gita 3.35',
-      meaning:'It is better to follow your own path imperfectly than to follow another\'s path perfectly. Your own path, even with its difficulties, is the one meant for you.'},
-    reflection:'Feeling lost often means you have outgrown where you were. This confusion is a doorway.',
-    action:'Write down one thing you know to be true about yourself right now. Start there. Just one step.',
-    affirmation:'I do not need to see the whole path. Only the next step.'},
-  grateful:{emoji:'🙏',label:'Grateful',
-    verse:{sanskrit:'ये यथा मां प्रपद्यन्ते तांस्तथैव भजाम्यहम्।',
-      transliteration:'ye yathā māṁ prapadyante tāṁs tathaiva bhajāmy aham',
-      source:'Bhagavad Gita 4.11',
-      meaning:'In whatever way people surrender to Me, I reward them accordingly. The Divine meets you exactly where you are.'},
-    reflection:'Gratitude is not just a feeling — it is a way of seeing. You have already received so much.',
-    action:'Tell one person today that you appreciate them. Specifically. Not in general. Watch what happens.',
-    affirmation:'Abundance flows through me when I recognise what I already have.'},
-  peaceful:{emoji:'☮️',label:'Peaceful',
-    verse:{sanskrit:'प्रशान्तमनसं ह्येनं योगिनं सुखमुत्तमम्।',
-      transliteration:'praśānta-manasaṁ hy enaṁ yoginaṁ sukham uttamam',
-      source:'Bhagavad Gita 6.27',
-      meaning:'Supreme happiness comes to the yogi whose mind is peaceful, whose passions are quieted, who has become one with the Divine.'},
-    reflection:'Peace is not the absence of noise. It is the presence of something deeper beneath the noise.',
-    action:'Protect this feeling today. Less scrolling, less news, more silence. Let this peace deepen.',
-    affirmation:'I return to this stillness whenever I choose.'},
-  fearful:{emoji:'😨',label:'Fearful',
-    verse:{sanskrit:'अभयं सत्त्वसंशुद्धिर्ज्ञानयोगव्यवस्थितिः।',
-      transliteration:'abhayaṁ sattva-saṁśuddhir jñāna-yoga-vyavasthitiḥ',
-      source:'Bhagavad Gita 16.1',
-      meaning:'Fearlessness, purity of heart, steadfastness in knowledge and yoga — these are the divine qualities you were born with. They are your nature.'},
-    reflection:'Courage is not the absence of fear. It is taking one small step while afraid.',
-    action:'Ask yourself: what is the smallest action I could take toward what I fear? Do just that one thing.',
-    affirmation:'Fearlessness is my birthright. I reclaim it now.'},
-  jealous:{emoji:'💚',label:'Jealous',
-    verse:{sanskrit:'उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।',
-      transliteration:'uddhared ātmanātmānaṁ nātmānam avasādayet',
-      source:'Bhagavad Gita 6.5',
-      meaning:'Elevate yourself through the power of your own mind. Do not degrade yourself. The mind can be your greatest friend or your worst enemy.'},
-    reflection:'Jealousy shows you what you desire. That desire is information — not about them, but about you.',
-    action:'Write down what you admire in that person or situation. Then ask: how can I cultivate this in my own life?',
-    affirmation:'Their success does not diminish mine. There is enough.'},
-  proud:{emoji:'✨',label:'Proud',
-    verse:{sanskrit:'मय्यर्पितमनोबुद्धिर्यो मद्भक्तः स मे प्रियः।',
-      transliteration:'mayy arpita-mano-buddhir yo mad-bhaktaḥ sa me priyaḥ',
-      source:'Bhagavad Gita 12.14',
-      meaning:'One who is content, devoted, and has surrendered the mind to the Divine — such a person is dear to Me. Let your achievements flow back to the source.'},
-    reflection:'Pride in your work is beautiful. Let it be fuel for your next act of service, not a place to rest.',
-    action:'Thank one person who contributed to this achievement — even silently. Success is always shared.',
-    affirmation:'I celebrate this. And I remain humble in it.'},
-  hopeless:{emoji:'🌑',label:'Hopeless',
-    verse:{sanskrit:'सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।',
-      transliteration:'sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja',
-      source:'Bhagavad Gita 18.66',
-      meaning:'Surrender completely. I will free you from all burdens. Do not grieve. You do not have to carry this alone.'},
-    reflection:'Hopelessness often arrives just before a turning point. The darkest part of night is just before dawn.',
-    action:'Do not try to solve everything now. Do one tiny thing: drink water, step outside, call someone you trust.',
-    affirmation:'I have survived every difficult day until now. I will survive this one too.'},
-  overwhelmed:{emoji:'🌊',label:'Overwhelmed',
-    verse:{sanskrit:'योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।',
-      transliteration:'yoga-sthaḥ kuru karmāṇi saṅgaṁ tyaktvā dhanañjaya',
-      source:'Bhagavad Gita 2.48',
-      meaning:'Established in stillness, perform your actions. Abandon attachment to outcomes. Act from a place of inner quiet.'},
-    reflection:'You cannot do everything. But you can do one thing. That is enough for now.',
-    action:'Write down everything overwhelming you. Then circle just one item. Do only that today.',
-    affirmation:'One step. One breath. One moment at a time.'},
-  lonely:{emoji:'🕯️',label:'Lonely',
-    verse:{sanskrit:'समोऽहं सर्वभूतेषु न मे द्वेष्योऽस्ति न प्रियः।',
-      transliteration:"samo 'haṁ sarva-bhūteṣu na me dveṣyo 'sti na priyaḥ",
-      source:'Bhagavad Gita 9.29',
-      meaning:'I am equally present in all beings. No one is hated by Me, no one is favoured. Those who worship Me with devotion — they are in Me, and I am in them.'},
-    reflection:'You are never truly alone. Something vast and loving holds this entire existence — including you.',
-    action:'Reach out to one person today. Not to explain how you feel — just to connect. A simple message is enough.',
-    affirmation:'I am connected to life itself. I am not separate.'},
+  angry:{emoji:'🔥',label:'angry',
+    source:'Bhagavad Gita 2.63',
+    verse:'From anger comes delusion. From delusion, loss of memory. From loss of memory, destruction of discrimination — and from that, one perishes.',
+    question:'"What am I actually protecting right now?"',
+    step:'Pause. Breathe three times before you respond to anything.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
+  anxious:{emoji:'😰',label:'anxious',
+    source:'Bhagavad Gita 2.23',
+    verse:'What you truly are cannot be harmed. The soul is untouched by weapons, fire, water, or wind.',
+    question:'"What is actually happening right now — not in my imagination?"',
+    step:'Name five things you can see. Come back to this moment.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
+  overthinking:{emoji:'🌀',label:'overthinking',
+    source:'Bhagavad Gita 2.47',
+    verse:'Focus on the next right action. Release the outcome you cannot hold.',
+    question:'"What is one small step I can take right now?"',
+    step:'Write down a single next action and close the rest of the tabs.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
+  distracted:{emoji:'🍃',label:'distracted',
+    source:'Bhagavad Gita 6.26',
+    verse:'Wherever the restless mind wanders, gently bring it back. Again and again, quietly return.',
+    question:'"What actually matters to me today?"',
+    step:'Close one tab. Do one thing for ten minutes without switching.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
+  lonely:{emoji:'🕯️',label:'lonely',
+    source:'Bhagavad Gita 9.29',
+    verse:'I am equally present in all beings. Those who turn toward Me with devotion — they are in Me, and I am in them.',
+    question:'"Who could I reach out to today — even briefly?"',
+    step:'Send one message. Not to explain how you feel. Just to connect.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
+  unmotivated:{emoji:'🌑',label:'unmotivated',
+    source:'Bhagavad Gita 3.8',
+    verse:'Do what must be done. Action is better than inaction. Even the body cannot be maintained without movement.',
+    question:'"What is the smallest possible beginning?"',
+    step:'Do two minutes of the thing you have been avoiding. Only two minutes.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
+  peaceful:{emoji:'☮️',label:'peaceful',
+    source:'Bhagavad Gita 6.27',
+    verse:'Supreme happiness comes to the one whose mind is still, whose passions are quiet, who has become one with what is.',
+    question:'"How can I protect this feeling for the rest of today?"',
+    step:'Less input today. Guard the quiet you have found.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
+  grateful:{emoji:'🙏',label:'grateful',
+    source:'Bhagavad Gita 4.11',
+    verse:'In whatever way people come to Me, I meet them there. The Divine meets you exactly where you are.',
+    question:'"Who or what made this feeling possible?"',
+    step:'Tell one person today that you appreciate them. Specifically.',
+    affirmation:'Take what helps. Leave the rest.\nReturn whenever you need.'},
 };
 
-// ── DHARMA VERSES — unchanged ────────────────────────────────
+// ── DHARMA VERSES ─────────────────────────────────────────────
 const DHARMA = [
-  {sanskrit:'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।',source:'Bhagavad Gita 2.47',
-    meaning:'You have the right to perform your duties, but never to the fruits of your actions.',
-    reflection:'Act without attachment to results. The effort is yours. The outcome belongs to the universe.'},
-  {sanskrit:'सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।',source:'Bhagavad Gita 18.66',
-    meaning:'Abandon all varieties of dharma and simply surrender. Do not grieve — you will be freed.',
+  {source:'Bhagavad Gita 2.47',
+    sanskrit:'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।',
+    meaning:'"You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions."',
+    reflection:'The effort is yours. The outcome belongs to the universe.'},
+  {source:'Bhagavad Gita 18.66',
+    sanskrit:'सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।',
+    meaning:'"Abandon all varieties of dharma and simply surrender to Me. I shall free you from all sinful reactions. Do not fear."',
     reflection:'True surrender is not weakness. It is the deepest form of trust.'},
-  {sanskrit:'न जायते म्रियते वा कदाचिन्।',source:'Bhagavad Gita 2.20',
-    meaning:'The soul is never born, nor does it ever die. It is not slain when the body is slain.',
+  {source:'Bhagavad Gita 2.20',
+    sanskrit:'न जायते म्रियते वा कदाचिन्।',
+    meaning:'"The soul is never born nor dies. It is not slain when the body is slain."',
     reflection:'What you truly are is eternal. Only the body is temporary.'},
-  {sanskrit:'उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।',source:'Bhagavad Gita 6.5',
-    meaning:'Elevate yourself through the power of your own mind. Do not degrade yourself.',
-    reflection:'You are your own best friend and your own worst enemy. Choose wisely today.'},
-  {sanskrit:'समः शत्रौ च मित्रे च तथा मानापमानयोः।',source:'Bhagavad Gita 14.25',
-    meaning:'One who is equal to friend and foe, in honour and dishonour — that person has gone beyond.',
+  {source:'Bhagavad Gita 6.5',
+    sanskrit:'उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।',
+    meaning:'"Lift yourself up by your own self; do not let yourself fall."',
+    reflection:'You are both the one who struggles and the one who can offer a kinder hand.'},
+  {source:'Bhagavad Gita 14.25',
+    sanskrit:'समः शत्रौ च मित्रे च तथा मानापमानयोः।',
+    meaning:'"One equal to friend and foe, in honour and dishonour — such a person has gone beyond."',
     reflection:'Equanimity in all situations is the highest form of spiritual maturity.'},
-  {sanskrit:'ध्यायतो विषयान्पुंसः सङ्गस्तेषूपजायते।',source:'Bhagavad Gita 2.62',
-    meaning:'While contemplating objects of the senses, one develops attachment. From attachment comes desire, and from desire, suffering.',
-    reflection:'What you dwell on, you become. Guard your thoughts carefully.'},
-  {sanskrit:'अहिंसा सत्यमक्रोधस्त्यागः शान्तिरपैशुनम्।',source:'Bhagavad Gita 16.2',
-    meaning:'Non-violence, truthfulness, freedom from anger, renunciation, peacefulness — these are the divine qualities born within you.',
-    reflection:'You do not need to be perfect. Simply move toward these qualities, one day at a time.'},
-  {sanskrit:'प्रशान्तमनसं ह्येनं योगिनं सुखमुत्तमम्।',source:'Bhagavad Gita 6.27',
-    meaning:'Supreme happiness comes to the yogi whose mind is peaceful, whose passions are quieted, who has become one with the Divine.',
+  {source:'Bhagavad Gita 2.62',
+    sanskrit:'ध्यायतो विषयान्पुंसः सङ्गस्तेषूपजायते।',
+    meaning:'"Contemplating the objects of the senses, one develops attachment. From attachment comes desire, and from desire, suffering."',
+    reflection:'What you dwell on, you become. Guard your attention.'},
+  {source:'Bhagavad Gita 16.2',
+    sanskrit:'अहिंसा सत्यमक्रोधस्त्यागः शान्तिरपैशुनम्।',
+    meaning:'"Non-violence, truthfulness, freedom from anger, renunciation, peacefulness — these divine qualities are born within you."',
+    reflection:'You do not need to be perfect. Simply move toward these, one day at a time.'},
+  {source:'Bhagavad Gita 6.27',
+    sanskrit:'प्रशान्तमनसं ह्येनं योगिनं सुखमुत्तमम्।',
+    meaning:'"Supreme happiness comes to the yogi whose mind is peaceful, whose passions are quieted."',
     reflection:'Peace is not something you find. It is something you return to.'},
 ];
 
 function getTodayVerse(){
   const d=new Date();
-  const day=Math.floor((d-new Date(d.getFullYear(),0,0))/86400000);
-  return DHARMA[day%DHARMA.length];
+  const n=Math.floor((d-new Date(d.getFullYear(),0,0))/86400000);
+  return DHARMA[n%DHARMA.length];
 }
 
-// ── PERSISTENCE — unchanged ───────────────────────────────────
+// ── PERSISTENCE ───────────────────────────────────────────────
 const KEY='prashama_v1';
 function load(){try{return JSON.parse(localStorage.getItem(KEY));}catch{return null;}}
 function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch{}}
 function today(){return new Date().toISOString().slice(0,10);}
 function wasYesterday(ds){
   if(!ds)return false;
-  const y=new Date(); y.setDate(y.getDate()-1);
+  const y=new Date();y.setDate(y.getDate()-1);
   return ds===y.toISOString().slice(0,10);
 }
 function initState(){
-  const s=load(),t=today(),newDay=s&&s.lastDate!==t;
-  const base={count:0,malas:0,lastDate:t,totalCount:0,streak:1,reflections:[],lastGuidance:null,guidanceUsedToday:false};
+  const s=load(),t=today(),nd=s&&s.lastDate!==t;
+  const base={count:0,malas:0,lastDate:t,totalCount:0,streak:0,reflections:[],lastGuidance:null};
   if(!s)return base;
   return{...base,...s,lastDate:t,
-    count:newDay?0:s.count,malas:newDay?0:s.malas,
-    guidanceUsedToday:newDay?false:s.guidanceUsedToday,
-    streak:newDay?(wasYesterday(s.lastDate)?(s.streak||1)+1:1):(s.streak||1)};
+    count:nd?0:s.count,malas:nd?0:s.malas,
+    streak:nd?(wasYesterday(s.lastDate)?(s.streak||0)+1:0):(s.streak||0)};
 }
 
-// ── REDUCER — unchanged ───────────────────────────────────────
+// ── REDUCER ───────────────────────────────────────────────────
 function reducer(state,action){
   let n;
   switch(action.type){
-    case'TAP': if(state.count>=108)return state; n={...state,count:state.count+1,totalCount:state.totalCount+1}; break;
-    case'NEW_MALA': n={...state,count:0,malas:state.malas+1}; break;
-    case'RESET_DAY': n={...state,count:0,malas:0}; break;
-    case'SET_GUIDANCE': n={...state,lastGuidance:action.p,guidanceUsedToday:true}; break;
-    case'ADD_REFLECTION': n={...state,reflections:[...(state.reflections||[]),action.p]}; break;
-    default: return state;
+    case'TAP':if(state.count>=108)return state;n={...state,count:state.count+1,totalCount:state.totalCount+1};break;
+    case'NEW_MALA':n={...state,count:0,malas:state.malas+1};break;
+    case'RESET_DAY':n={...state,count:0,malas:0};break;
+    case'SET_GUIDANCE':n={...state,lastGuidance:action.p};break;
+    case'SAVE_REFLECTION':n={...state,reflections:[...(state.reflections||[]),action.p]};break;
+    default:return state;
   }
-  save(n); return n;
+  save(n);return n;
 }
 
-// ── GLOBAL CSS — tone correction pass ────────────────────────
+// ── GLOBAL CSS ────────────────────────────────────────────────
 const CSS=`
-  .app{
-    max-width:430px;margin:0 auto;min-height:100vh;
-    display:flex;flex-direction:column;background:${T.bg};
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;background:${T.bg};}
+  body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;color:${T.text};}
+  #root{height:100%;}
 
-  /* header — barely there */
-  .hdr{
-    padding:20px 28px 0;
-    display:flex;align-items:center;gap:7px;
-  }
-  .hdr-name{
-    font-family:'Cormorant Garamond',serif;
-    font-size:13px;font-weight:400;
-    color:${T.muted};letter-spacing:.18em;
-  }
-  .hdr-dot{
-    width:3px;height:3px;border-radius:50%;
-    background:${T.accent};opacity:.4;margin-top:1px;
-  }
+  .app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:${T.bg};position:relative;}
 
-  /* page */
-  .page{
-    flex:1;padding:40px 28px 110px;
-    animation:fu .2s ease;overflow-y:auto;
-  }
-  @keyframes fu{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  /* PAGE */
+  .page{flex:1;padding:48px 24px 120px;overflow-y:auto;animation:fu .2s ease;}
+  @keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
-  /* nav */
-  .nav{
-    position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-    width:100%;max-width:430px;
-    background:${T.white};
-    border-top:1px solid ${T.borderLight};
-    display:flex;z-index:100;
-    padding-bottom:env(safe-area-inset-bottom,0);
-  }
-  .nb{
-    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-    padding:11px 4px 9px;background:none;border:none;cursor:pointer;
-    color:${T.muted};font-family:'Inter',sans-serif;
-    font-size:10px;letter-spacing:.04em;transition:color .2s;
-  }
-  .nb.on{color:${T.accent};}
-  .nb svg{width:19px;height:19px;}
+  /* EYEBROW */
+  .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow-rule{flex:0 0 20px;height:1px;background:${T.accent};}
+  .eyebrow-text{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:${T.accent};}
+  .eyebrow-rule-both{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:6px;}
+  .eyebrow-rule-both .eyebrow-rule{flex:0 0 28px;}
 
-  /* typography */
-  .ptitle{
-    font-family:'Cormorant Garamond',serif;
-    font-size:26px;font-weight:300;
-    color:${T.text};margin-bottom:6px;line-height:1.25;
-  }
-  .psub{
-    font-size:11px;color:${T.muted};
-    letter-spacing:.1em;text-transform:uppercase;
-    margin-bottom:36px;
-  }
+  /* HEADINGS */
+  .page-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;line-height:1.15;color:${T.text};margin-bottom:6px;}
+  .page-title-sm{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;line-height:1.2;color:${T.text};margin-bottom:6px;}
+  .page-sub{font-size:13px;font-weight:300;color:${T.muted};margin-bottom:32px;line-height:1.5;}
 
-  /* content blocks — no cards, just breathing space */
-  .block{
-    margin-bottom:32px;
-  }
-  .block-ruled{
-    border-top:1px solid ${T.border};
-    padding-top:24px;margin-bottom:32px;
-  }
+  /* CARD */
+  .card{background:${T.card};border-radius:18px;padding:28px 24px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 
-  /* soft card — only when grouping is truly needed */
-  .well{
-    background:${T.surface};
-    border:1px solid ${T.borderLight};
-    border-radius:12px;
-    padding:20px 22px;
-    margin-bottom:20px;
-  }
+  /* STAT PILLS */
+  .stat-pill{background:${T.card};border-radius:100px;padding:14px 24px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .stat-v{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:${T.text};line-height:1;}
+  .stat-l{font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:${T.muted};}
 
-  /* buttons — quieter */
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:7px;
-    padding:11px 22px;border-radius:100px;border:none;cursor:pointer;
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:400;
-    letter-spacing:.03em;transition:opacity .18s;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .bp{background:${T.accent};color:${T.white};}
-  .bp:hover{opacity:.85;}
-  .bp:disabled{opacity:.28;cursor:default;}
-  .bg{background:transparent;color:${T.muted};border:1px solid ${T.border};}
-  .bg:hover{background:${T.surface};}
-  .sm{padding:8px 18px;font-size:12px;}
-  .fw{width:100%;}
-
-  /* text link — not a button */
-  .txt-link{
-    background:none;border:none;
-    color:${T.muted};font-size:12px;
-    font-family:'Inter',sans-serif;
-    cursor:pointer;padding:0;
-    text-decoration:none;
-    letter-spacing:.03em;
-  }
-  .txt-link:hover{color:${T.text};}
-
-  /* label */
-  .lbl{
-    font-size:10px;color:${T.muted};
-    letter-spacing:.12em;text-transform:uppercase;
-    margin-bottom:10px;display:block;
-  }
-
-  /* emotion grid */
-  .emotion-grid{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:8px;margin-bottom:32px;
-  }
-  .emotion-btn{
-    display:flex;align-items:center;gap:9px;
-    padding:12px 14px;border-radius:10px;cursor:pointer;
-    font-family:'Inter',sans-serif;font-size:13px;
-    transition:all .15s;
-    border:1px solid ${T.borderLight};
-    background:${T.white};color:${T.text};font-weight:300;
-  }
-  .emotion-btn.on{
-    background:${T.accentLight};
-    border-color:${T.accent}60;
-    color:${T.accent};font-weight:400;
-  }
-
-  /* chips */
-  .chips{display:flex;gap:7px;margin-bottom:22px;overflow-x:auto;padding-bottom:2px;}
-  .chip{
-    display:inline-flex;align-items:center;gap:5px;
-    padding:6px 13px;border-radius:100px;font-size:12px;
-    cursor:pointer;border:1px solid ${T.borderLight};
-    background:${T.white};color:${T.muted};
-    font-family:'Inter',sans-serif;transition:all .15s;white-space:nowrap;
-  }
-  .chip.on{
-    background:${T.accentLight};
-    border-color:${T.accent}50;
-    color:${T.accent};
-  }
-
-  /* form */
-  textarea,input{
-    width:100%;background:${T.surface};
-    border:1px solid ${T.borderLight};border-radius:10px;
-    padding:14px 16px;font-family:'Inter',sans-serif;
-    font-size:14px;font-weight:300;color:${T.text};
-    outline:none;line-height:1.65;
-    transition:border-color .18s;-webkit-appearance:none;resize:none;
-  }
-  textarea:focus,input:focus{border-color:${T.accent}80;}
-  textarea::placeholder,input::placeholder{color:${T.muted};}
-
-  /* divider */
-  .rule{height:1px;background:${T.borderLight};margin:20px 0;}
-
-  /* ring tap area */
-  .rring{position:relative;cursor:pointer;}
-  .rpulse{
-    position:absolute;inset:-14px;border-radius:50%;
-    background:${T.accentLight};opacity:0;pointer-events:none;
-  }
+  /* RING */
+  .rring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .rpulse{position:absolute;inset:-12px;border-radius:50%;background:rgba(176,125,74,.08);opacity:0;pointer-events:none;}
   .ractive{animation:rp .35s ease-out forwards;}
-  @keyframes rp{
-    0%{opacity:.4;transform:scale(.9)}
-    100%{opacity:0;transform:scale(1.05)}
-  }
+  @keyframes rp{0%{opacity:.6;transform:scale(.92)}100%{opacity:0;transform:scale(1.04)}}
 
-  /* stats */
-  .stats-row{display:flex;gap:32px;margin-bottom:48px;margin-top:8px;}
-  .stat{text-align:center;}
-  .stat-v{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:${T.text};}
-  .stat-l{font-size:9px;color:${T.muted};letter-spacing:.1em;text-transform:uppercase;margin-top:3px;}
+  /* EMOTION CARDS */
+  .egrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px;}
+  .ecard{background:${T.card};border-radius:16px;padding:24px 18px 18px;cursor:pointer;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);transition:box-shadow .15s;
+    display:flex;flex-direction:column;justify-content:flex-end;min-height:110px;
+    border:1.5px solid transparent;text-align:left;}
+  .ecard.on{border-color:${T.accent};box-shadow:0 2px 8px rgba(176,125,74,.15);}
+  .ecard-dot{width:6px;height:6px;border-radius:50%;background:${T.accentDim};margin-bottom:auto;}
+  .ecard-label{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:${T.text};margin-top:16px;}
+
+  /* GUIDANCE RESULT */
+  .verse-source-row{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:20px;}
+  .verse-source-rule{flex:0 0 28px;height:1px;background:${T.accentDim};}
+  .verse-source-text{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:${T.accentDim};}
+  .verse-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;line-height:1.7;color:${T.text};text-align:center;margin-bottom:20px;}
+  .dot-sep{display:flex;justify-content:center;margin:18px 0;}
+  .dot-sep::after{content:'·';color:${T.muted};font-size:16px;}
+  .section-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:${T.muted};text-align:center;margin-bottom:10px;}
+  .quiet-q{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:400;line-height:1.6;color:${T.text};text-align:center;}
+  .step-text{font-size:14px;font-weight:300;color:${T.text};line-height:1.75;text-align:center;}
+  .affirmation{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:${T.muted};text-align:center;line-height:1.7;margin-top:32px;white-space:pre-line;}
+
+  /* BACK LINK */
+  .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:${T.muted};font-family:'Inter',sans-serif;padding:0;display:flex;align-items:center;gap:5px;}
+  .back-btn:hover{color:${T.text};}
+
+  /* DHARMA */
+  .dharma-source{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:${T.accent};margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+  .dharma-source::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:${T.accent};}
+  .dharma-sanskrit{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;line-height:1.6;color:${T.text};margin-bottom:16px;}
+  .dharma-meaning{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;font-weight:400;line-height:1.75;color:${T.text};margin-bottom:16px;}
+  .dharma-reflection-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:${T.muted};margin-bottom:8px;}
+  .dharma-reflection{font-size:13px;font-weight:300;color:${T.text};line-height:1.75;}
+  .dharma-actions{display:flex;align-items:center;gap:10px;margin-top:4px;}
+  .btn-listen{background:${T.text};color:#fff;border:none;border-radius:100px;padding:10px 20px;font-size:13px;font-weight:400;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;gap:7px;}
+  .btn-icon{background:${T.card};border:1px solid ${T.border};border-radius:100px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .reminder-card{background:${T.card};border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .reminder-icon{width:36px;height:36px;border-radius:100px;background:${T.bg};display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .toggle{width:40px;height:24px;border-radius:100px;background:#d4cfc8;border:none;cursor:pointer;flex-shrink:0;position:relative;transition:background .2s;}
+  .toggle.on{background:${T.accent};}
+  .toggle-knob{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s;}
+  .toggle.on .toggle-knob{transform:translateX(16px);}
+
+  /* REFLECTION */
+  .refl-input-group{margin-bottom:0;}
+  .refl-field-label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:${T.muted};margin-bottom:10px;display:block;}
+  .refl-input{width:100%;background:none;border:none;border-bottom:1px solid ${T.border};padding:8px 0 10px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;font-weight:300;color:${T.text};outline:none;font-style:italic;}
+  .refl-input::placeholder{color:${T.muted};font-style:italic;}
+  .refl-input:focus{border-bottom-color:${T.accent};}
+  .btn-save{width:100%;padding:14px;border-radius:100px;border:none;background:#ccc8c0;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;cursor:pointer;transition:background .2s;margin-top:8px;}
+  .btn-save.active{background:${T.accent};}
+  .past-sep{display:flex;align-items:center;gap:10px;margin:28px 0 16px;}
+  .past-sep-rule{flex:1;height:1px;background:${T.border};}
+  .past-sep-text{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:${T.muted};}
+  .past-empty{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:${T.muted};line-height:1.6;}
+
+  /* NAV */
+  .nav-wrap{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:382px;z-index:100;}
+  .nav{background:${T.navBg};border-radius:100px;display:flex;padding:6px;box-shadow:0 4px 20px rgba(0,0,0,.1);}
+  .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 7px;background:none;border:none;cursor:pointer;color:${T.muted};font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.03em;border-radius:100px;transition:all .15s;}
+  .nb.on{background:${T.bg};color:${T.accent};}
+  .nb svg{width:18px;height:18px;}
+
+  /* MISC */
+  .txt-btn{background:none;border:none;font-family:'Inter',sans-serif;font-size:13px;color:${T.muted};cursor:pointer;padding:0;letter-spacing:.03em;}
+  .txt-btn:hover{color:${T.text};}
+  .divider-rule{height:1px;background:${T.border};margin:18px 0;}
 `;
 
-// ── ICONS — unchanged ─────────────────────────────────────────
-function IcoJap(){return React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('circle',{cx:'12',cy:'12',r:'9'}),React.createElement('circle',{cx:'12',cy:'12',r:'3'}),React.createElement('path',{d:'M12 3v2M12 19v2M3 12h2M19 12h2'}));}
-function IcoGuidance(){return React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('circle',{cx:'12',cy:'12',r:'10'}),React.createElement('path',{d:'M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01'}));}
-function IcoDharma(){return React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('path',{d:'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'}));}
-function IcoReflect(){return React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('path',{d:'M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'}),React.createElement('path',{d:'M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'}));}
+// ── ICONS ──────────────────────────────────────────────────────
+const Ic={
+  Jap:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('circle',{cx:'12',cy:'12',r:'9'}),React.createElement('circle',{cx:'12',cy:'12',r:'3'}),React.createElement('path',{d:'M12 3v2M12 19v2M3 12h2M19 12h2'})),
+  Guidance:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('circle',{cx:'12',cy:'12',r:'10'}),React.createElement('path',{d:'M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01'})),
+  Today:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('circle',{cx:'12',cy:'12',r:'5'}),React.createElement('path',{d:'M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'})),
+  Reflection:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('path',{d:'M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'}),React.createElement('path',{d:'M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'})),
+  Play:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'currentColor',width:'14',height:'14'},React.createElement('polygon',{points:'5,3 19,12 5,21'})),
+  Bookmark:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round',width:'16',height:'16'},React.createElement('path',{d:'M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z'})),
+  Share:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round',width:'16',height:'16'},React.createElement('circle',{cx:'18',cy:'5',r:'3'}),React.createElement('circle',{cx:'6',cy:'12',r:'3'}),React.createElement('circle',{cx:'18',cy:'19',r:'3'}),React.createElement('path',{d:'M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98'})),
+  Reset:()=>React.createElement('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.4',strokeLinecap:'round',strokeLinejoin:'round',width:'13',height:'13'},React.createElement('path',{d:'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'}),React.createElement('path',{d:'M3 3v5h5'})),
+};
 
-// ── HEADER ────────────────────────────────────────────────────
-function Header(){
-  return React.createElement('header',{className:'hdr'},
-    React.createElement('span',{className:'hdr-name'},'Prashama'),
-    React.createElement('div',{className:'hdr-dot'})
+// ── EYEBROW COMPONENT ─────────────────────────────────────────
+function Eyebrow({text,center}){
+  if(center) return React.createElement('div',{className:'eyebrow-rule-both'},
+    React.createElement('div',{className:'eyebrow-rule'}),
+    React.createElement('span',{className:'eyebrow-text'},text),
+    React.createElement('div',{className:'eyebrow-rule'})
+  );
+  return React.createElement('div',{className:'eyebrow'},
+    React.createElement('div',{className:'eyebrow-rule'}),
+    React.createElement('span',{className:'eyebrow-text'},text)
   );
 }
 
 // ── JAP PAGE ──────────────────────────────────────────────────
 function JapPage({state,dispatch}){
-  const {count,malas,totalCount,streak}=state;
+  const {count,malas,streak}=state;
   const ripRef=useRef(null);
-  const R=108,circ=2*Math.PI*R,offset=circ*(1-count/108),done=count>=108;
+  const R=90,circ=2*Math.PI*R,offset=circ*(1-count/108),done=count>=108;
 
   function tap(){
     if(done)return;
     dispatch({type:'TAP'});
-    if(ripRef.current){
-      ripRef.current.classList.remove('ractive');
-      void ripRef.current.offsetWidth;
-      ripRef.current.classList.add('ractive');
-    }
+    if(ripRef.current){ripRef.current.classList.remove('ractive');void ripRef.current.offsetWidth;ripRef.current.classList.add('ractive');}
   }
 
   return React.createElement('div',{className:'page',style:{display:'flex',flexDirection:'column',alignItems:'center'}},
-    // stats
-    React.createElement('div',{className:'stats-row'},
-      [{v:count,l:'Today'},{v:malas,l:'Malas'},{v:`${streak}d`,l:'Streak'},{v:totalCount>9999?`${(totalCount/1000).toFixed(1)}k`:totalCount,l:'Total'}]
-      .map(s=>React.createElement('div',{key:s.l,className:'stat'},
-        React.createElement('div',{className:'stat-v'},s.v),
-        React.createElement('div',{className:'stat-l'},s.l)
-      ))
+    // eyebrow + title
+    React.createElement('div',{style:{width:'100%',marginBottom:28}},
+      React.createElement(Eyebrow,{text:'Jap'}),
+      React.createElement('div',{className:'page-title'},'A quiet practice')
     ),
-
+    // stat pills row
+    React.createElement('div',{style:{display:'flex',gap:10,marginBottom:40,width:'100%',justifyContent:'center'}},
+      [{v:count,l:'Today'},{v:malas,l:'Malas'},{v:`${streak}d`,l:'Streak'}].map(s=>
+        React.createElement('div',{key:s.l,className:'stat-pill',style:{flex:1}},
+          React.createElement('div',{className:'stat-v'},s.v),
+          React.createElement('div',{className:'stat-l'},s.l)
+        )
+      )
+    ),
     // ring
-    React.createElement('div',{className:'rring',onClick:tap,
-      style:{width:256,height:256,position:'relative',marginBottom:28}},
+    React.createElement('div',{className:'rring',onClick:tap,style:{width:240,height:240,position:'relative',marginBottom:28}},
       React.createElement('div',{ref:ripRef,className:'rpulse'}),
-      React.createElement('svg',{width:256,height:256,style:{position:'absolute',top:0,left:0}},
-        React.createElement('circle',{cx:128,cy:128,r:R,fill:'none',stroke:T.borderLight,strokeWidth:'1.5'}),
-        React.createElement('circle',{cx:128,cy:128,r:R,fill:'none',
-          stroke:done?T.gold:T.accent,strokeWidth:'2',strokeLinecap:'round',
+      React.createElement('svg',{width:240,height:240,style:{position:'absolute',top:0,left:0}},
+        React.createElement('circle',{cx:120,cy:120,r:R,fill:'none',stroke:T.border,strokeWidth:'1'}),
+        count>0&&React.createElement('circle',{cx:120,cy:120,r:R,fill:'none',
+          stroke:T.accent,strokeWidth:'1.5',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:offset,
-          transform:'rotate(-90 128 128)',
-          style:{transition:'stroke-dashoffset .2s ease,stroke .3s'}})
+          transform:'rotate(-90 120 120)',
+          style:{transition:'stroke-dashoffset .15s ease'}})
       ),
-      React.createElement('div',{style:{
-        position:'absolute',inset:0,display:'flex',
-        flexDirection:'column',alignItems:'center',justifyContent:'center',
-        pointerEvents:'none',
-      }},
+      React.createElement('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
         done
           ? React.createElement(React.Fragment,null,
-              React.createElement('div',{style:{fontSize:40}},'🙏'),
-              React.createElement('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:14,
-                color:T.gold,marginTop:10,letterSpacing:'.08em',fontWeight:300}},
-                'mala complete')
+              React.createElement('div',{style:{fontSize:36}},'🙏'),
+              React.createElement('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:13,color:T.accent,marginTop:8,letterSpacing:'.06em',fontWeight:400,textTransform:'uppercase',fontSize:11}})
             )
           : React.createElement(React.Fragment,null,
-              React.createElement('div',{style:{fontFamily:'Cormorant Garamond,serif',
-                fontSize:68,fontWeight:300,lineHeight:1,color:T.text}},count),
-              React.createElement('div',{style:{fontSize:11,color:T.muted,marginTop:8,letterSpacing:'.04em'}},
-                `${108-count} remaining`)
+              React.createElement('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:36,fontWeight:400,color:T.text,letterSpacing:'.02em'}},'Radhe'),
+              React.createElement('div',{style:{fontSize:13,color:T.muted,marginTop:6,letterSpacing:'.04em'}},`${count} / 108`)
             )
       )
     ),
-
-    // hint
-    !done && React.createElement('div',{
-      style:{fontFamily:'Cormorant Garamond,serif',fontSize:12,color:T.muted,
-        fontStyle:'italic',marginBottom:36,letterSpacing:'.08em'}},
-      'tap the circle to count'
+    // tap hint
+    !done&&React.createElement('div',{style:{fontSize:11,fontWeight:500,letterSpacing:'.14em',textTransform:'uppercase',color:T.muted,marginBottom:20}},'Tap to count'),
+    // reset
+    React.createElement('button',{
+      onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
+      style:{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,color:T.muted,fontSize:13,fontFamily:'Inter,sans-serif',fontWeight:300}},
+      React.createElement(Ic.Reset),'Reset today'
     ),
-
-    // mala complete
-    done
-      ? React.createElement('div',{style:{width:'100%',textAlign:'center',padding:'8px 0 20px'}},
-          React.createElement('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:18,
-            color:T.gold,marginBottom:8,fontWeight:300}},
-            `${malas+1} mala${(malas+1)!==1?'s':''} today`),
-          React.createElement('div',{style:{fontSize:13,color:T.muted,marginBottom:24,lineHeight:1.7}},
-            'You have completed a full mala.\nRest in this moment.'),
-          React.createElement('button',{className:'btn bp sm',
-            onClick:()=>dispatch({type:'NEW_MALA'})},
-            'Begin next mala')
-        )
-      : React.createElement('button',{className:'btn bg sm',
-          onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});}},
-          'Reset today'
-        )
+    // mala complete overlay
+    done&&React.createElement('div',{style:{marginTop:28,textAlign:'center'}},
+      React.createElement('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:18,color:T.accent,marginBottom:8}},`${malas} mala${malas!==1?'s':''} complete today`),
+      React.createElement('button',{
+        onClick:()=>dispatch({type:'NEW_MALA'}),
+        style:{background:T.accent,color:'#fff',border:'none',borderRadius:'100px',padding:'10px 24px',fontFamily:'Inter,sans-serif',fontSize:13,cursor:'pointer'}},
+        'Begin next mala')
+    )
   );
 }
 
 // ── GUIDANCE PAGE ─────────────────────────────────────────────
-const EMOTIONS=Object.entries(WISDOM).map(([id,w])=>({id,emoji:w.emoji,label:w.label}));
+const EMOTIONS=Object.entries(WISDOM).map(([id,w])=>({id,label:w.label}));
 
 function GuidancePage({state,dispatch}){
   const [sel,setSel]=useState(null);
   const [view,setView]=useState('select');
 
   useEffect(()=>{
-    if(state.lastGuidance?.date===today()){
-      setSel(state.lastGuidance.emotion);
-      setView('result');
-    }
+    if(state.lastGuidance?.date===today()){setSel(state.lastGuidance.emotion);setView('result');}
   },[]);
 
   function receive(){
@@ -479,198 +358,183 @@ function GuidancePage({state,dispatch}){
     dispatch({type:'SET_GUIDANCE',p:{date:today(),emotion:sel}});
     setView('result');
   }
+  function back(){setSel(null);setView('select');}
 
-  function reset(){
-    setSel(null);setView('select');
-  }
-
-  // select view
   if(view==='select') return React.createElement('div',{className:'page'},
-    React.createElement('h1',{className:'ptitle'},'Guidance'),
-    React.createElement('p',{className:'psub'},'How are you feeling?'),
-    React.createElement('div',{className:'emotion-grid'},
-      EMOTIONS.map(e=>React.createElement('button',{
-        key:e.id,className:`emotion-btn${sel===e.id?' on':''}`,
+    React.createElement(Eyebrow,{text:'Guidance'}),
+    React.createElement('div',{className:'page-title'},'How are you, really?'),
+    React.createElement('p',{className:'page-sub'},'Choose what\'s closest. A quiet verse will meet you there — no rush.'),
+    React.createElement('div',{className:'egrid'},
+      EMOTIONS.map(e=>React.createElement('div',{
+        key:e.id,className:`ecard${sel===e.id?' on':''}`,
         onClick:()=>setSel(e.id)},
-        React.createElement('span',{style:{fontSize:16}},e.emoji),e.label
+        React.createElement('div',{className:'ecard-dot'}),
+        React.createElement('div',{className:'ecard-label'},e.label)
       ))
     ),
-    React.createElement('button',{className:'btn bp fw',disabled:!sel,onClick:receive},
-      'Receive guidance'
+    sel&&React.createElement('button',{
+      onClick:receive,
+      style:{width:'100%',padding:'14px',borderRadius:'100px',border:'none',background:T.accent,color:'#fff',fontFamily:'Inter,sans-serif',fontSize:14,fontWeight:400,cursor:'pointer'}},
+      'Continue'
     )
   );
 
-  // result view — no card containers, just open text with breathing room
   const w=WISDOM[sel];
   return React.createElement('div',{className:'page'},
-    React.createElement('div',{style:{fontSize:24,marginBottom:16}},w.emoji),
-    React.createElement('h1',{className:'ptitle'},w.label),
-    React.createElement('p',{className:'psub'},w.verse.source),
-
-    // sanskrit — open, no box
-    React.createElement('div',{style:{
-      fontFamily:'Cormorant Garamond,serif',fontSize:20,fontWeight:400,
-      lineHeight:1.65,color:T.text,marginBottom:8
-    }},w.verse.sanskrit),
-    React.createElement('div',{style:{
-      fontSize:11,color:T.muted,fontStyle:'italic',marginBottom:24,lineHeight:1.6
-    }},w.verse.transliteration),
-
-    // meaning
-    React.createElement('div',{style:{
-      fontSize:14,color:T.text,lineHeight:1.85,marginBottom:36
-    }},w.verse.meaning),
-
-    // reflection — ruled separator, no card
-    React.createElement('div',{className:'block-ruled'},
-      React.createElement('span',{className:'lbl'},'Reflection'),
-      React.createElement('div',{style:{
-        fontFamily:'Cormorant Garamond,serif',fontSize:17,fontStyle:'italic',
-        color:T.text,lineHeight:1.75
-      }},`"${w.reflection}"`)
+    // back + you feel
+    React.createElement('div',{style:{display:'flex',alignItems:'center',marginBottom:24}},
+      React.createElement('button',{className:'back-btn',onClick:back},'← back')
     ),
-
-    // action
-    React.createElement('div',{className:'block-ruled'},
-      React.createElement('span',{className:'lbl'},'Today'),
-      React.createElement('div',{style:{fontSize:14,color:T.text,lineHeight:1.85}},w.action)
+    React.createElement(Eyebrow,{text:'You feel',center:true}),
+    React.createElement('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:40,fontWeight:400,textAlign:'center',color:T.text,marginBottom:32}},w.label),
+    // main card
+    React.createElement('div',{className:'card'},
+      // source
+      React.createElement('div',{className:'verse-source-row'},
+        React.createElement('div',{className:'verse-source-rule'}),
+        React.createElement('span',{className:'verse-source-text'},w.source),
+        React.createElement('div',{className:'verse-source-rule'})
+      ),
+      // verse meaning
+      React.createElement('div',{className:'verse-text'},w.verse),
+      // dot sep
+      React.createElement('div',{className:'dot-sep'}),
+      // quiet question
+      React.createElement('div',{className:'section-label'},'A quiet question'),
+      React.createElement('div',{className:'quiet-q'},w.question),
+      // dot sep
+      React.createElement('div',{className:'dot-sep'}),
+      // one small step
+      React.createElement('div',{className:'section-label'},'One small step'),
+      React.createElement('div',{className:'step-text'},w.step)
     ),
-
-    // affirmation — minimal, centered
-    React.createElement('div',{style:{
-      textAlign:'center',padding:'8px 0 36px',
-      fontFamily:'Cormorant Garamond,serif',fontSize:15,
-      color:T.muted,fontStyle:'italic',lineHeight:1.6
-    }},`❝ ${w.affirmation} ❞`),
-
-    React.createElement('button',{
-      className:'txt-link',style:{display:'block',margin:'0 auto'},
-      onClick:reset
-    },'← back')
+    // affirmation
+    React.createElement('div',{className:'affirmation'},w.affirmation)
   );
 }
 
-// ── DHARMA PAGE — simplified, stillness-first ─────────────────
-function DharmaPage(){
+// ── TODAY / DHARMA PAGE ───────────────────────────────────────
+function TodayPage(){
   const v=getTodayVerse();
-  const dl=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
+  const [reminder,setReminder]=useState(false);
+  const dow=new Date().toLocaleDateString('en-US',{weekday:'long'}).toUpperCase();
+  const dateStr=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric'});
+  const eyebrowDate=`${dow}, ${dateStr.toUpperCase()}`;
 
   function share(){
-    const t=`"${v.meaning}"\n\n— ${v.source}\n\nPrashama 🙏`;
+    const t=`${v.meaning}\n\n— ${v.source}\n\nPrashama 🙏`;
     if(navigator.share)navigator.share({title:"Today's Dharma",text:t});
     else navigator.clipboard?.writeText(t).then(()=>alert('Copied'));
   }
 
   return React.createElement('div',{className:'page'},
-    React.createElement('h1',{className:'ptitle'},"Today's Dharma"),
-    React.createElement('p',{className:'psub'},dl),
+    React.createElement(Eyebrow,{text:eyebrowDate}),
+    React.createElement('div',{className:'page-title'},"Today's Dharma"),
+    React.createElement('p',{className:'page-sub'},'One verse. One breath at a time.'),
 
-    // verse — open, no container
-    React.createElement('div',{style:{
-      fontFamily:'Cormorant Garamond,serif',fontSize:22,fontWeight:400,
-      lineHeight:1.65,color:T.text,marginBottom:10
-    }},v.sanskrit),
-    React.createElement('div',{style:{
-      fontSize:11,color:T.muted,letterSpacing:'.08em',marginBottom:32
-    }},v.source),
-    React.createElement('div',{style:{
-      fontSize:14,color:T.text,lineHeight:1.9,marginBottom:40
-    }},v.meaning),
-
-    // reflection — ruled
-    React.createElement('div',{className:'block-ruled'},
-      React.createElement('div',{style:{
-        fontFamily:'Cormorant Garamond,serif',fontSize:16,fontStyle:'italic',
-        color:T.muted,lineHeight:1.75
-      }},v.reflection)
+    // main card
+    React.createElement('div',{className:'card',style:{marginBottom:12}},
+      React.createElement('div',{className:'dharma-source'},v.source),
+      React.createElement('div',{className:'dharma-sanskrit'},v.sanskrit),
+      React.createElement('div',{className:'divider-rule'}),
+      React.createElement('div',{className:'dharma-meaning'},v.meaning),
+      React.createElement('div',{className:'dharma-reflection-label'},'Reflection'),
+      React.createElement('div',{className:'dharma-reflection'},v.reflection),
+      // actions row
+      React.createElement('div',{className:'dharma-actions',style:{marginTop:20}},
+        React.createElement('button',{className:'btn-listen'},React.createElement(Ic.Play),' Listen'),
+        React.createElement('div',{className:'btn-icon',onClick:()=>{}},React.createElement(Ic.Bookmark)),
+        React.createElement('div',{className:'btn-icon',onClick:share},React.createElement(Ic.Share))
+      )
     ),
 
-    // share — quiet text link, not dominant button
-    React.createElement('div',{style:{marginTop:8}},
-      React.createElement('button',{className:'txt-link',onClick:share},
-        'Share this verse →'
+    // reminder card
+    React.createElement('div',{className:'reminder-card'},
+      React.createElement('div',{className:'reminder-icon'},'🔔'),
+      React.createElement('div',{style:{flex:1}},
+        React.createElement('div',{style:{fontSize:14,fontWeight:400,color:T.text,marginBottom:2}},'Daily Dharma reminders'),
+        React.createElement('div',{style:{fontSize:12,color:T.muted,fontWeight:300}},'A gentle nudge each morning — never more than one.')
+      ),
+      React.createElement('button',{
+        className:`toggle${reminder?' on':''}`,
+        onClick:()=>setReminder(r=>!r)},
+        React.createElement('div',{className:'toggle-knob'})
       )
     )
   );
 }
 
 // ── REFLECTION PAGE ───────────────────────────────────────────
-const PROMPTS=[
-  {id:'grateful',icon:'🌸',label:'Gratitude',ph:'What are you grateful for today?'},
-  {id:'learning',icon:'📖',label:'Learning',ph:'What did you learn or realise today?'},
-  {id:'intention',icon:'🎯',label:'Intention',ph:'What is your intention for tomorrow?'},
-  {id:'release',icon:'🍃',label:'Release',ph:'What are you ready to let go of?'},
-];
-
 function ReflectionPage({state,dispatch}){
-  const [type,setType]=useState('grateful');
-  const [text,setText]=useState('');
+  const [g,setG]=useState('');
+  const [p,setP]=useState('');
+  const [l,setL]=useState('');
   const [saved,setSaved]=useState(false);
-  const pr=PROMPTS.find(p=>p.id===type);
-  const cutoff=new Date(); cutoff.setDate(cutoff.getDate()-30);
-  const recent=(state.reflections||[]).filter(r=>new Date(r.date)>=cutoff).slice(-6).reverse();
+  const hasContent=g.trim()||p.trim()||l.trim();
 
   function doSave(){
-    if(!text.trim())return;
-    dispatch({type:'ADD_REFLECTION',p:{date:new Date().toISOString(),type,text:text.trim()}});
-    setText('');setSaved(true);setTimeout(()=>setSaved(false),2000);
+    if(!hasContent)return;
+    dispatch({type:'SAVE_REFLECTION',p:{date:new Date().toISOString(),grateful:g,peaceful:p,lesson:l}});
+    setG('');setP('');setL('');setSaved(true);setTimeout(()=>setSaved(false),2000);
   }
 
-  return React.createElement('div',{className:'page'},
-    React.createElement('h1',{className:'ptitle'},'Reflection'),
-    React.createElement('p',{className:'psub'},'A moment of honest presence'),
+  const cutoff=new Date();cutoff.setDate(cutoff.getDate()-30);
+  const recent=(state.reflections||[]).filter(r=>new Date(r.date)>=cutoff).slice(-5).reverse();
 
-    React.createElement('div',{className:'chips'},
-      PROMPTS.map(p=>React.createElement('button',{
-        key:p.id,className:`chip${type===p.id?' on':''}`,
-        onClick:()=>setType(p.id)
-      },`${p.icon} ${p.label}`))
+  return React.createElement('div',{className:'page'},
+    React.createElement(Eyebrow,{text:'Reflection'}),
+    React.createElement('div',{className:'page-title'},'Three quiet gratitudes'),
+    React.createElement('p',{className:'page-sub'},'A small, soft ritual. Write only what comes easily.'),
+
+    // card with 3 fields
+    React.createElement('div',{className:'card'},
+      // grateful for
+      React.createElement('div',{style:{marginBottom:24}},
+        React.createElement('span',{className:'refl-field-label'},'Grateful for'),
+        React.createElement('input',{className:'refl-input',placeholder:'A quiet morning, an honest conversation…',value:g,onChange:e=>setG(e.target.value)})
+      ),
+      // something peaceful
+      React.createElement('div',{style:{marginBottom:24}},
+        React.createElement('span',{className:'refl-field-label'},'Something peaceful'),
+        React.createElement('input',{className:'refl-input',placeholder:'A pause that felt like home…',value:p,onChange:e=>setP(e.target.value)})
+      ),
+      // one lesson
+      React.createElement('div',{style:{marginBottom:24}},
+        React.createElement('span',{className:'refl-field-label'},'One lesson'),
+        React.createElement('input',{className:'refl-input',placeholder:'What today gently taught me…',value:l,onChange:e=>setL(e.target.value)})
+      ),
+      React.createElement('button',{
+        className:`btn-save${hasContent?' active':''}`,
+        onClick:doSave,disabled:!hasContent
+      },saved?'Saved ✓':'Save reflection')
     ),
 
-    React.createElement('textarea',{
-      key:type,rows:5,placeholder:pr.ph,value:text,
-      onChange:e=>setText(e.target.value),
-      style:{marginBottom:14}
-    }),
-
-    React.createElement('button',{
-      className:'btn bp fw',disabled:!text.trim(),onClick:doSave
-    },saved?'✓ Saved':'Save'),
-
-    React.createElement('p',{style:{
-      fontSize:11,color:T.muted,textAlign:'center',marginTop:10,marginBottom:40
-    }},'Kept for 30 days'),
-
-    // recent entries — light, open
-    recent.length>0&&React.createElement(React.Fragment,null,
-      React.createElement('span',{className:'lbl'},'Recent'),
-      recent.map((r,i)=>{
-        const p=PROMPTS.find(x=>x.id===r.type);
-        return React.createElement('div',{key:i,style:{
-          borderTop:`1px solid ${T.borderLight}`,
-          paddingTop:16,marginBottom:16,
-        }},
-          React.createElement('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:6}},
-            React.createElement('span',{style:{fontSize:11,color:T.muted}},`${p?.icon} ${p?.label}`),
-            React.createElement('span',{style:{fontSize:11,color:T.muted}},
-              new Date(r.date).toLocaleDateString('en-IN',{day:'numeric',month:'short'}))
-          ),
-          React.createElement('div',{style:{fontSize:13,color:T.text,lineHeight:1.7}},r.text)
-        );
-      })
-    )
+    // past reflections
+    React.createElement('div',{className:'past-sep'},
+      React.createElement('div',{className:'past-sep-rule'}),
+      React.createElement('span',{className:'past-sep-text'},'Past reflections'),
+      React.createElement('div',{className:'past-sep-rule'})
+    ),
+    recent.length===0
+      ? React.createElement('div',{className:'past-empty'},'Your reflections will gather here, quietly.')
+      : recent.map((r,i)=>React.createElement('div',{key:i,style:{marginBottom:16,paddingBottom:16,borderBottom:`1px solid ${T.border}`}},
+          React.createElement('div',{style:{fontSize:11,color:T.muted,marginBottom:6}},new Date(r.date).toLocaleDateString('en-IN',{day:'numeric',month:'short'})),
+          r.grateful&&React.createElement('div',{style:{fontSize:13,color:T.text,lineHeight:1.65,marginBottom:4}},r.grateful),
+          r.peaceful&&React.createElement('div',{style:{fontSize:13,color:T.text,lineHeight:1.65,marginBottom:4}},r.peaceful),
+          r.lesson&&React.createElement('div',{style:{fontSize:13,color:T.text,lineHeight:1.65}},r.lesson)
+        ))
   );
 }
 
 // ── TABS ──────────────────────────────────────────────────────
 const TABS=[
-  {id:'jap',label:'Jap',Ico:IcoJap},
-  {id:'guidance',label:'Guidance',Ico:IcoGuidance},
-  {id:'dharma',label:'Dharma',Ico:IcoDharma},
-  {id:'reflect',label:'Reflect',Ico:IcoReflect},
+  {id:'jap',label:'Jap',Ico:Ic.Jap},
+  {id:'guidance',label:'Guidance',Ico:Ic.Guidance},
+  {id:'today',label:'Today',Ico:Ic.Today},
+  {id:'reflect',label:'Reflection',Ico:Ic.Reflection},
 ];
 
-// ── APP ROOT — unchanged ──────────────────────────────────────
+// ── APP ROOT ──────────────────────────────────────────────────
 function App(){
   const [tab,setTab]=useState('jap');
   const [state,setState]=useState(initState);
@@ -679,20 +543,21 @@ function App(){
   const pages={
     jap:React.createElement(JapPage,{state,dispatch}),
     guidance:React.createElement(GuidancePage,{state,dispatch}),
-    dharma:React.createElement(DharmaPage),
+    today:React.createElement(TodayPage),
     reflect:React.createElement(ReflectionPage,{state,dispatch}),
   };
 
   return React.createElement(React.Fragment,null,
     React.createElement('style',null,CSS),
     React.createElement('div',{className:'app'},
-      React.createElement(Header),
       pages[tab],
-      React.createElement('nav',{className:'nav'},
-        TABS.map(t=>React.createElement('button',{
-          key:t.id,className:`nb${tab===t.id?' on':''}`,
-          onClick:()=>setTab(t.id)
-        },React.createElement(t.Ico),t.label))
+      React.createElement('div',{className:'nav-wrap'},
+        React.createElement('nav',{className:'nav'},
+          TABS.map(t=>React.createElement('button',{
+            key:t.id,className:`nb${tab===t.id?' on':''}`,
+            onClick:()=>setTab(t.id)
+          },React.createElement(t.Ico),t.label))
+        )
       )
     )
   );
