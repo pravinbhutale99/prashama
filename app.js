@@ -343,10 +343,10 @@ function JapPage({state,dispatch}){
       )
     ),
     // ring — single ring, ref shows one circle with subtle tone
-    h('div',{className:'ring',onClick:tap,style:{width:320,height:320,position:'relative'}},
+    h('div',{className:'ring',onClick:tap,style:{width:'min(320px,calc(100vw - 80px))',height:'min(320px,calc(100vw - 80px))',position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
-      h('svg',{width:320,height:320,style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#ddd6ca',strokeWidth:'1'}),
+      h('svg',{viewBox:'0 0 320 320',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
+        h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#d8d0c4',strokeWidth:'1.2'}),
         count>0&&h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 160 160)',
           style:{transition:'stroke-dashoffset .1s ease'}})
