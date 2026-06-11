@@ -109,16 +109,16 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── HEADINGS ── */
 /* Main page titles: Cormorant 300, ~32px — matches ref */
-.ttl{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;line-height:1.15;letter-spacing:.01em;margin-bottom:7px;}
-.ttl-xl{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:500;line-height:1.1;letter-spacing:.01em;margin-bottom:8px;}
-.ttl-em{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;line-height:1.05;letter-spacing:.01em;text-align:center;margin-bottom:26px;}
+.ttl{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;line-height:1.15;letter-spacing:.01em;margin-bottom:7px;}
+.ttl-xl{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;line-height:1.1;letter-spacing:.01em;margin-bottom:8px;}
+.ttl-em{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;line-height:1.05;letter-spacing:.01em;text-align:center;margin-bottom:26px;}
 .sub{font-size:13px;font-weight:300;color:#9c9080;line-height:1.6;margin-bottom:28px;}
 
 /* ── STAT PILLS ── */
 .pills{display:flex;gap:8px;width:100%;margin-top:20px;margin-bottom:48px;}
 .pill{flex:1;background:#eae5db;border-radius:100px;padding:15px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;}
 .app.dk .pill{background:#272219;}
-.pv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;line-height:1;color:#28211a;}
+.pv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;line-height:1;color:#28211a;}
 .app.dk .pv{color:#e4ddd4;}
 .pl{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;}
 
@@ -162,7 +162,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .ecard{background:#272219;}
 .ecard.on{border-color:#b8924a;}
 .edot{width:6px;height:6px;border-radius:50%;background:#b8924a;}
-.elbl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;line-height:1.2;margin-top:auto;padding-top:20px;}
+.elbl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;line-height:1.2;margin-top:auto;padding-top:20px;}
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
@@ -171,7 +171,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gsrc{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:20px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;line-height:1.75;text-align:center;margin-bottom:18px;}
+.gverse{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;line-height:1.75;text-align:center;margin-bottom:18px;}
 .gdot{text-align:center;font-size:16px;color:#b8924a;margin:14px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:9px;}
 .gq{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:400;line-height:1.65;text-align:center;}
@@ -185,7 +185,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
-.dsk{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;line-height:1.6;margin-bottom:14px;}
+.dsk{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;line-height:1.6;margin-bottom:14px;}
 .ddiv{height:1px;background:#ede8df;margin:12px 0;}
 .app.dk .ddiv{background:#38322a;}
 .dmt{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;font-weight:400;line-height:1.8;margin-bottom:13px;}
@@ -359,7 +359,7 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:36,fontWeight:500,letterSpacing:'.01em',color:dark?'#e4ddd4':'#28211a'}},mantra||'Radhe'),
+              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:36,fontWeight:600,letterSpacing:'.01em',color:dark?'#e4ddd4':'#28211a'}},mantra||'Radhe'),
               h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
