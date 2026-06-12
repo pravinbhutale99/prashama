@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:28px 18px 90px;animation:fu .16s ease;}
+.pg{padding:28px 14px 90px;animation:fu .16s ease;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -111,7 +111,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* Main page titles: Cormorant 300, ~32px — matches ref */
 .ttl{font-family:'Fraunces',serif;font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-.005em;margin-bottom:8px;color:#3a3128;font-variation-settings:'opsz' 34,'SOFT' 35;}
 .ttl-xl{font-family:'Fraunces',serif;font-size:36px;font-weight:500;line-height:1.18;letter-spacing:-.005em;margin-bottom:8px;color:#3a3128;font-variation-settings:'opsz' 38,'SOFT' 35;}
-.ttl-em{font-family:'Fraunces',serif;font-size:45px;font-weight:500;line-height:1.12;letter-spacing:-.005em;text-align:center;margin-bottom:22px;color:#3a3128;font-variation-settings:'opsz' 52,'SOFT' 35;}
+.ttl-em{font-family:'Fraunces',serif;font-size:50px;font-weight:500;line-height:1.1;letter-spacing:-.005em;text-align:center;margin-bottom:24px;color:#3a3128;font-variation-settings:'opsz' 60,'SOFT' 35;}
 .sub{font-size:13.5px;font-weight:400;color:#9c9080;line-height:1.6;margin-bottom:22px;letter-spacing:.005em;}
 
 /* ── STAT PILLS ── */
@@ -215,11 +215,11 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Fraunces',serif;font-size:18px;font-weight:400;line-height:1.65;text-align:center;margin-bottom:18px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
+.gverse{font-family:'Fraunces',serif;font-size:20px;font-weight:400;line-height:1.6;text-align:center;margin-bottom:18px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 26,'SOFT' 35;}
 .gdot{text-align:center;font-size:14px;color:#b8924a;margin:10px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:6px;}
-.gq{font-family:'Fraunces',serif;font-size:17px;font-style:italic;font-weight:400;line-height:1.6;text-align:center;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
-.gstep{font-size:13.5px;font-weight:300;line-height:1.8;text-align:center;color:#28211a;letter-spacing:.005em;}
+.gq{font-family:'Fraunces',serif;font-size:18.5px;font-style:italic;font-weight:400;line-height:1.55;text-align:center;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
+.gstep{font-size:15px;font-weight:400;line-height:1.7;text-align:center;color:#28211a;letter-spacing:.005em;}
 .app.dk .gstep{color:#ccc6bc;}
 .gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 30;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
@@ -271,7 +271,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── BOTTOM NAV — floating pill exactly as reference ── */
 /* Reference: white rounded pill, shadow, no active bg — only color change */
-.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 36px);max-width:394px;z-index:100;}
+.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:402px;z-index:100;}
 .nav{background:#fff;border-radius:100px;display:flex;padding:4px;box-shadow:0 2px 20px rgba(0,0,0,.07);}
 .app.dk .nav{background:#1e1b17;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .12s;letter-spacing:.01em;}
