@@ -167,7 +167,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .sh{width:100%;max-width:430px;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 38px;max-height:80vh;overflow-y:auto;}
 .app.dk .sh{background:#272219;}
 .sh-drag{width:32px;height:3px;border-radius:2px;background:#ddd8ce;margin:0 auto 16px;}
-.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17px;font-weight:600;background:#f5f0e8;border:1.5px solid transparent;color:#1f1a14;font-variation-settings:'opsz' 20,'SOFT' 35;}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17.5px;font-weight:600;background:#f5f0e8;border:1.5px solid transparent;color:#1f1a14;font-variation-settings:'opsz' 22,'SOFT' 45;}
 .app.dk .mrow{background:#312b25;color:#e4ddd4;}
 .mrow.on{border-color:#b8924a;}
 .madd{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:11px;margin-bottom:18px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;background:#f5f0e8;}
@@ -190,7 +190,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .ecard{background:#272219;}
 .ecard.on{border-color:#b8924a;}
 .edot{width:6px;height:6px;border-radius:50%;background:#b8924a;}
-.elbl{font-family:'Fraunces',serif;font-size:17px;font-weight:600;line-height:1.2;margin-top:auto;padding-top:16px;letter-spacing:0;color:#1f1a14;font-variation-settings:'opsz' 20,'SOFT' 35;}
+.elbl{font-family:'Fraunces',serif;font-size:17.5px;font-weight:600;line-height:1.25;margin-top:auto;padding-top:18px;letter-spacing:0;color:#1f1a14;font-variation-settings:'opsz' 22,'SOFT' 45;}
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
@@ -199,43 +199,43 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Fraunces',serif;font-size:18px;font-weight:500;line-height:1.6;text-align:center;margin-bottom:16px;letter-spacing:0;color:#1f1a14;font-variation-settings:'opsz' 24,'SOFT' 35;}
+.gverse{font-family:'Fraunces',serif;font-size:18.5px;font-weight:600;line-height:1.65;text-align:center;margin-bottom:18px;letter-spacing:0;color:#1f1a14;font-variation-settings:'opsz' 26,'SOFT' 45;}
 .gdot{text-align:center;font-size:14px;color:#b8924a;margin:10px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:6px;}
-.gq{font-family:'Fraunces',serif;font-size:17px;font-style:italic;font-weight:500;line-height:1.55;text-align:center;color:#1f1a14;font-variation-settings:'opsz' 20,'SOFT' 35;}
-.gstep{font-size:13.5px;font-weight:300;line-height:1.9;text-align:center;color:#1a1612;letter-spacing:.01em;}
+.gq{font-family:'Fraunces',serif;font-size:17.5px;font-style:italic;font-weight:600;line-height:1.6;text-align:center;color:#1f1a14;font-variation-settings:'opsz' 22,'SOFT' 45;}
+.gstep{font-size:14px;font-weight:400;line-height:1.85;text-align:center;color:#1a1612;letter-spacing:.005em;}
 .app.dk .gstep{color:#ccc6bc;}
 .gaff{font-family:'Fraunces',serif;font-size:13px;font-style:italic;font-weight:600;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 16,'SOFT' 25;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:18px;padding:18px 18px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:14px;}
+.dcard{background:#fff;border-radius:18px;padding:22px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:14px;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
-.dsk{font-family:'Fraunces',serif;font-size:20px;font-weight:600;line-height:1.45;margin-bottom:10px;color:#1f1a14;font-variation-settings:'opsz' 24,'SOFT' 35;}
+.dsk{font-family:'Fraunces',serif;font-size:21px;font-weight:600;line-height:1.5;margin-bottom:12px;color:#1f1a14;font-variation-settings:'opsz' 26,'SOFT' 45;}
 .ddiv{height:1px;background:#ede8df;margin:10px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:500;line-height:1.6;margin-bottom:10px;color:#1f1a14;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.dmt{font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:500;line-height:1.7;margin-bottom:12px;color:#1f1a14;font-variation-settings:'opsz' 20,'SOFT' 45;}
 .drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;}
-.drefl{font-size:13px;font-weight:300;line-height:1.65;margin-bottom:14px;letter-spacing:.005em;}
+.drefl{font-size:13.5px;font-weight:400;line-height:1.75;margin-bottom:16px;letter-spacing:.005em;}
 .dacts{display:flex;align-items:center;gap:8px;}
 .dlisten{background:#28211a;color:#fff;border:none;border-radius:100px;padding:9px 16px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;}
 .app.dk .dlisten{background:#e4ddd4;color:#1a1612;}
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
 .app.dk .dico{background:#2e2820;border-color:#38322a;}
 /* Reminder card */
-.remcard{background:#fff;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:11px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.remcard{background:#fff;border-radius:16px;padding:16px 17px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 .app.dk .remcard{background:#272219;}
 .remico{width:34px;height:34px;border-radius:100px;background:#f6f3ec;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .app.dk .remico{background:#312b25;}
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:18px;padding:18px 18px 16px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.rfcard{background:#fff;border-radius:18px;padding:22px 20px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:2px 0 6px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:500;color:#1f1a14;outline:none;transition:border-color .14s;display:block;margin-bottom:10px;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:500;color:#1f1a14;outline:none;transition:border-color .14s;display:block;margin-bottom:12px;font-variation-settings:'opsz' 20,'SOFT' 45;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -339,7 +339,7 @@ function JapPage({state,dispatch}){
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
   const wRef=useRef(null);
-  const R=122, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
+  const R=140, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
 
   const [pulses,setPulses]=useState([]);
   function tap(){
@@ -377,15 +377,15 @@ function JapPage({state,dispatch}){
       )
     ),
     // ring — single ring, ref shows one circle with subtle tone
-    h('div',{className:'ring',onClick:tap,style:{width:'min(296px,calc(100vw - 76px))',height:'min(296px,calc(100vw - 76px))',position:'relative'}},
+    h('div',{className:'ring',onClick:tap,style:{width:'min(336px,calc(100vw - 48px))',height:'min(336px,calc(100vw - 48px))',position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
       h('div',{ref:wRef,className:'ring-wave'}),
       pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
-      h('svg',{viewBox:'0 0 296 296',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:148,cy:148,r:138,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
-        h('circle',{cx:148,cy:148,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:148,cy:148,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
-          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 148 148)',
+      h('svg',{viewBox:'0 0 336 336',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
+        h('circle',{cx:168,cy:168,r:158,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
+        h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
+        count>0&&h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 168 168)',
           style:{transition:'stroke-dashoffset .1s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
@@ -395,13 +395,13 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontFamily:'Fraunces,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:36,fontWeight:600,letterSpacing:'0',color:dark?'#e4ddd4':'#1f1a14',fontVariationSettings:"'opsz' 48,'SOFT' 35"}},mantra||'Radhe'),
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:40,fontWeight:600,letterSpacing:'0',color:dark?'#e4ddd4':'#1f1a14',fontVariationSettings:"'opsz' 52,'SOFT' 45"}},mantra||'Radhe'),
               h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
     ),
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:18,marginBottom:6}},'Tap to count'),
-    done&&h('div',{style:{marginTop:18,marginBottom:6}}),
+    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:14,marginBottom:4}},'Tap to count'),
+    done&&h('div',{style:{marginTop:14,marginBottom:4}}),
     // reset
     h('button',{
       onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
