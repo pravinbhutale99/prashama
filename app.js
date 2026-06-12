@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:24px 14px 90px;animation:fu .16s ease;}
+.pg{padding:20px 10px 90px;animation:fu .16s ease;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -271,7 +271,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── BOTTOM NAV — floating pill exactly as reference ── */
 /* Reference: white rounded pill, shadow, no active bg — only color change */
-.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:402px;z-index:100;}
+.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:410px;z-index:100;}
 .nav{background:#fff;border-radius:100px;display:flex;padding:4px;box-shadow:0 2px 20px rgba(0,0,0,.07);}
 .app.dk .nav{background:#1e1b17;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .12s;letter-spacing:.01em;}
