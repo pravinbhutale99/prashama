@@ -109,16 +109,16 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── HEADINGS ── */
 /* Main page titles: Cormorant 300, ~32px — matches ref */
-.ttl{font-family:'Fraunces',serif;font-size:33px;font-weight:600;line-height:1.18;letter-spacing:-.005em;margin-bottom:8px;color:#1f1a14;font-variation-settings:'opsz' 38,'SOFT' 45;}
-.ttl-xl{font-family:'Fraunces',serif;font-size:37px;font-weight:600;line-height:1.15;letter-spacing:-.005em;margin-bottom:8px;color:#1f1a14;font-variation-settings:'opsz' 42,'SOFT' 45;}
-.ttl-em{font-family:'Fraunces',serif;font-size:47px;font-weight:600;line-height:1.1;letter-spacing:-.005em;text-align:center;margin-bottom:22px;color:#1f1a14;font-variation-settings:'opsz' 60,'SOFT' 45;}
+.ttl{font-family:'Fraunces',serif;font-size:32px;font-weight:550;line-height:1.18;letter-spacing:-.005em;margin-bottom:8px;color:#28211a;font-variation-settings:'opsz' 36,'SOFT' 35;}
+.ttl-xl{font-family:'Fraunces',serif;font-size:36px;font-weight:550;line-height:1.15;letter-spacing:-.005em;margin-bottom:8px;color:#28211a;font-variation-settings:'opsz' 40,'SOFT' 35;}
+.ttl-em{font-family:'Fraunces',serif;font-size:45px;font-weight:550;line-height:1.1;letter-spacing:-.005em;text-align:center;margin-bottom:22px;color:#28211a;font-variation-settings:'opsz' 56,'SOFT' 35;}
 .sub{font-size:13.5px;font-weight:400;color:#9c9080;line-height:1.6;margin-bottom:22px;letter-spacing:.005em;}
 
 /* ── STAT PILLS ── */
 .pills{display:flex;gap:10px;width:100%;margin-top:18px;margin-bottom:30px;}
 .pill{flex:1;background:#efece4;border-radius:100px;padding:13px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .app.dk .pill{background:#272219;}
-.pv{font-family:'Fraunces',serif;font-size:27px;font-weight:600;line-height:1;color:#1a1612;font-variation-settings:'opsz' 28,'SOFT' 50;}
+.pv{font-family:'Fraunces',serif;font-size:27px;font-weight:600;line-height:1;color:#1a1612;font-variation-settings:'opsz' 28,'SOFT' 35;}
 .app.dk .pv{color:#e4ddd4;}
 .pl{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;}
 
@@ -167,7 +167,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .sh{width:100%;max-width:430px;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 38px;max-height:80vh;overflow-y:auto;}
 .app.dk .sh{background:#272219;}
 .sh-drag{width:32px;height:3px;border-radius:2px;background:#ddd8ce;margin:0 auto 16px;}
-.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17.5px;font-weight:600;background:#f5f0e8;border:1.5px solid transparent;color:#1f1a14;font-variation-settings:'opsz' 22,'SOFT' 45;}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17px;font-weight:500;background:#f5f0e8;border:1.5px solid transparent;color:#28211a;font-variation-settings:'opsz' 20,'SOFT' 35;}
 .app.dk .mrow{background:#312b25;color:#e4ddd4;}
 .mrow.on{border-color:#b8924a;}
 .madd{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:11px;margin-bottom:18px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;background:#f5f0e8;}
@@ -190,7 +190,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .ecard{background:#272219;}
 .ecard.on{border-color:#b8924a;}
 .edot{width:6px;height:6px;border-radius:50%;background:#b8924a;}
-.elbl{font-family:'Fraunces',serif;font-size:17.5px;font-weight:600;line-height:1.25;margin-top:auto;padding-top:18px;letter-spacing:0;color:#1f1a14;font-variation-settings:'opsz' 22,'SOFT' 45;}
+.elbl{font-family:'Fraunces',serif;font-size:17px;font-weight:500;line-height:1.25;margin-top:auto;padding-top:18px;letter-spacing:0;color:#28211a;font-variation-settings:'opsz' 20,'SOFT' 35;}
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
@@ -199,13 +199,13 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Fraunces',serif;font-size:18.5px;font-weight:600;line-height:1.65;text-align:center;margin-bottom:18px;letter-spacing:0;color:#1f1a14;font-variation-settings:'opsz' 26,'SOFT' 45;}
+.gverse{font-family:'Fraunces',serif;font-size:18px;font-weight:500;line-height:1.65;text-align:center;margin-bottom:18px;letter-spacing:0;color:#28211a;font-variation-settings:'opsz' 24,'SOFT' 35;}
 .gdot{text-align:center;font-size:14px;color:#b8924a;margin:10px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:6px;}
-.gq{font-family:'Fraunces',serif;font-size:17.5px;font-style:italic;font-weight:600;line-height:1.6;text-align:center;color:#1f1a14;font-variation-settings:'opsz' 22,'SOFT' 45;}
-.gstep{font-size:14px;font-weight:400;line-height:1.85;text-align:center;color:#1a1612;letter-spacing:.005em;}
+.gq{font-family:'Fraunces',serif;font-size:17px;font-style:italic;font-weight:500;line-height:1.6;text-align:center;color:#28211a;font-variation-settings:'opsz' 20,'SOFT' 35;}
+.gstep{font-size:13.5px;font-weight:300;line-height:1.8;text-align:center;color:#28211a;letter-spacing:.005em;}
 .app.dk .gstep{color:#ccc6bc;}
-.gaff{font-family:'Fraunces',serif;font-size:13px;font-style:italic;font-weight:600;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 16,'SOFT' 25;}
+.gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 30;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
@@ -213,12 +213,12 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
-.dsk{font-family:'Fraunces',serif;font-size:21px;font-weight:600;line-height:1.5;margin-bottom:12px;color:#1f1a14;font-variation-settings:'opsz' 26,'SOFT' 45;}
+.dsk{font-family:'Fraunces',serif;font-size:20px;font-weight:500;line-height:1.5;margin-bottom:12px;color:#28211a;font-variation-settings:'opsz' 24,'SOFT' 35;}
 .ddiv{height:1px;background:#ede8df;margin:10px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:500;line-height:1.7;margin-bottom:12px;color:#1f1a14;font-variation-settings:'opsz' 20,'SOFT' 45;}
+.dmt{font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;line-height:1.7;margin-bottom:12px;color:#28211a;font-variation-settings:'opsz' 18,'SOFT' 35;}
 .drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;}
-.drefl{font-size:13.5px;font-weight:400;line-height:1.75;margin-bottom:16px;letter-spacing:.005em;}
+.drefl{font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px;letter-spacing:.005em;}
 .dacts{display:flex;align-items:center;gap:8px;}
 .dlisten{background:#28211a;color:#fff;border:none;border-radius:100px;padding:9px 16px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;}
 .app.dk .dlisten{background:#e4ddd4;color:#1a1612;}
@@ -235,7 +235,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .rfcard{background:#fff;border-radius:18px;padding:22px 20px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:500;color:#1f1a14;outline:none;transition:border-color .14s;display:block;margin-bottom:12px;font-variation-settings:'opsz' 20,'SOFT' 45;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#28211a;outline:none;transition:border-color .14s;display:block;margin-bottom:12px;font-variation-settings:'opsz' 18,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -248,7 +248,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .past-line{flex:1;height:1px;background:#e8e2d8;}
 .app.dk .past-line{background:#38322a;}
 .past-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;}
-.past-empty{font-family:'Fraunces',serif;font-size:14px;font-style:italic;font-weight:600;color:#9c9080;line-height:1.6;font-variation-settings:'opsz' 18,'SOFT' 25;}
+.past-empty{font-family:'Fraunces',serif;font-size:14px;font-style:italic;font-weight:500;color:#9c9080;line-height:1.6;font-variation-settings:'opsz' 16,'SOFT' 30;}
 
 /* ── CONTINUE BUTTON ── */
 .cont-btn{width:100%;padding:13px;border-radius:100px;border:none;background:#b8924a;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;cursor:pointer;}
@@ -395,7 +395,7 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontFamily:'Fraunces,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:40,fontWeight:600,letterSpacing:'0',color:dark?'#e4ddd4':'#1f1a14',fontVariationSettings:"'opsz' 52,'SOFT' 45"}},mantra||'Radhe'),
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:550,letterSpacing:'0',color:dark?'#e4ddd4':'#28211a',fontVariationSettings:"'opsz' 48,'SOFT' 35"}},mantra||'Radhe'),
               h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
@@ -409,7 +409,7 @@ function JapPage({state,dispatch}){
       h(SvgRst),' Reset today'
     ),
     done&&h('div',{style:{marginTop:24,textAlign:'center'}},
-      h('div',{style:{fontFamily:'Fraunces,serif',fontSize:17,fontWeight:500,color:'#b8924a',marginBottom:14,fontVariationSettings:"'opsz' 18,'SOFT' 50"}},'Mala complete'),
+      h('div',{style:{fontFamily:'Fraunces,serif',fontSize:17,fontWeight:500,color:'#b8924a',marginBottom:14,fontVariationSettings:"'opsz' 18,'SOFT' 35"}},'Mala complete'),
       h('button',{onClick:()=>dispatch({type:'NEW_MALA'}),
         style:{background:'#b8924a',color:'#fff',border:'none',borderRadius:'100px',padding:'10px 24px',fontFamily:'Inter,sans-serif',fontSize:12,fontWeight:300,cursor:'pointer'}},
         'Begin next mala')
