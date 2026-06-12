@@ -96,11 +96,11 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{flex:1;padding:44px 24px 128px;overflow-y:auto;animation:fu .16s ease;}
+.pg{flex:1;padding:38px 24px 128px;overflow-y:auto;animation:fu .16s ease;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
-.eb{display:flex;align-items:center;gap:7px;margin-bottom:9px;}
+.eb{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
 .eb-r{width:20px;height:1px;background:#b8924a;flex-shrink:0;}
 .eb-t{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#b8924a;}
 /* centered eyebrow — rules on both sides */
@@ -109,10 +109,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── HEADINGS ── */
 /* Main page titles: Cormorant 300, ~32px — matches ref */
-.ttl{font-family:'Fraunces',serif;font-size:33px;font-weight:600;line-height:1.22;letter-spacing:0;margin-bottom:9px;font-variation-settings:'opsz' 40,'SOFT' 60;}
-.ttl-xl{font-family:'Fraunces',serif;font-size:37px;font-weight:600;line-height:1.18;letter-spacing:0;margin-bottom:10px;font-variation-settings:'opsz' 40,'SOFT' 60;}
-.ttl-em{font-family:'Fraunces',serif;font-size:41px;font-weight:600;line-height:1.15;letter-spacing:0;text-align:center;margin-bottom:28px;font-variation-settings:'opsz' 60,'SOFT' 70;}
-.sub{font-size:13.5px;font-weight:300;color:#9c9080;line-height:1.7;margin-bottom:30px;letter-spacing:.01em;}
+.ttl{font-family:'Fraunces',serif;font-size:36px;font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:6px;color:#15110c;font-variation-settings:'opsz' 48,'SOFT' 30;}
+.ttl-xl{font-family:'Fraunces',serif;font-size:42px;font-weight:700;line-height:1.1;letter-spacing:-.01em;margin-bottom:8px;color:#15110c;font-variation-settings:'opsz' 48,'SOFT' 30;}
+.ttl-em{font-family:'Fraunces',serif;font-size:54px;font-weight:700;line-height:1.05;letter-spacing:-.01em;text-align:center;margin-bottom:24px;color:#15110c;font-variation-settings:'opsz' 72,'SOFT' 30;}
+.sub{font-size:13.5px;font-weight:400;color:#9c9080;line-height:1.65;margin-bottom:26px;letter-spacing:.01em;}
 
 /* ── STAT PILLS ── */
 .pills{display:flex;gap:8px;width:100%;margin-top:22px;margin-bottom:38px;}
@@ -167,7 +167,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .sh{width:100%;max-width:430px;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 38px;max-height:80vh;overflow-y:auto;}
 .app.dk .sh{background:#272219;}
 .sh-drag{width:32px;height:3px;border-radius:2px;background:#ddd8ce;margin:0 auto 16px;}
-.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17px;font-weight:500;background:#f5f0e8;border:1.5px solid transparent;font-variation-settings:'opsz' 18,'SOFT' 40;}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:18px;font-weight:700;background:#f5f0e8;border:1.5px solid transparent;color:#15110c;font-variation-settings:'opsz' 22,'SOFT' 25;}
 .app.dk .mrow{background:#312b25;color:#e4ddd4;}
 .mrow.on{border-color:#b8924a;}
 .madd{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:11px;margin-bottom:18px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;background:#f5f0e8;}
@@ -190,7 +190,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .ecard{background:#272219;}
 .ecard.on{border-color:#b8924a;}
 .edot{width:6px;height:6px;border-radius:50%;background:#b8924a;}
-.elbl{font-family:'Fraunces',serif;font-size:18px;font-weight:600;line-height:1.3;margin-top:auto;padding-top:22px;letter-spacing:0;font-variation-settings:'opsz' 18,'SOFT' 50;}
+.elbl{font-family:'Fraunces',serif;font-size:19px;font-weight:700;line-height:1.25;margin-top:auto;padding-top:22px;letter-spacing:0;color:#15110c;font-variation-settings:'opsz' 22,'SOFT' 25;}
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
@@ -199,13 +199,13 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gsrc{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:20px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Fraunces',serif;font-size:19px;font-weight:500;line-height:1.8;text-align:center;margin-bottom:20px;letter-spacing:0;font-variation-settings:'opsz' 24,'SOFT' 40;}
+.gverse{font-family:'Fraunces',serif;font-size:20px;font-weight:600;line-height:1.65;text-align:center;margin-bottom:20px;letter-spacing:0;color:#15110c;font-variation-settings:'opsz' 28,'SOFT' 25;}
 .gdot{text-align:center;font-size:16px;color:#b8924a;margin:14px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:9px;}
-.gq{font-family:'Fraunces',serif;font-size:17.5px;font-style:italic;font-weight:500;line-height:1.75;text-align:center;font-variation-settings:'opsz' 20,'SOFT' 40;}
+.gq{font-family:'Fraunces',serif;font-size:18px;font-style:italic;font-weight:600;line-height:1.65;text-align:center;color:#15110c;font-variation-settings:'opsz' 22,'SOFT' 25;}
 .gstep{font-size:13.5px;font-weight:300;line-height:1.9;text-align:center;color:#1a1612;letter-spacing:.01em;}
 .app.dk .gstep{color:#ccc6bc;}
-.gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 40;}
+.gaff{font-family:'Fraunces',serif;font-size:13px;font-style:italic;font-weight:600;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 16,'SOFT' 25;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:20px;}
 
 /* ── DHARMA CARD ── */
@@ -213,10 +213,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
-.dsk{font-family:'Fraunces',serif;font-size:21px;font-weight:600;line-height:1.6;margin-bottom:14px;font-variation-settings:'opsz' 24,'SOFT' 50;}
+.dsk{font-family:'Fraunces',serif;font-size:22px;font-weight:700;line-height:1.5;margin-bottom:14px;color:#15110c;font-variation-settings:'opsz' 28,'SOFT' 25;}
 .ddiv{height:1px;background:#ede8df;margin:12px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:500;line-height:1.85;margin-bottom:15px;font-variation-settings:'opsz' 18,'SOFT' 40;}
+.dmt{font-family:'Fraunces',serif;font-size:16px;font-style:italic;font-weight:600;line-height:1.7;margin-bottom:15px;color:#15110c;font-variation-settings:'opsz' 20,'SOFT' 25;}
 .drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:6px;}
 .drefl{font-size:13.5px;font-weight:300;line-height:1.85;margin-bottom:18px;letter-spacing:.01em;}
 .dacts{display:flex;align-items:center;gap:8px;}
@@ -235,7 +235,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .rfcard{background:#fff;border-radius:18px;padding:22px 20px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:7px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:5px 0 10px;font-family:'Fraunces',serif;font-size:16px;font-style:italic;font-weight:500;color:#1a1612;outline:none;transition:border-color .14s;display:block;margin-bottom:18px;font-variation-settings:'opsz' 18,'SOFT' 40;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:5px 0 10px;font-family:'Fraunces',serif;font-size:17px;font-style:italic;font-weight:600;color:#15110c;outline:none;transition:border-color .14s;display:block;margin-bottom:18px;font-variation-settings:'opsz' 20,'SOFT' 25;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -248,7 +248,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .past-line{flex:1;height:1px;background:#e8e2d8;}
 .app.dk .past-line{background:#38322a;}
 .past-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;}
-.past-empty{font-family:'Fraunces',serif;font-size:14px;font-style:italic;font-weight:500;color:#9c9080;line-height:1.6;font-variation-settings:'opsz' 16,'SOFT' 40;}
+.past-empty{font-family:'Fraunces',serif;font-size:14px;font-style:italic;font-weight:600;color:#9c9080;line-height:1.6;font-variation-settings:'opsz' 18,'SOFT' 25;}
 
 /* ── CONTINUE BUTTON ── */
 .cont-btn{width:100%;padding:13px;border-radius:100px;border:none;background:#b8924a;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;cursor:pointer;}
@@ -395,7 +395,7 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontFamily:'Fraunces,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:600,letterSpacing:'0',color:dark?'#e4ddd4':'#1a1612',fontVariationSettings:"'opsz' 48,'SOFT' 70"}},mantra||'Radhe'),
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:42,fontWeight:700,letterSpacing:'-0.01em',color:dark?'#e4ddd4':'#15110c',fontVariationSettings:"'opsz' 60,'SOFT' 25"}},mantra||'Radhe'),
               h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
