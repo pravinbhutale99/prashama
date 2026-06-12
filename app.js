@@ -96,7 +96,9 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{flex:1;padding:20px 10px 90px;animation:fu .16s ease;display:flex;flex-direction:column;justify-content:safe center;min-height:0;overflow-y:auto;}
+.pg{padding:20px 10px 90px;animation:fu .16s ease;flex:1;display:flex;flex-direction:column;}
+/* Wrapper for vertically centering the main content block below a fixed header */
+.pg-center{flex:1;display:flex;flex-direction:column;justify-content:safe center;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -468,25 +470,21 @@ function GuidancePage({state,dispatch}){
     const w=WISDOM[sel];
     return h('div',{className:'pg'},
       h('button',{className:'back-btn',onClick:back},'← back'),
-      h(Eb,{t:'You feel',center:true}),
-      h('div',{className:'ttl-em'},w.label),
-      h('div',{className:'gcard'},
-        // source line
-        h('div',{className:'gsrc'},h('div',{className:'gsrc-l'}),h('span',{className:'gsrc-t'},w.source),h('div',{className:'gsrc-l'})),
-        // verse
-        h('div',{className:'gverse'},w.verse),
-        // dot separator
-        h('div',{className:'gdot'},'·'),
-        // quiet question
-        h('div',{className:'glbl'},'A quiet question'),
-        h('div',{className:'gq'},w.question),
-        // dot separator
-        h('div',{className:'gdot'},'·'),
-        // one small step
-        h('div',{className:'glbl'},'One small step'),
-        h('div',{className:'gstep'},w.step)
-      ),
-      h('div',{className:'gaff'},'Take what helps. Leave the rest.\nReturn whenever you need.')
+      h('div',{className:'pg-center'},
+        h(Eb,{t:'You feel',center:true}),
+        h('div',{className:'ttl-em'},w.label),
+        h('div',{className:'gcard'},
+          h('div',{className:'gsrc'},h('div',{className:'gsrc-l'}),h('span',{className:'gsrc-t'},w.source),h('div',{className:'gsrc-l'})),
+          h('div',{className:'gverse'},w.verse),
+          h('div',{className:'gdot'},'·'),
+          h('div',{className:'glbl'},'A quiet question'),
+          h('div',{className:'gq'},w.question),
+          h('div',{className:'gdot'},'·'),
+          h('div',{className:'glbl'},'One small step'),
+          h('div',{className:'gstep'},w.step)
+        ),
+        h('div',{className:'gaff'},'Take what helps. Leave the rest.\nReturn whenever you need.')
+      )
     );
   }
 
