@@ -98,7 +98,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── PAGE ── */
 .pg{padding:20px 10px 90px;animation:fu .16s ease;flex:1;display:flex;flex-direction:column;}
 /* Wrapper for vertically centering the main content block below a fixed header */
-.pg-center{flex:1;display:flex;flex-direction:column;justify-content:safe center;}
+.pg-center{display:flex;flex-direction:column;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -212,16 +212,16 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:20px;padding:24px 22px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.gcard{background:#fff;border-radius:20px;padding:32px 24px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .gcard{background:#272219;}
-.gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;}
+.gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:24px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Fraunces',serif;font-size:20px;font-weight:400;line-height:1.6;text-align:center;margin-bottom:18px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 26,'SOFT' 35;}
-.gdot{text-align:center;font-size:14px;color:#b8924a;margin:14px 0;line-height:1;}
-.glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:6px;}
-.gq{font-family:'Fraunces',serif;font-size:18.5px;font-style:italic;font-weight:400;line-height:1.55;text-align:center;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
-.gstep{font-size:15px;font-weight:400;line-height:1.7;text-align:center;color:#28211a;letter-spacing:.005em;}
+.gverse{font-family:'Fraunces',serif;font-size:20px;font-weight:400;line-height:1.75;text-align:center;margin-bottom:26px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 26,'SOFT' 35;}
+.gdot{text-align:center;font-size:14px;color:#b8924a;margin:22px 0;line-height:1;}
+.glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:10px;}
+.gq{font-family:'Fraunces',serif;font-size:18.5px;font-style:italic;font-weight:400;line-height:1.7;text-align:center;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
+.gstep{font-size:15px;font-weight:400;line-height:1.85;text-align:center;color:#28211a;letter-spacing:.005em;}
 .app.dk .gstep{color:#ccc6bc;}
 .gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 30;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
