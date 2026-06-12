@@ -109,14 +109,14 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── HEADINGS ── */
 /* Main page titles: Cormorant 300, ~32px — matches ref */
-.ttl{font-family:'Fraunces',serif;font-size:32px;font-weight:600;line-height:1.15;letter-spacing:-.005em;margin-bottom:4px;color:#1f1a14;font-variation-settings:'opsz' 36,'SOFT' 35;}
-.ttl-xl{font-family:'Fraunces',serif;font-size:36px;font-weight:600;line-height:1.12;letter-spacing:-.005em;margin-bottom:6px;color:#1f1a14;font-variation-settings:'opsz' 40,'SOFT' 35;}
-.ttl-em{font-family:'Fraunces',serif;font-size:46px;font-weight:600;line-height:1.08;letter-spacing:-.005em;text-align:center;margin-bottom:20px;color:#1f1a14;font-variation-settings:'opsz' 60,'SOFT' 35;}
-.sub{font-size:13px;font-weight:400;color:#9c9080;line-height:1.55;margin-bottom:18px;letter-spacing:.005em;}
+.ttl{font-family:'Fraunces',serif;font-size:33px;font-weight:600;line-height:1.18;letter-spacing:-.005em;margin-bottom:8px;color:#1f1a14;font-variation-settings:'opsz' 38,'SOFT' 45;}
+.ttl-xl{font-family:'Fraunces',serif;font-size:37px;font-weight:600;line-height:1.15;letter-spacing:-.005em;margin-bottom:8px;color:#1f1a14;font-variation-settings:'opsz' 42,'SOFT' 45;}
+.ttl-em{font-family:'Fraunces',serif;font-size:47px;font-weight:600;line-height:1.1;letter-spacing:-.005em;text-align:center;margin-bottom:22px;color:#1f1a14;font-variation-settings:'opsz' 60,'SOFT' 45;}
+.sub{font-size:13.5px;font-weight:400;color:#9c9080;line-height:1.6;margin-bottom:22px;letter-spacing:.005em;}
 
 /* ── STAT PILLS ── */
-.pills{display:flex;gap:8px;width:100%;margin-top:16px;margin-bottom:24px;}
-.pill{flex:1;background:#eeebe4;border-radius:100px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid #e5e1d8;}
+.pills{display:flex;gap:10px;width:100%;margin-top:18px;margin-bottom:30px;}
+.pill{flex:1;background:#efece4;border-radius:100px;padding:13px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .app.dk .pill{background:#272219;}
 .pv{font-family:'Fraunces',serif;font-size:27px;font-weight:600;line-height:1;color:#1a1612;font-variation-settings:'opsz' 28,'SOFT' 50;}
 .app.dk .pv{color:#e4ddd4;}
@@ -209,7 +209,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:18px;padding:18px 18px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:10px;}
+.dcard{background:#fff;border-radius:18px;padding:18px 18px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:14px;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -339,7 +339,7 @@ function JapPage({state,dispatch}){
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
   const wRef=useRef(null);
-  const R=118, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
+  const R=122, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
 
   const [pulses,setPulses]=useState([]);
   function tap(){
@@ -377,15 +377,15 @@ function JapPage({state,dispatch}){
       )
     ),
     // ring — single ring, ref shows one circle with subtle tone
-    h('div',{className:'ring',onClick:tap,style:{width:'min(280px,calc(100vw - 88px))',height:'min(280px,calc(100vw - 88px))',position:'relative'}},
+    h('div',{className:'ring',onClick:tap,style:{width:'min(296px,calc(100vw - 76px))',height:'min(296px,calc(100vw - 76px))',position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
       h('div',{ref:wRef,className:'ring-wave'}),
       pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
-      h('svg',{viewBox:'0 0 280 280',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:140,cy:140,r:130,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
+      h('svg',{viewBox:'0 0 296 296',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
+        h('circle',{cx:148,cy:148,r:138,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
         h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:140,cy:140,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
-          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 140 140)',
+        count>0&&h('circle',{cx:148,cy:148,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 148 148)',
           style:{transition:'stroke-dashoffset .1s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
@@ -400,8 +400,8 @@ function JapPage({state,dispatch}){
             )
       )
     ),
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:20,marginBottom:8}},'Tap to count'),
-    done&&h('div',{style:{marginTop:24,marginBottom:10}}),
+    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:18,marginBottom:6}},'Tap to count'),
+    done&&h('div',{style:{marginTop:18,marginBottom:6}}),
     // reset
     h('button',{
       onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
