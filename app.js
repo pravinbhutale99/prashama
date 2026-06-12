@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:28px 14px 90px;animation:fu .16s ease;}
+.pg{padding:24px 14px 90px;animation:fu .16s ease;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -210,13 +210,13 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:18px;padding:20px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.gcard{background:#fff;border-radius:20px;padding:24px 22px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .gcard{background:#272219;}
-.gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;}
+.gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
 .gverse{font-family:'Fraunces',serif;font-size:20px;font-weight:400;line-height:1.6;text-align:center;margin-bottom:18px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 26,'SOFT' 35;}
-.gdot{text-align:center;font-size:14px;color:#b8924a;margin:10px 0;line-height:1;}
+.gdot{text-align:center;font-size:14px;color:#b8924a;margin:14px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:6px;}
 .gq{font-family:'Fraunces',serif;font-size:18.5px;font-style:italic;font-weight:400;line-height:1.55;text-align:center;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
 .gstep{font-size:15px;font-weight:400;line-height:1.7;text-align:center;color:#28211a;letter-spacing:.005em;}
@@ -225,7 +225,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:18px;padding:22px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:14px;}
+.dcard{background:#fff;border-radius:20px;padding:24px 22px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:14px;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -241,14 +241,14 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
 .app.dk .dico{background:#2e2820;border-color:#38322a;}
 /* Reminder card */
-.remcard{background:#fff;border-radius:16px;padding:16px 17px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.remcard{background:#fff;border-radius:18px;padding:18px 19px;display:flex;align-items:center;gap:13px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 .app.dk .remcard{background:#272219;}
 .remico{width:34px;height:34px;border-radius:100px;background:#f6f3ec;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .app.dk .remico{background:#312b25;}
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:18px;padding:22px 20px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.rfcard{background:#fff;border-radius:20px;padding:24px 22px 22px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
 .rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:12px;font-variation-settings:'opsz' 16,'SOFT' 35;}
