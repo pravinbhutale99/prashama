@@ -229,23 +229,23 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:24px 22px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:14px;}
+.dcard{background:#fff;border-radius:20px;padding:30px 24px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:16px;}
 .app.dk .dcard{background:#272219;}
-.dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
+.dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
-.dsk{font-family:'Fraunces',serif;font-size:20px;font-weight:400;line-height:1.5;margin-bottom:12px;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
-.ddiv{height:1px;background:#ede8df;margin:10px 0;}
+.dsk{font-family:'Fraunces',serif;font-size:21px;font-weight:400;line-height:1.65;margin-bottom:18px;color:#3a3128;font-variation-settings:'opsz' 24,'SOFT' 35;}
+.ddiv{height:1px;background:#ede8df;margin:18px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;line-height:1.7;margin-bottom:12px;color:#3a3128;font-variation-settings:'opsz' 16,'SOFT' 35;}
-.drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;}
-.drefl{font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px;letter-spacing:.005em;}
+.dmt{font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:400;line-height:1.85;margin-bottom:18px;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:8px;}
+.drefl{font-size:13.5px;font-weight:300;line-height:1.8;margin-bottom:22px;letter-spacing:.005em;}
 .dacts{display:flex;align-items:center;gap:8px;}
 .dlisten{background:#28211a;color:#fff;border:none;border-radius:100px;padding:9px 16px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;}
 .app.dk .dlisten{background:#e4ddd4;color:#1a1612;}
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
 .app.dk .dico{background:#2e2820;border-color:#38322a;}
 /* Reminder card */
-.remcard{background:#fff;border-radius:18px;padding:18px 19px;display:flex;align-items:center;gap:13px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.remcard{background:#fff;border-radius:18px;padding:20px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 .app.dk .remcard{background:#272219;}
 .remico{width:34px;height:34px;border-radius:100px;background:#f6f3ec;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .app.dk .remico{background:#312b25;}
