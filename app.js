@@ -109,9 +109,9 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── HEADINGS ── */
 /* Main page titles: Cormorant 300, ~32px — matches ref */
-.ttl{font-family:'Fraunces',serif;font-size:32px;font-weight:550;line-height:1.18;letter-spacing:-.005em;margin-bottom:8px;color:#28211a;font-variation-settings:'opsz' 36,'SOFT' 35;}
-.ttl-xl{font-family:'Fraunces',serif;font-size:36px;font-weight:550;line-height:1.15;letter-spacing:-.005em;margin-bottom:8px;color:#28211a;font-variation-settings:'opsz' 40,'SOFT' 35;}
-.ttl-em{font-family:'Fraunces',serif;font-size:45px;font-weight:550;line-height:1.1;letter-spacing:-.005em;text-align:center;margin-bottom:22px;color:#28211a;font-variation-settings:'opsz' 56,'SOFT' 35;}
+.ttl{font-family:'Fraunces',serif;font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-.005em;margin-bottom:8px;color:#3a3128;font-variation-settings:'opsz' 34,'SOFT' 35;}
+.ttl-xl{font-family:'Fraunces',serif;font-size:36px;font-weight:500;line-height:1.18;letter-spacing:-.005em;margin-bottom:8px;color:#3a3128;font-variation-settings:'opsz' 38,'SOFT' 35;}
+.ttl-em{font-family:'Fraunces',serif;font-size:45px;font-weight:500;line-height:1.12;letter-spacing:-.005em;text-align:center;margin-bottom:22px;color:#3a3128;font-variation-settings:'opsz' 52,'SOFT' 35;}
 .sub{font-size:13.5px;font-weight:400;color:#9c9080;line-height:1.6;margin-bottom:22px;letter-spacing:.005em;}
 
 /* ── STAT PILLS ── */
@@ -124,9 +124,21 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── RING ── */
 .ring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:0;}
-.ring-pulse{position:absolute;inset:-14px;border-radius:50%;background:rgba(184,146,74,.06);opacity:0;pointer-events:none;}
-.ring-pulse.go{animation:rp .3s ease-out forwards;}
-@keyframes rp{0%{opacity:.4;transform:scale(.93)}100%{opacity:0;transform:scale(1.04)}}
+/* Center-out ripple: starts as a small dot at the center, expands outward */
+.ring-pulse{
+  position:absolute; top:50%; left:50%;
+  width:24px; height:24px;
+  margin:-12px 0 0 -12px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(184,146,74,.25) 0%, rgba(184,146,74,0) 70%);
+  opacity:0; pointer-events:none;
+}
+.ring-pulse.go{animation:rp .55s cubic-bezier(.22,.61,.36,1) forwards;}
+@keyframes rp{
+  0%{opacity:.7; transform:scale(.3);}
+  60%{opacity:.35; transform:scale(5.5);}
+  100%{opacity:0; transform:scale(8);}
+}
 
 .plus-one{
   position:absolute; top:38%; left:50%;
@@ -145,15 +157,19 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 }
 
 /* Wave/ripple between the two rings on tap */
+/* Soft ring ripple expanding from center toward the ring edge */
 .ring-wave{
-  position:absolute; inset:0; border-radius:50%;
-  border:1px solid rgba(184,146,74,.35);
+  position:absolute; top:50%; left:50%;
+  width:40px; height:40px;
+  margin:-20px 0 0 -20px;
+  border-radius:50%;
+  border:1px solid rgba(184,146,74,.4);
   opacity:0; pointer-events:none;
 }
-.ring-wave.go{ animation:wave .6s ease-out forwards; }
+.ring-wave.go{ animation:wave .75s cubic-bezier(.22,.61,.36,1) forwards; }
 @keyframes wave{
-  0%{opacity:.6; transform:scale(.78);}
-  100%{opacity:0; transform:scale(1.02);}
+  0%{opacity:.55; transform:scale(1);}
+  100%{opacity:0; transform:scale(8.2);}
 }
 
 /* ── TOP-RIGHT ICON BUTTONS ── */
@@ -167,7 +183,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .sh{width:100%;max-width:430px;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 38px;max-height:80vh;overflow-y:auto;}
 .app.dk .sh{background:#272219;}
 .sh-drag{width:32px;height:3px;border-radius:2px;background:#ddd8ce;margin:0 auto 16px;}
-.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17px;font-weight:500;background:#f5f0e8;border:1.5px solid transparent;color:#28211a;font-variation-settings:'opsz' 20,'SOFT' 35;}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17px;font-weight:400;background:#f5f0e8;border:1.5px solid transparent;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
 .app.dk .mrow{background:#312b25;color:#e4ddd4;}
 .mrow.on{border-color:#b8924a;}
 .madd{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:11px;margin-bottom:18px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;background:#f5f0e8;}
@@ -190,7 +206,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .ecard{background:#272219;}
 .ecard.on{border-color:#b8924a;}
 .edot{width:6px;height:6px;border-radius:50%;background:#b8924a;}
-.elbl{font-family:'Fraunces',serif;font-size:17px;font-weight:500;line-height:1.25;margin-top:auto;padding-top:18px;letter-spacing:0;color:#28211a;font-variation-settings:'opsz' 20,'SOFT' 35;}
+.elbl{font-family:'Fraunces',serif;font-size:17px;font-weight:400;line-height:1.25;margin-top:auto;padding-top:18px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
@@ -199,10 +215,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Fraunces',serif;font-size:18px;font-weight:500;line-height:1.65;text-align:center;margin-bottom:18px;letter-spacing:0;color:#28211a;font-variation-settings:'opsz' 24,'SOFT' 35;}
+.gverse{font-family:'Fraunces',serif;font-size:18px;font-weight:400;line-height:1.65;text-align:center;margin-bottom:18px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
 .gdot{text-align:center;font-size:14px;color:#b8924a;margin:10px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:6px;}
-.gq{font-family:'Fraunces',serif;font-size:17px;font-style:italic;font-weight:500;line-height:1.6;text-align:center;color:#28211a;font-variation-settings:'opsz' 20,'SOFT' 35;}
+.gq{font-family:'Fraunces',serif;font-size:17px;font-style:italic;font-weight:400;line-height:1.6;text-align:center;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
 .gstep{font-size:13.5px;font-weight:300;line-height:1.8;text-align:center;color:#28211a;letter-spacing:.005em;}
 .app.dk .gstep{color:#ccc6bc;}
 .gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 30;}
@@ -213,10 +229,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:13px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
-.dsk{font-family:'Fraunces',serif;font-size:20px;font-weight:500;line-height:1.5;margin-bottom:12px;color:#28211a;font-variation-settings:'opsz' 24,'SOFT' 35;}
+.dsk{font-family:'Fraunces',serif;font-size:20px;font-weight:400;line-height:1.5;margin-bottom:12px;color:#3a3128;font-variation-settings:'opsz' 22,'SOFT' 35;}
 .ddiv{height:1px;background:#ede8df;margin:10px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;line-height:1.7;margin-bottom:12px;color:#28211a;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.dmt{font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;line-height:1.7;margin-bottom:12px;color:#3a3128;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;}
 .drefl{font-size:13px;font-weight:300;line-height:1.7;margin-bottom:16px;letter-spacing:.005em;}
 .dacts{display:flex;align-items:center;gap:8px;}
@@ -235,7 +251,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .rfcard{background:#fff;border-radius:18px;padding:22px 20px 20px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#28211a;outline:none;transition:border-color .14s;display:block;margin-bottom:12px;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:12px;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -395,7 +411,7 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontFamily:'Fraunces,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:550,letterSpacing:'0',color:dark?'#e4ddd4':'#28211a',fontVariationSettings:"'opsz' 48,'SOFT' 35"}},mantra||'Radhe'),
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:500,letterSpacing:'0',color:dark?'#e4ddd4':'#3a3128',fontVariationSettings:"'opsz' 44,'SOFT' 35"}},mantra||'Radhe'),
               h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
