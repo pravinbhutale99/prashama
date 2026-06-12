@@ -92,7 +92,7 @@ html,body,#root{height:100%;}
 body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;color:#28211a;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 
 /* ── APP SHELL ── */
-.app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f2ede4;color:#28211a;position:relative;}
+.app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f6f3ec;color:#1a1612;position:relative;}
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
@@ -102,23 +102,23 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── EYEBROW — short gold rule + spaced caps ── */
 .eb{display:flex;align-items:center;gap:7px;margin-bottom:9px;}
 .eb-r{width:20px;height:1px;background:#b8924a;flex-shrink:0;}
-.eb-t{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#b8924a;}
+.eb-t{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#b8924a;}
 /* centered eyebrow — rules on both sides */
 .eb-c{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:6px;}
 .eb-c .eb-r{width:26px;}
 
 /* ── HEADINGS ── */
 /* Main page titles: Cormorant 300, ~32px — matches ref */
-.ttl{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;line-height:1.15;letter-spacing:.01em;margin-bottom:7px;}
-.ttl-xl{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;line-height:1.1;letter-spacing:.01em;margin-bottom:8px;}
-.ttl-em{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;line-height:1.05;letter-spacing:.01em;text-align:center;margin-bottom:26px;}
-.sub{font-size:13px;font-weight:300;color:#9c9080;line-height:1.6;margin-bottom:28px;}
+.ttl{font-family:'Cormorant Garamond',serif;font-size:35px;font-weight:600;line-height:1.25;letter-spacing:.015em;margin-bottom:9px;}
+.ttl-xl{font-family:'Cormorant Garamond',serif;font-size:39px;font-weight:600;line-height:1.2;letter-spacing:.015em;margin-bottom:10px;}
+.ttl-em{font-family:'Cormorant Garamond',serif;font-size:43px;font-weight:600;line-height:1.2;letter-spacing:.015em;text-align:center;margin-bottom:28px;}
+.sub{font-size:13.5px;font-weight:300;color:#9c9080;line-height:1.7;margin-bottom:30px;letter-spacing:.01em;}
 
 /* ── STAT PILLS ── */
-.pills{display:flex;gap:8px;width:100%;margin-top:20px;margin-bottom:48px;}
-.pill{flex:1;background:#eae5db;border-radius:100px;padding:15px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.pills{display:flex;gap:8px;width:100%;margin-top:22px;margin-bottom:38px;}
+.pill{flex:1;background:#eeebe4;border-radius:100px;padding:15px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid #e5e1d8;}
 .app.dk .pill{background:#272219;}
-.pv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;line-height:1;color:#28211a;}
+.pv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;line-height:1;color:#1a1612;}
 .app.dk .pv{color:#e4ddd4;}
 .pl{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;}
 
@@ -127,6 +127,34 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .ring-pulse{position:absolute;inset:-14px;border-radius:50%;background:rgba(184,146,74,.06);opacity:0;pointer-events:none;}
 .ring-pulse.go{animation:rp .3s ease-out forwards;}
 @keyframes rp{0%{opacity:.4;transform:scale(.93)}100%{opacity:0;transform:scale(1.04)}}
+
+.plus-one{
+  position:absolute; top:38%; left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-weight:600;
+  color:#b8924a;
+  pointer-events:none;
+  animation:floatUp .7s ease-out forwards;
+  z-index:5;
+}
+@keyframes floatUp{
+  0%{opacity:0; transform:translate(-50%,-50%) scale(.8);}
+  20%{opacity:1; transform:translate(-50%,-65%) scale(1.1);}
+  100%{opacity:0; transform:translate(-50%,-130%) scale(1);}
+}
+
+/* Wave/ripple between the two rings on tap */
+.ring-wave{
+  position:absolute; inset:0; border-radius:50%;
+  border:1px solid rgba(184,146,74,.35);
+  opacity:0; pointer-events:none;
+}
+.ring-wave.go{ animation:wave .6s ease-out forwards; }
+@keyframes wave{
+  0%{opacity:.6; transform:scale(.78);}
+  100%{opacity:0; transform:scale(1.02);}
+}
 
 /* ── TOP-RIGHT ICON BUTTONS ── */
 .hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0;}
@@ -162,7 +190,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .ecard{background:#272219;}
 .ecard.on{border-color:#b8924a;}
 .edot{width:6px;height:6px;border-radius:50%;background:#b8924a;}
-.elbl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;line-height:1.2;margin-top:auto;padding-top:20px;}
+.elbl{font-family:'Cormorant Garamond',serif;font-size:18.5px;font-weight:600;line-height:1.3;margin-top:auto;padding-top:22px;letter-spacing:.01em;}
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
@@ -171,13 +199,13 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gsrc{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:20px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;line-height:1.75;text-align:center;margin-bottom:18px;}
+.gverse{font-family:'Cormorant Garamond',serif;font-size:19.5px;font-weight:600;line-height:1.85;text-align:center;margin-bottom:20px;letter-spacing:.005em;}
 .gdot{text-align:center;font-size:16px;color:#b8924a;margin:14px 0;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:9px;}
-.gq{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:400;line-height:1.65;text-align:center;}
-.gstep{font-size:13px;font-weight:300;line-height:1.8;text-align:center;color:#28211a;}
+.gq{font-family:'Cormorant Garamond',serif;font-size:17.5px;font-style:italic;font-weight:500;line-height:1.75;text-align:center;}
+.gstep{font-size:13.5px;font-weight:300;line-height:1.9;text-align:center;color:#1a1612;letter-spacing:.01em;}
 .app.dk .gstep{color:#ccc6bc;}
-.gaff{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;font-weight:400;color:#9c9080;text-align:center;line-height:1.7;margin-top:26px;white-space:pre-line;}
+.gaff{font-family:'Cormorant Garamond',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:28px;white-space:pre-line;letter-spacing:.01em;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:20px;}
 
 /* ── DHARMA CARD ── */
@@ -188,18 +216,18 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .dsk{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;line-height:1.6;margin-bottom:14px;}
 .ddiv{height:1px;background:#ede8df;margin:12px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;font-weight:400;line-height:1.8;margin-bottom:13px;}
+.dmt{font-family:'Cormorant Garamond',serif;font-size:15.5px;font-style:italic;font-weight:500;line-height:1.9;margin-bottom:15px;}
 .drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:6px;}
-.drefl{font-size:13px;font-weight:300;line-height:1.75;margin-bottom:16px;}
+.drefl{font-size:13.5px;font-weight:300;line-height:1.85;margin-bottom:18px;letter-spacing:.01em;}
 .dacts{display:flex;align-items:center;gap:8px;}
 .dlisten{background:#28211a;color:#fff;border:none;border-radius:100px;padding:9px 16px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;}
-.app.dk .dlisten{background:#e4ddd4;color:#28211a;}
+.app.dk .dlisten{background:#e4ddd4;color:#1a1612;}
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
 .app.dk .dico{background:#2e2820;border-color:#38322a;}
 /* Reminder card */
 .remcard{background:#fff;border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:11px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 .app.dk .remcard{background:#272219;}
-.remico{width:34px;height:34px;border-radius:100px;background:#f2ede4;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.remico{width:34px;height:34px;border-radius:100px;background:#f6f3ec;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .app.dk .remico{background:#312b25;}
 
 /* ── REFLECTION CARD ── */
@@ -310,12 +338,18 @@ function JapPage({state,dispatch}){
   const {count,malas,streak,mantra,dark}=state;
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
+  const wRef=useRef(null);
   const R=130, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
 
+  const [pulses,setPulses]=useState([]);
   function tap(){
     if(done)return;
     dispatch({type:'TAP'});
     if(pRef.current){pRef.current.classList.remove('go');void pRef.current.offsetWidth;pRef.current.classList.add('go');}
+    if(wRef.current){wRef.current.classList.remove('go');void wRef.current.offsetWidth;wRef.current.classList.add('go');}
+    const id=Date.now();
+    setPulses(p=>[...p,id]);
+    setTimeout(()=>setPulses(p=>p.filter(x=>x!==id)),700);
   }
 
   useEffect(()=>{
@@ -345,9 +379,11 @@ function JapPage({state,dispatch}){
     // ring — single ring, ref shows one circle with subtle tone
     h('div',{className:'ring',onClick:tap,style:{width:'min(320px,calc(100vw - 80px))',height:'min(320px,calc(100vw - 80px))',position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
+      h('div',{ref:wRef,className:'ring-wave'}),
+      pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
       h('svg',{viewBox:'0 0 320 320',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:160,cy:160,r:150,fill:'none',stroke:dark?'#2e2820':'#e8e2d8',strokeWidth:'1'}),
-        h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#d5cdc0',strokeWidth:'1'}),
+        h('circle',{cx:160,cy:160,r:150,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
+        h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
         count>0&&h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 160 160)',
           style:{transition:'stroke-dashoffset .1s ease'}})
@@ -359,13 +395,13 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:36,fontWeight:600,letterSpacing:'.01em',color:dark?'#e4ddd4':'#28211a'}},mantra||'Radhe'),
+              h('div',{style:{fontFamily:'Cormorant Garamond,serif',fontSize:36,fontWeight:500,letterSpacing:'.01em',color:dark?'#e4ddd4':'#28211a'}},mantra||'Radhe'),
               h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
     ),
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:52,marginBottom:16}},'Tap to count'),
-    done&&h('div',{style:{marginTop:52,marginBottom:16}}),
+    !done&&h('div',{style:{fontSize:10.5,fontWeight:500,letterSpacing:'.18em',textTransform:'uppercase',color:'#9c9080',marginTop:36,marginBottom:14}},'Tap to count'),
+    done&&h('div',{style:{marginTop:36,marginBottom:14}}),
     // reset
     h('button',{
       onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
