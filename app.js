@@ -383,7 +383,7 @@ function JapPage({state,dispatch}){
       pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
       h('svg',{viewBox:'0 0 296 296',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
         h('circle',{cx:148,cy:148,r:138,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
-        h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
+        h('circle',{cx:148,cy:148,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
         count>0&&h('circle',{cx:148,cy:148,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 148 148)',
           style:{transition:'stroke-dashoffset .1s ease'}})
