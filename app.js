@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{flex:1;padding:28px 22px 110px;overflow-y:auto;animation:fu .16s ease;}
+.pg{flex:1;padding:28px 22px 90px;overflow-y:auto;animation:fu .16s ease;display:flex;flex-direction:column;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -339,7 +339,7 @@ function JapPage({state,dispatch}){
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
   const wRef=useRef(null);
-  const R=140, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
+  const R=118, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
 
   const [pulses,setPulses]=useState([]);
   function tap(){
@@ -377,15 +377,15 @@ function JapPage({state,dispatch}){
       )
     ),
     // ring — single ring, ref shows one circle with subtle tone
-    h('div',{className:'ring',onClick:tap,style:{width:'min(340px,calc(100vw - 56px))',height:'min(340px,calc(100vw - 56px))',position:'relative'}},
+    h('div',{className:'ring',onClick:tap,style:{width:'min(280px,calc(100vw - 88px))',height:'min(280px,calc(100vw - 88px))',position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
       h('div',{ref:wRef,className:'ring-wave'}),
       pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
-      h('svg',{viewBox:'0 0 340 340',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:170,cy:170,r:160,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
+      h('svg',{viewBox:'0 0 280 280',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
+        h('circle',{cx:140,cy:140,r:130,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
         h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:170,cy:170,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
-          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 170 170)',
+        count>0&&h('circle',{cx:140,cy:140,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 140 140)',
           style:{transition:'stroke-dashoffset .1s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
@@ -400,7 +400,7 @@ function JapPage({state,dispatch}){
             )
       )
     ),
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:24,marginBottom:10}},'Tap to count'),
+    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:20,marginBottom:8}},'Tap to count'),
     done&&h('div',{style:{marginTop:24,marginBottom:10}}),
     // reset
     h('button',{
