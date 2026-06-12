@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:20px 10px 90px;animation:fu .16s ease;flex:1;display:flex;flex-direction:column;}
+.pg{padding:20px 10px 90px;animation:fu .16s ease;}
 /* Wrapper for vertically centering the main content block below a fixed header */
 .pg-center{display:flex;flex-direction:column;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
