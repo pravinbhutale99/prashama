@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:20px 10px 90px;animation:fu .16s ease;}
+.pg{flex:1;padding:20px 10px 90px;animation:fu .16s ease;display:flex;flex-direction:column;justify-content:safe center;min-height:0;overflow-y:auto;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
