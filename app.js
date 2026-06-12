@@ -234,8 +234,8 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
 .rfcard{background:#fff;border-radius:18px;padding:18px 18px 16px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
-.rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:7px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:4px 0 8px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:500;color:#1f1a14;outline:none;transition:border-color .14s;display:block;margin-bottom:14px;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:2px 0 6px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:500;color:#1f1a14;outline:none;transition:border-color .14s;display:block;margin-bottom:10px;font-variation-settings:'opsz' 18,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -339,7 +339,7 @@ function JapPage({state,dispatch}){
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
   const wRef=useRef(null);
-  const R=130, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
+  const R=140, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
 
   const [pulses,setPulses]=useState([]);
   function tap(){
@@ -377,15 +377,15 @@ function JapPage({state,dispatch}){
       )
     ),
     // ring — single ring, ref shows one circle with subtle tone
-    h('div',{className:'ring',onClick:tap,style:{width:'min(320px,calc(100vw - 80px))',height:'min(320px,calc(100vw - 80px))',position:'relative'}},
+    h('div',{className:'ring',onClick:tap,style:{width:'min(340px,calc(100vw - 56px))',height:'min(340px,calc(100vw - 56px))',position:'relative'}},
       h('div',{ref:pRef,className:'ring-pulse'}),
       h('div',{ref:wRef,className:'ring-wave'}),
       pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
-      h('svg',{viewBox:'0 0 320 320',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:160,cy:160,r:150,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
+      h('svg',{viewBox:'0 0 340 340',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
+        h('circle',{cx:170,cy:170,r:160,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
         h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:160,cy:160,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
-          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 160 160)',
+        count>0&&h('circle',{cx:170,cy:170,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+          strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 170 170)',
           style:{transition:'stroke-dashoffset .1s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
