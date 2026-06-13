@@ -92,11 +92,11 @@ html,body,#root{height:100%;}
 body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;color:#28211a;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 
 /* ── APP SHELL ── */
-.app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f6f3ec;color:#1a1612;position:relative;}
+.app{width:100%;max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f6f3ec;color:#1a1612;position:relative;}
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:20px 16px 130px;animation:fu .16s ease;}
+.pg{padding:20px 16px 130px;animation:fu .16s ease;padding-left:24px;padding-right:24px;}
 .today-page{padding-top:52px;}
 .reflection-page{padding-top:48px;}
 /* Wrapper for vertically centering the main content block below a fixed header */
@@ -214,7 +214,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:20px;padding:42px 28px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.gcard{background:#fff;border-radius:20px;padding:42px 28px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;width:100%;}
 .app.dk .gcard{background:#272219;}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
@@ -231,7 +231,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:34px 28px 38px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;}
+.dcard{background:#fff;border-radius:20px;padding:34px 28px 38px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;width:100%;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -254,7 +254,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:20px;padding:38px 30px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;}
+.rfcard{background:#fff;border-radius:20px;padding:38px 30px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
 .rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:22px;font-variation-settings:'opsz' 16,'SOFT' 35;}
@@ -277,7 +277,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── BOTTOM NAV — floating pill exactly as reference ── */
 /* Reference: white rounded pill, shadow, no active bg — only color change */
-.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:410px;z-index:100;}
+.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:492px;z-index:100;}
 .nav{background:#fff;border-radius:100px;display:flex;padding:4px;box-shadow:0 2px 20px rgba(0,0,0,.07);}
 .app.dk .nav{background:#1e1b17;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .12s;letter-spacing:.01em;}
