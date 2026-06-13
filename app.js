@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:20px 16px 130px;animation:fu .16s ease;padding-left:24px;padding-right:24px;}
+.pg{padding:20px 16px 100px;animation:fu .16s ease;padding-left:24px;padding-right:24px;}
 .today-page{padding-top:52px;}
 .reflection-page{padding-top:48px;}
 /* Wrapper for vertically centering the main content block below a fixed header */
@@ -256,7 +256,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
 .rfcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;}
 .app.dk .rfcard{background:#272219;}
-.rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
+.rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;margin-top:8px;display:block;}
 .rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
