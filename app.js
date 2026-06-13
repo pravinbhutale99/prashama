@@ -257,7 +257,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .rfcard{background:#fff;border-radius:20px;padding:38px 30px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:22px;font-variation-settings:'opsz' 16,'SOFT' 35;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:44px;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -266,7 +266,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .savebtn{width:100%;padding:12px;border-radius:100px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;cursor:pointer;transition:background .15s;background:#c8c2b8;color:#fff;margin-top:2px;}
 .savebtn.on{background:#b8924a;}
 /* Past reflections */
-.past-hdr{display:flex;align-items:center;gap:8px;margin:26px 0 10px;}
+.past-hdr{display:flex;align-items:center;gap:8px;margin:40px 0 14px;}
 .past-line{flex:1;height:1px;background:#e8e2d8;}
 .app.dk .past-line{background:#38322a;}
 .past-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;}
@@ -578,7 +578,7 @@ function ReflectionPage({state,dispatch}){
       h('span',{className:'rflbl'},'Something peaceful'),
       h('input',{className:'rfin',placeholder:'A pause that felt like home…',value:p,onChange:e=>setP(e.target.value)}),
       h('span',{className:'rflbl'},'One lesson'),
-      h('input',{className:'rfin',placeholder:'What today gently taught me…',value:l,onChange:e=>setL(e.target.value),style:{marginBottom:14}}),
+      h('input',{className:'rfin',placeholder:'What today gently taught me…',value:l,onChange:e=>setL(e.target.value),style:{marginBottom:48}}),
       h('button',{className:`savebtn${has?' on':''}`,disabled:!has,onClick:doSave},saved?'Saved ✓':'Save reflection')
     ),
     h('div',{className:'past-hdr'},
