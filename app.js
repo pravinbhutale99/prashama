@@ -231,17 +231,17 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:34px 28px 38px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;width:100%;}
+.dcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;width:100%;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
 .dsk{font-family:'Fraunces',serif;font-size:21px;font-weight:400;line-height:1.65;margin-bottom:18px;color:#3a3128;font-variation-settings:'opsz' 24,'SOFT' 35;}
 .ddiv{height:1px;background:#ede8df;margin:18px 0;}
 .app.dk .ddiv{background:#38322a;}
-.dmt{font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:400;line-height:1.85;margin-bottom:18px;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
-.drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:8px;}
+.dmt{font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:400;line-height:1.85;margin-top:30px;margin-bottom:30px;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:8px;margin-top:26px;}
 .drefl{font-size:13.5px;font-weight:300;line-height:1.8;margin-bottom:22px;letter-spacing:.005em;}
-.dacts{display:flex;align-items:center;gap:8px;}
+.dacts{display:flex;align-items:center;gap:8px;margin-top:34px;}
 .dlisten{background:#28211a;color:#fff;border:none;border-radius:100px;padding:9px 16px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;}
 .app.dk .dlisten{background:#e4ddd4;color:#1a1612;}
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
@@ -254,10 +254,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:20px;padding:38px 30px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;}
+.rfcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:44px;font-variation-settings:'opsz' 16,'SOFT' 35;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
