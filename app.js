@@ -17,14 +17,14 @@ const C = {
 
 // ── WISDOM ────────────────────────────────────────────────────
 const WISDOM = {
-  angry:       {label:'angry',       source:'Bhagavad Gita 2.63', verse:'From anger comes delusion. From delusion, loss of memory. From loss of memory, the destruction of discrimination — and from that, one perishes.', question:'"What am I actually protecting right now?"', step:'Pause. Breathe three times before you respond to anything.'},
-  anxious:     {label:'anxious',     source:'Bhagavad Gita 2.23', verse:'What you truly are cannot be harmed. The soul is untouched by weapons, fire, water, or wind.', question:'"What is actually happening right now — not in my imagination?"', step:'Name five things you can see. Come back to this moment.'},
-  overthinking:{label:'overthinking',source:'Bhagavad Gita 2.47', verse:'Focus on the next right action. Release the outcome you cannot hold.', question:'"What is one small step I can take right now?"', step:'Write down a single next action and close the rest of the tabs.'},
-  distracted:  {label:'distracted',  source:'Bhagavad Gita 6.26', verse:'Wherever the restless mind wanders, gently bring it back. Again and again, quietly return.', question:'"What actually matters to me today?"', step:'Close one tab. Do one thing for ten minutes without switching.'},
-  lonely:      {label:'lonely',      source:'Bhagavad Gita 9.29', verse:'I am equally present in all beings. Those who turn toward Me with devotion — they are in Me, and I am in them.', question:'"Who could I reach out to today — even briefly?"', step:'Send one message. Not to explain how you feel. Just to connect.'},
-  unmotivated: {label:'unmotivated', source:'Bhagavad Gita 3.8',  verse:'Do what must be done. Action is better than inaction. Even the body cannot be maintained without movement.', question:'"What is the smallest possible beginning?"', step:'Do two minutes of the thing you have been avoiding. Only two minutes.'},
-  peaceful:    {label:'peaceful',    source:'Bhagavad Gita 6.27', verse:'Supreme happiness comes to the one whose mind is still, whose passions are quiet, who has become one with what is.', question:'"How can I protect this feeling for the rest of today?"', step:'Less input today. Guard the quiet you have found.'},
-  grateful:    {label:'grateful',    source:'Bhagavad Gita 4.11', verse:'In whatever way people come to Me, I meet them there. The Divine meets you exactly where you are.', question:'"Who or what made this feeling possible?"', step:'Tell one person today that you appreciate them. Specifically.'},
+  angry:       {label:'angry',       source:'Bhagavad Gita 2.63', verse:'From anger comes delusion. From delusion, loss of memory. From loss of memory, the destruction of discrimination — and from that, one perishes.', question:'"What underneath this anger is asking to be seen?"', step:'Before anything else — one slow breath. Let that be enough for now.'},
+  anxious:     {label:'anxious',     source:'Bhagavad Gita 2.23', verse:'What you truly are cannot be harmed. The soul is untouched by weapons, fire, water, or wind.', question:'"What is actually present right now — not what might be?"', step:'Rest in what is here. This moment does not require resolution.'},
+  overthinking:{label:'overthinking',source:'Bhagavad Gita 2.47', verse:'Focus on the next right action. Release the outcome you cannot hold.', question:'"What is the one thing that actually needs my attention today?"', step:'Perhaps the mind needs less to carry, not more to solve.'},
+  distracted:  {label:'distracted',  source:'Bhagavad Gita 6.26', verse:'Wherever the restless mind wanders, gently bring it back. Again and again, quietly return.', question:'"What would feel like presence, right now?"', step:'Return gently. Not once — as many times as needed.'},
+  lonely:      {label:'lonely',      source:'Bhagavad Gita 9.29', verse:'I am equally present in all beings. Those who turn toward Me with devotion — they are in Me, and I am in them.', question:'"Is there someone whose quiet company I could invite today?"', step:'A small reaching-out. Without needing to explain the whole of it.'},
+  unmotivated: {label:'unmotivated', source:'Bhagavad Gita 3.8',  verse:'Do what must be done. Action is better than inaction. Even the body cannot be maintained without movement.', question:'"What is the softest possible beginning I could make?"', step:'Even quiet effort has meaning. One small thing is enough.'},
+  peaceful:    {label:'peaceful',    source:'Bhagavad Gita 6.27', verse:'Supreme happiness comes to the one whose mind is still, whose passions are quiet, who has become one with what is.', question:'"What brought me here — to this stillness?"', step:'You do not need to do anything with this feeling. Let it remain.'},
+  grateful:    {label:'grateful',    source:'Bhagavad Gita 4.11', verse:'In whatever way people come to Me, I meet them there. The Divine meets you exactly where you are.', question:'"What made this feeling possible today?"', step:'Perhaps let someone know. Quietly. Without needing a reason.'},
 };
 const EMOTIONS = Object.entries(WISDOM).map(([id,w])=>({id, label:w.label}));
 
@@ -634,7 +634,7 @@ function GuidancePage({state,dispatch}){
   if(showResult && sel && WISDOM[sel]){
     const w=WISDOM[sel];
     return h('div',{className:'pg'},
-      h('button',{className:'back-btn',onClick:back},'← back'),
+      h('button',{className:'back-btn',onClick:back},'← return'),
       h('div',{className:'pg-center'},
         h(Eb,{t:'You feel',center:true}),
         h('div',{className:'ttl-em'},w.label),
@@ -657,7 +657,7 @@ function GuidancePage({state,dispatch}){
   return h('div',{className:'pg'},
     h(Eb,{t:'Guidance'}),
     h('div',{className:'ttl-xl'},'How are you, really?'),
-    h('p',{className:'sub'},"Choose what's closest. A quiet verse will meet you there — no rush."),
+    h('p',{className:'sub'},"Name what is present. A verse will meet you there."),
     h('div',{className:'egrid'},
       EMOTIONS.map(e=>
         h('div',{key:e.id,className:`ecard${sel===e.id?' on':''}`,onClick:()=>choose(e.id)},
@@ -666,7 +666,7 @@ function GuidancePage({state,dispatch}){
         )
       )
     ),
-    sel&&h('button',{className:'cont-btn',onClick:receive},'Continue')
+    sel&&h('button',{className:'cont-btn',onClick:receive},'Receive')
   );
 }
 
