@@ -258,65 +258,64 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .pl{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;}
 
 /* ── RING ── */
-.ring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:26px;margin-bottom:0;transform:scale(1.04);}
+.ring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:26px;margin-bottom:0;}
 /* Center-out ripple: starts as a small dot at the center, expands outward */
 .ring-pulse{
   position:absolute; top:50%; left:50%;
-  width:24px; height:24px;
-  margin:-12px 0 0 -12px;
+  width:30px; height:30px;
+  margin:-15px 0 0 -15px;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(184,146,74,.16) 0%, rgba(184,146,74,0) 55%);
+  background:radial-gradient(circle, rgba(184,146,74,.18) 0%, rgba(184,146,74,.05) 50%, rgba(184,146,74,0) 80%);
   opacity:0; pointer-events:none;
 }
-.ring-pulse.go{animation:rp .9s cubic-bezier(0,0,.2,1) forwards;}
+.ring-pulse.go{animation:rp 1.1s cubic-bezier(0,0,.15,1) forwards;}
 @keyframes rp{
-  0%{opacity:.6; transform:scale(.4);}
-  100%{opacity:0; transform:scale(13);}
+  0%{opacity:.55; transform:scale(.3);}
+  100%{opacity:0; transform:scale(11);}
 }
 
 .plus-one{
-  position:absolute; top:38%; left:50%;
+  position:absolute; top:40%; left:50%;
   transform:translate(-50%,-50%);
   font-family:'Fraunces',serif;
-  font-size:22px; font-weight:600;
-  color:#b8924a;
+  font-size:18px; font-weight:400;
+  color:rgba(184,146,74,.8);
   pointer-events:none;
-  animation:floatUp .7s ease-out forwards;
+  animation:floatUp .85s cubic-bezier(0,0,.2,1) forwards;
   z-index:5;
+  font-variation-settings:'opsz' 20,'SOFT' 35;
 }
 @keyframes floatUp{
-  0%{opacity:0; transform:translate(-50%,-50%) scale(.8);}
-  20%{opacity:1; transform:translate(-50%,-65%) scale(1.1);}
-  100%{opacity:0; transform:translate(-50%,-130%) scale(1);}
+  0%{opacity:0; transform:translate(-50%,-50%);}
+  18%{opacity:.8;}
+  100%{opacity:0; transform:translate(-50%,-120%);}
 }
 
 /* Wave/ripple between the two rings on tap */
 /* Soft ring ripple expanding from center toward the ring edge */
 .ring-wave{
   position:absolute; top:50%; left:50%;
-  width:24px; height:24px;
-  margin:-12px 0 0 -12px;
+  width:20px; height:20px;
+  margin:-10px 0 0 -10px;
   border-radius:50%;
-  border:1.5px solid rgba(184,146,74,.42);
+  border:1px solid rgba(184,146,74,.36);
   opacity:0; pointer-events:none;
 }
-.ring-wave.go{ animation:wave 1.1s cubic-bezier(0,0,.2,1) forwards; }
+.ring-wave.go{ animation:wave 1.3s cubic-bezier(0,0,.1,1) forwards; }
 @keyframes wave{
-  0%{opacity:.45; transform:scale(1);}
-  55%{opacity:.32; transform:scale(8);}
-  85%{opacity:.16; transform:scale(13);}
-  100%{opacity:0; transform:scale(14.5);}
+  0%{opacity:.4; transform:scale(1);}
+  100%{opacity:0; transform:scale(17);}
 }
-.prog-arc.catch{animation:arcCatch .45s ease-out;}
+.prog-arc.catch{animation:arcCatch .6s cubic-bezier(0,0,.2,1);}
 @keyframes arcCatch{
   0%{stroke-width:2; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
-  35%{stroke-width:3.2; filter:drop-shadow(0 0 4px rgba(184,146,74,.5));}
+  30%{stroke-width:2.8; filter:drop-shadow(0 0 3px rgba(184,146,74,.38));}
   100%{stroke-width:2; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
 }
-.outer-ring.catch{animation:outerCatch .45s ease-out;}
+.outer-ring.catch{animation:outerCatch .65s cubic-bezier(0,0,.2,1);}
 @keyframes outerCatch{
   0%{opacity:1; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
-  40%{opacity:.85; filter:drop-shadow(0 0 5px rgba(184,146,74,.35));}
+  35%{opacity:.9; filter:drop-shadow(0 0 3px rgba(184,146,74,.28));}
   100%{opacity:1; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
 }
 
@@ -562,25 +561,34 @@ function JapPage({state,dispatch}){
       h('div',{ref:wRef,className:'ring-wave'}),
       pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
       h('svg',{viewBox:'0 0 336 336',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
-        h('circle',{ref:outerRef,className:'outer-ring',cx:168,cy:168,r:158,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
-        h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
-        count>0&&h('circle',{ref:arcRef,className:'prog-arc',cx:168,cy:168,r:OUTER_R,fill:'none',stroke:'#b8924a',strokeWidth:'2',strokeLinecap:'round',
+        h('defs',null,
+          h('radialGradient',{id:'ringGlow',cx:'50%',cy:'50%',r:'50%'},
+            h('stop',{offset:'0%',stopColor:dark?'rgba(184,146,74,.07)':'rgba(184,146,74,.05)'}),
+            h('stop',{offset:'55%',stopColor:dark?'rgba(184,146,74,.02)':'rgba(184,146,74,.01)'}),
+            h('stop',{offset:'100%',stopColor:'rgba(184,146,74,0)'})
+          )
+        ),
+        h('circle',{cx:168,cy:168,r:138,fill:'url(#ringGlow)'}),
+        h('circle',{cx:168,cy:168,r:162,fill:'none',stroke:dark?'rgba(255,255,255,.03)':'rgba(200,190,175,.3)',strokeWidth:'1'}),
+        h('circle',{ref:outerRef,className:'outer-ring',cx:168,cy:168,r:158,fill:'none',stroke:dark?'#38302a':'#d8d0c4',strokeWidth:'1.2'}),
+        h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:dark?'#2e2820':'#ccc4b6',strokeWidth:'.8'}),
+        count>0&&h('circle',{ref:arcRef,className:'prog-arc',cx:168,cy:168,r:OUTER_R,fill:'none',stroke:'#c4a060',strokeWidth:'2.2',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 168 168)',
           style:{transition:'stroke-dashoffset .4s cubic-bezier(.4,0,.2,1)'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
         done
           ? h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:32,fontWeight:400,letterSpacing:'0',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 36,'SOFT' 35",lineHeight:1.2}},'You\narrived.'),
-              h('div',{style:{fontSize:10,color:'#b8924a',marginTop:10,letterSpacing:'.12em',textTransform:'uppercase',fontWeight:400}},`${state.malas+1} mala`)
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:28,fontWeight:400,letterSpacing:'.01em',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 32,'SOFT' 35",lineHeight:1.35}},'You arrived.'),
+              h('div',{style:{fontSize:9,color:'#c4a060',marginTop:12,letterSpacing:'.14em',textTransform:'uppercase',fontWeight:300,opacity:.85}},`${state.malas>0?state.malas+' mala':'first mala'}`)
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:500,letterSpacing:'0',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 44,'SOFT' 35"}},mantra||'Radhe'),
-              h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em',fontVariantNumeric:'tabular-nums'}},`${count} / 108`)
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:36,fontWeight:400,letterSpacing:'.01em',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 42,'SOFT' 35"}},mantra||'Radhe'),
+              h('div',{style:{fontSize:11,color:dark?'rgba(243,238,231,.45)':'#b5a89a',marginTop:9,letterSpacing:'.08em',fontVariantNumeric:'tabular-nums',fontWeight:300}},`${count} / 108`)
             )
       )
     ),
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:28,marginBottom:4}},'Tap to count'),
+    !done&&h('div',{style:{fontSize:9,fontWeight:400,letterSpacing:'.18em',textTransform:'uppercase',color:'#b5a89a',marginTop:24,marginBottom:4}},'tap to count'),
     done&&h('div',{style:{marginTop:28,marginBottom:4}}),
     // reset
     h('button',{
