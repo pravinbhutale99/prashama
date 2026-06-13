@@ -93,7 +93,13 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── APP SHELL ── */
 .app{width:100%;max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f6f3ec;color:#1a1612;position:relative;}
-.app.dk{background:#1b1814;color:#e4ddd4;}
+.app.dk{background:#0f0b08;color:#f3eee7;}
+.app.dk .ttl,.app.dk .ttl-xl,.app.dk .ttl-em{color:#f3eee7;}
+.app.dk .sub{color:rgba(243,238,231,.58);}
+.app.dk .gverse,.app.dk .gq,.app.dk .dmt{color:rgba(243,238,231,.9);}
+.app.dk .gstep,.app.dk .drefl{color:rgba(243,238,231,.82);}
+.app.dk .glbl,.app.dk .drlbl,.app.dk .rflbl,.app.dk .gsrc-t,.app.dk .dsrc{color:#caa56a;opacity:.95;}
+
 
 /* ── PAGE ── */
 .pg{padding:20px 16px 100px;animation:fu .16s ease;padding-left:24px;padding-right:24px;}
@@ -215,7 +221,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
 .gcard{background:#fff;border-radius:20px;padding:42px 28px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;width:100%;}
-.app.dk .gcard{background:#272219;}
+.app.dk .gcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
@@ -232,12 +238,12 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── DHARMA CARD ── */
 .dcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;width:100%;}
-.app.dk .dcard{background:#272219;}
+.app.dk .dcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
 .dsk{font-family:'Fraunces',serif;font-size:21px;font-weight:400;line-height:1.65;margin-bottom:18px;color:#3a3128;font-variation-settings:'opsz' 24,'SOFT' 35;}
 .ddiv{height:1px;background:#ede8df;margin:18px 0;}
-.app.dk .ddiv{background:#38322a;}
+.app.dk .ddiv{background:rgba(214,185,120,.16);}
 .dmt{font-family:'Fraunces',serif;font-size:15.5px;font-style:italic;font-weight:400;line-height:1.85;margin-top:30px;margin-bottom:30px;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
 .drlbl{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;margin-bottom:8px;margin-top:26px;}
 .drefl{font-size:13.5px;font-weight:300;line-height:1.8;margin-bottom:22px;letter-spacing:.005em;}
@@ -255,7 +261,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
 .rfcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;}
-.app.dk .rfcard{background:#272219;}
+.app.dk .rfcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;margin-top:8px;display:block;}
 .rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
@@ -268,7 +274,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* Past reflections */
 .past-hdr{display:flex;align-items:center;gap:8px;margin:40px 0 14px;}
 .past-line{flex:1;height:1px;background:#e8e2d8;}
-.app.dk .past-line{background:#38322a;}
+.app.dk .past-line{background:rgba(214,185,120,.16);}
 .past-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;}
 .past-empty{font-family:'Fraunces',serif;font-size:14px;font-style:italic;font-weight:500;color:#9c9080;line-height:1.6;font-variation-settings:'opsz' 16,'SOFT' 30;}
 
@@ -417,7 +423,7 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontFamily:'Fraunces,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:500,letterSpacing:'0',color:dark?'#e4ddd4':'#3a3128',fontVariationSettings:"'opsz' 44,'SOFT' 35"}},mantra||'Radhe'),
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:500,letterSpacing:'0',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 44,'SOFT' 35"}},mantra||'Radhe'),
               h('div',{style:{fontSize:12,color:'#9c9080',marginTop:7,letterSpacing:'.05em'}},`${count} / 108`)
             )
       )
