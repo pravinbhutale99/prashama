@@ -105,6 +105,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .pg{padding:20px 16px 100px;animation:fu .16s ease;padding-left:24px;padding-right:24px;}
 .today-page{padding-top:52px;}
 .reflection-page{padding-top:48px;}
+.jap-page{padding-bottom:72px;}
 /* Wrapper for vertically centering the main content block below a fixed header */
 .pg-center{display:flex;flex-direction:column;gap:22px;margin-top:20px;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
@@ -125,7 +126,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .sub{font-size:13.5px;font-weight:400;color:#9c9080;line-height:1.6;margin-bottom:22px;letter-spacing:.005em;}
 
 /* ── STAT PILLS ── */
-.pills{display:flex;gap:10px;width:100%;margin-top:18px;margin-bottom:30px;}
+.pills{display:flex;gap:10px;width:100%;margin-top:18px;margin-bottom:34px;}
 .pill{flex:1;background:#efece4;border-radius:100px;padding:13px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .app.dk .pill{background:#272219;}
 .pv{font-family:'Fraunces',serif;font-size:27px;font-weight:600;line-height:1;color:#1a1612;font-variation-settings:'opsz' 28,'SOFT' 35;}
@@ -133,7 +134,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .pl{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;}
 
 /* ── RING ── */
-.ring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:0;}
+.ring{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:26px;margin-bottom:0;transform:scale(1.04);}
 /* Center-out ripple: starts as a small dot at the center, expands outward */
 .ring-pulse{
   position:absolute; top:50%; left:50%;
@@ -389,7 +390,7 @@ function JapPage({state,dispatch}){
     return()=>window.removeEventListener('keydown',onKey);
   },[count,done,sheet]);
 
-  return h('div',{className:'pg',style:{display:'flex',flexDirection:'column',alignItems:'center'}},
+  return h('div',{className:'pg jap-page',style:{display:'flex',flexDirection:'column',alignItems:'center'}},
     // header row
     h('div',{className:'hdr',style:{width:'100%'}},
       h('div',null, h(Eb,{t:'Jap'}), h('div',{className:'ttl'},'A quiet practice')),
@@ -428,8 +429,8 @@ function JapPage({state,dispatch}){
             )
       )
     ),
-    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:14,marginBottom:4}},'Tap to count'),
-    done&&h('div',{style:{marginTop:14,marginBottom:4}}),
+    !done&&h('div',{style:{fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#9c9080',marginTop:28,marginBottom:4}},'Tap to count'),
+    done&&h('div',{style:{marginTop:28,marginBottom:4}}),
     // reset
     h('button',{
       onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
