@@ -4,8 +4,8 @@
   "description": "Prashama — daily stillness",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#11100d",
-  "theme_color": "#11100d",
+  "background_color": "#241a40",
+  "theme_color": "#241a40",
   "icons": [
     {
       "src": "icons/icon-192.png",
