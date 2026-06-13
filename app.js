@@ -166,6 +166,72 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .pg.slide-l{animation:slideInL .28s cubic-bezier(.4,0,.2,1)!important;}
 .pg.slide-r{animation:slideInR .28s cubic-bezier(.4,0,.2,1)!important;}
 
+/* ── ONBOARDING ──────────────────────────────────────────────── */
+@keyframes obIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes obOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
+.ob-wrap{
+  position:fixed;inset:0;z-index:200;
+  background:#f2ede4;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 32px 64px;
+  transition:opacity .55s ease;
+}
+.ob-wrap.leaving{opacity:0;pointer-events:none;}
+.ob-slide{
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  text-align:center;animation:obIn .45s cubic-bezier(.4,0,.2,1) both;
+}
+.ob-line{
+  font-family:'Fraunces',serif;
+  font-size:26px;font-weight:400;line-height:1.45;
+  color:#3a3128;letter-spacing:-.01em;
+  font-variation-settings:'opsz' 30,'SOFT' 35;
+  margin-bottom:14px;
+}
+.ob-sub{
+  font-size:13px;font-weight:400;color:#9c9080;
+  line-height:1.7;letter-spacing:.01em;
+  margin-bottom:0;
+}
+.ob-dot-row{
+  display:flex;gap:7px;margin-top:52px;
+}
+.ob-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#d5cdc0;transition:background .3s ease;
+}
+.ob-dot.on{background:#b8924a;}
+.ob-btn{
+  margin-top:52px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Fraunces',serif;font-size:14px;font-weight:400;
+  color:#9c9080;letter-spacing:.06em;
+  padding:10px 0;
+  font-variation-settings:'opsz' 16,'SOFT' 30;
+  transition:color .22s ease;
+}
+.ob-btn:hover,.ob-btn:focus{color:#3a3128;}
+.ob-begin{
+  margin-top:52px;
+  background:#3a3128;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:400;
+  color:#f3eee7;letter-spacing:.14em;text-transform:uppercase;
+  padding:14px 36px;border-radius:100px;
+  transition:background .28s ease,opacity .28s ease;
+  opacity:.92;
+}
+.ob-begin:hover,.ob-begin:focus{opacity:1;}
+.ob-skip{
+  position:absolute;bottom:40px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:300;
+  color:#b5a99a;letter-spacing:.08em;
+  padding:8px;transition:color .2s;
+}
+.ob-skip:hover{color:#9c9080;}
+.ob-dot-wrap{display:flex;flex-direction:column;align-items:center;}
+
+
 /* ── EYEBROW — short gold rule + spaced caps ── */
 .eb{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
 .eb-r{width:20px;height:1px;background:#b8924a;flex-shrink:0;}
@@ -701,11 +767,87 @@ const TABS=[
 ];
 
 // ── APP ───────────────────────────────────────────────────────
+// ── ONBOARDING ────────────────────────────────────────────────
+const OB_SCREENS = [
+  {
+    line: 'A quiet space\nfor your inner life.',
+    sub:  '',
+  },
+  {
+    line: 'Return gently\nto yourself.',
+    sub:  'Each day, one breath.\nOne verse. One moment of stillness.',
+  },
+  {
+    line: 'Begin\nwhenever you are ready.',
+    sub:  '',
+  },
+];
+
+function Onboarding({onDone}){
+  const [step,setStep]=useState(0);
+  const [leaving,setLeaving]=useState(false);
+  const [stepKey,setStepKey]=useState(0); // remount slide on step change
+
+  function next(){
+    if(step<OB_SCREENS.length-1){
+      setStep(s=>s+1);
+      setStepKey(k=>k+1);
+    } else {
+      finish();
+    }
+  }
+
+  function finish(){
+    setLeaving(true);
+    setTimeout(onDone, 560);
+  }
+
+  const s = OB_SCREENS[step];
+  const isLast = step === OB_SCREENS.length - 1;
+
+  return h('div',{className:`ob-wrap${leaving?' leaving':''}`},
+    h('div',{key:stepKey,className:'ob-slide'},
+      h('div',{className:'ob-line'},
+        ...s.line.split('\n').reduce((acc,line,i)=>{
+          if(i>0) acc.push(h('br',{key:i}));
+          acc.push(line);
+          return acc;
+        },[])
+      ),
+      s.sub && h('div',{className:'ob-sub'},
+        ...s.sub.split('\n').reduce((acc,line,i)=>{
+          if(i>0) acc.push(h('br',{key:i}));
+          acc.push(line);
+          return acc;
+        },[])
+      ),
+    ),
+    h('div',{className:'ob-dot-wrap'},
+      isLast
+        ? h('button',{className:'ob-begin',onClick:finish},'Enter')
+        : h('button',{className:'ob-btn',onClick:next},'Continue'),
+      h('div',{className:'ob-dot-row'},
+        OB_SCREENS.map((_,i)=>h('div',{key:i,className:`ob-dot${i===step?' on':''}`}))
+      )
+    ),
+    h('button',{className:'ob-skip',onClick:finish},'skip')
+  );
+}
+
 function App(){
   const [tab,setTab]=useState('jap');
-  const [slideDir,setSlideDir]=useState(null); // 'l' | 'r' | null
+  const [slideDir,setSlideDir]=useState(null);
   const [state,setState]=useState(initState);
   const dispatch=useCallback(a=>setState(p=>reducer(p,a)),[]);
+
+  // First-open detection — show onboarding only when localStorage is empty
+  const [showOb,setShowOb]=useState(()=>load()===null);
+
+  function finishOnboarding(){
+    setShowOb(false);
+    // Persist a minimal state so onboarding never shows again
+    if(load()===null) persist(initState());
+  }
 
   const tabIds=TABS.map(t=>t.id);
   const touchRef=useRef({x:0,y:0,active:false});
@@ -763,6 +905,7 @@ function App(){
 
   return h(React.Fragment,null,
     h('style',null,CSS),
+    showOb && h(Onboarding,{onDone:finishOnboarding}),
     h('div',{
       className:`app${state.dark?' dk':''}`,
       onTouchStart,onTouchEnd,
