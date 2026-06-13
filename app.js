@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:20px 16px 90px;animation:fu .16s ease;}
+.pg{padding:20px 16px 130px;animation:fu .16s ease;}
 /* Wrapper for vertically centering the main content block below a fixed header */
 .pg-center{display:flex;flex-direction:column;gap:22px;margin-top:20px;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
@@ -212,13 +212,13 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:20px;padding:34px 24px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.gcard{background:#fff;border-radius:20px;padding:42px 28px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .gcard{background:#272219;}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
 .gverse{font-family:'Fraunces',serif;font-size:21px;font-weight:400;line-height:1.72;text-align:center;margin-bottom:28px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 28,'SOFT' 35;}
-.gdot{display:flex;align-items:center;justify-content:center;gap:10px;margin:24px 0;}
+.gdot{display:flex;align-items:center;justify-content:center;gap:10px;margin:26px 0;}
 .gdot-line{width:32px;height:1px;background:#ede8df;}
 .gdot-mark{font-size:13px;color:#c4a267;line-height:1;}
 .glbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;text-align:center;margin-bottom:14px;}
@@ -229,7 +229,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:30px 24px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:16px;}
+.dcard{background:#fff;border-radius:20px;padding:28px 22px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:16px;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -252,10 +252,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:20px;padding:24px 22px 22px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.rfcard{background:#fff;border-radius:20px;padding:30px 22px 34px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:12px;font-variation-settings:'opsz' 16,'SOFT' 35;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:22px;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
