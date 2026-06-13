@@ -102,6 +102,37 @@ function haptic(kind){
   }catch(e){}
 }
 
+// ── BEAD TAP SOUND ────────────────────────────────────────────
+// Tiny synthesized wooden "click" — no audio file needed.
+// Extremely low volume, short decay, mobile-only (gestures unlock AudioContext).
+let _beadCtx=null;
+function playBeadTap(){
+  try{
+    if(typeof window==='undefined') return;
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC) return;
+    if(!_beadCtx) _beadCtx=new AC();
+    if(_beadCtx.state==='suspended') _beadCtx.resume();
+
+    const ctx=_beadCtx;
+    const now=ctx.currentTime;
+
+    const osc=ctx.createOscillator();
+    osc.type='sine';
+    osc.frequency.setValueAtTime(420,now);
+    osc.frequency.exponentialRampToValueAtTime(180,now+0.05);
+
+    const gain=ctx.createGain();
+    gain.gain.setValueAtTime(0.0001,now);
+    gain.gain.exponentialRampToValueAtTime(0.045,now+0.006); // very low volume
+    gain.gain.exponentialRampToValueAtTime(0.0001,now+0.07); // quick soft decay
+
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now+0.08);
+  }catch(e){}
+}
+
 // ── CSS ───────────────────────────────────────────────────────
 // Every value derived from careful reading of the reference screenshots.
 // No interpretation — pure extraction.
@@ -202,15 +233,22 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 }
 .ring-wave.go{ animation:wave 1.1s cubic-bezier(0,0,.2,1) forwards; }
 @keyframes wave{
-  0%{opacity:.5; transform:scale(1);}
-  70%{opacity:.18; transform:scale(10);}
-  100%{opacity:0; transform:scale(14);}
+  0%{opacity:.45; transform:scale(1);}
+  55%{opacity:.32; transform:scale(8);}
+  85%{opacity:.16; transform:scale(13);}
+  100%{opacity:0; transform:scale(14.5);}
 }
 .prog-arc.catch{animation:arcCatch .45s ease-out;}
 @keyframes arcCatch{
   0%{stroke-width:2; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
   35%{stroke-width:3.2; filter:drop-shadow(0 0 4px rgba(184,146,74,.5));}
   100%{stroke-width:2; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
+}
+.outer-ring.catch{animation:outerCatch .45s ease-out;}
+@keyframes outerCatch{
+  0%{opacity:1; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
+  40%{opacity:.85; filter:drop-shadow(0 0 5px rgba(184,146,74,.35));}
+  100%{opacity:1; filter:drop-shadow(0 0 0 rgba(184,146,74,0));}
 }
 
 /* ── TOP-RIGHT ICON BUTTONS ── */
@@ -402,6 +440,7 @@ function JapPage({state,dispatch}){
   const pRef=useRef(null);
   const wRef=useRef(null);
   const arcRef=useRef(null);
+  const outerRef=useRef(null);
   const R=140, OUTER_R=158, circ=2*Math.PI*OUTER_R, ofs=circ*(1-count/108), done=count>=108;
 
   const [pulses,setPulses]=useState([]);
@@ -409,9 +448,16 @@ function JapPage({state,dispatch}){
     if(done)return;
     dispatch({type:'TAP'});
     haptic('light');
+    if(state.beadSound) playBeadTap();
     if(pRef.current){pRef.current.classList.remove('go');void pRef.current.offsetWidth;pRef.current.classList.add('go');}
     if(wRef.current){wRef.current.classList.remove('go');void wRef.current.offsetWidth;wRef.current.classList.add('go');}
     if(arcRef.current){arcRef.current.classList.remove('catch');void arcRef.current.getBBox&&arcRef.current.getBBox();arcRef.current.classList.add('catch');}
+    if(outerRef.current){
+      const el=outerRef.current;
+      el.classList.remove('catch');
+      setTimeout(()=>el.classList.add('catch'),650);
+      setTimeout(()=>el.classList.remove('catch'),1100);
+    }
     const id=Date.now();
     setPulses(p=>[...p,id]);
     setTimeout(()=>setPulses(p=>p.filter(x=>x!==id)),700);
@@ -447,7 +493,7 @@ function JapPage({state,dispatch}){
       h('div',{ref:wRef,className:'ring-wave'}),
       pulses.map(id=>h('div',{key:id,className:'plus-one'},'+1')),
       h('svg',{viewBox:'0 0 336 336',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
-        h('circle',{cx:168,cy:168,r:158,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
+        h('circle',{ref:outerRef,className:'outer-ring',cx:168,cy:168,r:158,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
         h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
         count>0&&h('circle',{ref:arcRef,className:'prog-arc',cx:168,cy:168,r:OUTER_R,fill:'none',stroke:'#b8924a',strokeWidth:'2',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 168 168)',
