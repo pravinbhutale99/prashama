@@ -96,9 +96,9 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk{background:#1b1814;color:#e4ddd4;}
 
 /* ── PAGE ── */
-.pg{padding:20px 10px 90px;animation:fu .16s ease;}
+.pg{padding:20px 16px 90px;animation:fu .16s ease;}
 /* Wrapper for vertically centering the main content block below a fixed header */
-.pg-center{display:flex;flex-direction:column;margin-top:28px;flex:1;justify-content:space-between;}
+.pg-center{display:flex;flex-direction:column;gap:22px;margin-top:20px;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
@@ -212,12 +212,12 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:20px;padding:40px 26px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.gcard{background:#fff;border-radius:20px;padding:34px 24px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
 .app.dk .gcard{background:#272219;}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
 .gsrc-t{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#b8924a;}
-.gverse{font-family:'Fraunces',serif;font-size:21px;font-weight:400;line-height:1.85;text-align:center;margin-bottom:28px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 28,'SOFT' 35;}
+.gverse{font-family:'Fraunces',serif;font-size:21px;font-weight:400;line-height:1.72;text-align:center;margin-bottom:28px;letter-spacing:0;color:#3a3128;font-variation-settings:'opsz' 28,'SOFT' 35;}
 .gdot{display:flex;align-items:center;justify-content:center;gap:10px;margin:24px 0;}
 .gdot-line{width:32px;height:1px;background:#ede8df;}
 .gdot-mark{font-size:13px;color:#c4a267;line-height:1;}
@@ -225,7 +225,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gq{font-family:'Fraunces',serif;font-size:19px;font-style:italic;font-weight:400;line-height:1.8;text-align:center;color:#3a3128;font-variation-settings:'opsz' 24,'SOFT' 35;}
 .gstep{font-size:15px;font-weight:400;line-height:1.95;text-align:center;color:#28211a;letter-spacing:.005em;}
 .app.dk .gstep{color:#ccc6bc;}
-.gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:36px;margin-bottom:20px;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 30;}
+.gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:14px;margin-bottom:0;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 30;}
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
@@ -470,7 +470,7 @@ function GuidancePage({state,dispatch}){
   // ── RESULT ──
   if(showResult && sel && WISDOM[sel]){
     const w=WISDOM[sel];
-    return h('div',{className:'pg',style:{display:'flex',flexDirection:'column',minHeight:'calc(100vh - 110px)'}},
+    return h('div',{className:'pg'},
       h('button',{className:'back-btn',onClick:back},'← back'),
       h('div',{className:'pg-center'},
         h(Eb,{t:'You feel',center:true}),
