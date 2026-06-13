@@ -229,7 +229,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:28px 22px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:16px;}
+.dcard{background:#fff;border-radius:20px;padding:28px 22px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -245,14 +245,14 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
 .app.dk .dico{background:#2e2820;border-color:#38322a;}
 /* Reminder card */
-.remcard{background:#fff;border-radius:18px;padding:20px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.remcard{background:#fff;border-radius:18px;padding:22px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 .app.dk .remcard{background:#272219;}
 .remico{width:34px;height:34px;border-radius:100px;background:#f6f3ec;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .app.dk .remico{background:#312b25;}
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:20px;padding:30px 22px 34px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;}
+.rfcard{background:#fff;border-radius:20px;padding:30px 22px 34px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
 .rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:22px;font-variation-settings:'opsz' 16,'SOFT' 35;}
@@ -264,7 +264,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .savebtn{width:100%;padding:12px;border-radius:100px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;cursor:pointer;transition:background .15s;background:#c8c2b8;color:#fff;margin-top:2px;}
 .savebtn.on{background:#b8924a;}
 /* Past reflections */
-.past-hdr{display:flex;align-items:center;gap:8px;margin:18px 0 10px;}
+.past-hdr{display:flex;align-items:center;gap:8px;margin:26px 0 10px;}
 .past-line{flex:1;height:1px;background:#e8e2d8;}
 .app.dk .past-line{background:#38322a;}
 .past-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;}
