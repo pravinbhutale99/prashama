@@ -97,6 +97,8 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── PAGE ── */
 .pg{padding:20px 16px 130px;animation:fu .16s ease;}
+.today-page{padding-top:52px;}
+.reflection-page{padding-top:48px;}
 /* Wrapper for vertically centering the main content block below a fixed header */
 .pg-center{display:flex;flex-direction:column;gap:22px;margin-top:20px;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
@@ -229,7 +231,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:28px 22px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;}
+.dcard{background:#fff;border-radius:20px;padding:34px 28px 38px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;}
 .app.dk .dcard{background:#272219;}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -252,7 +254,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:20px;padding:30px 22px 34px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;}
+.rfcard{background:#fff;border-radius:20px;padding:38px 30px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;}
 .app.dk .rfcard{background:#272219;}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:4px;display:block;}
 .rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:22px;font-variation-settings:'opsz' 16,'SOFT' 35;}
@@ -520,7 +522,7 @@ function TodayPage({dark}){
     else navigator.clipboard?.writeText(t).then(()=>alert('Copied'));
   }
 
-  return h('div',{className:'pg'},
+  return h('div',{className:'pg today-page'},
     h(Eb,{t:eyebrow}),
     h('div',{className:'ttl'},"Today's Dharma"),
     h('p',{className:'sub'},'One verse. One breath at a time.'),
@@ -566,7 +568,7 @@ function ReflectionPage({state,dispatch}){
   const cutoff=new Date(); cutoff.setDate(cutoff.getDate()-30);
   const recent=(state.reflections||[]).filter(r=>new Date(r.date)>=cutoff).slice(-5).reverse();
 
-  return h('div',{className:'pg'},
+  return h('div',{className:'pg reflection-page'},
     h(Eb,{t:'Reflection'}),
     h('div',{className:'ttl'},'Three quiet gratitudes'),
     h('p',{className:'sub'},'A small, soft ritual. Write only what comes easily.'),
