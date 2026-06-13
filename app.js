@@ -153,17 +153,18 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 
 /* ── PAGE ── */
-.pg{padding:20px 16px 90px;animation:fu .16s ease;}
+.pg{padding:20px 16px 90px;animation:fu .32s cubic-bezier(.4,0,.2,1);}
 .today-page{padding-top:52px;}
 .reflection-page{padding-top:48px;}
 .jap-page{padding-bottom:72px;}
 /* Wrapper for vertically centering the main content block below a fixed header */
 .pg-center{display:flex;flex-direction:column;gap:22px;margin-top:20px;}
-@keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideInL{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideInR{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
-.pg.slide-l{animation:slideInL .22s cubic-bezier(.22,.61,.36,1)!important;}
-.pg.slide-r{animation:slideInR .22s cubic-bezier(.22,.61,.36,1)!important;}
+@keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideInL{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInR{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
+.pg.slide-l{animation:slideInL .28s cubic-bezier(.4,0,.2,1)!important;}
+.pg.slide-r{animation:slideInR .28s cubic-bezier(.4,0,.2,1)!important;}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
 .eb{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
@@ -271,17 +272,17 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .app.dk .trow{border-color:#38322a;}
 .trow:last-child{border-bottom:none;}
 .trow-l{display:flex;align-items:center;gap:8px;}
-.tog{width:40px;height:23px;border-radius:100px;border:none;cursor:pointer;position:relative;transition:background .15s;flex-shrink:0;}
+.tog{width:40px;height:23px;border-radius:100px;border:none;cursor:pointer;position:relative;transition:background .22s ease;flex-shrink:0;}
 .tog.off{background:#cec9c0;}
 .tog.on{background:#b8924a;}
-.tog-k{position:absolute;top:2.5px;left:2.5px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.14);}
+.tog-k{position:absolute;top:2.5px;left:2.5px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .22s cubic-bezier(.4,0,.2,1);box-shadow:0 1px 2px rgba(0,0,0,.14);}
 .tog.on .tog-k{transform:translateX(17px);}
 .sh-note{font-size:11px;color:#9c9080;margin-top:16px;line-height:1.6;padding:0 2px;}
 
 /* ── EMOTION GRID ── */
 /* Reference: tall cards ~130px, dot top-left, label bottom-left serif */
 .egrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
-.ecard{background:#faf7f2;border-radius:15px;padding:14px 14px 15px;min-height:128px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;border:1.5px solid transparent;transition:border-color .12s;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+.ecard{background:#faf7f2;border-radius:15px;padding:14px 14px 15px;min-height:128px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;border:1.5px solid transparent;transition:border-color .25s ease,background .25s ease;box-shadow:0 1px 2px rgba(0,0,0,.03);}
 .app.dk .ecard{background:#272219;}
 .app.dk .elbl{color:rgba(243,238,231,.92);}
 .app.dk .ecard.on{border-color:#caa56a;background:#2e2419;}
@@ -292,7 +293,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:20px;padding:34px 24px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;width:100%;}
+.gcard{background:#fff;border-radius:20px;padding:34px 24px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .1s both;}
 .app.dk .gcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
@@ -309,7 +310,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;width:100%;}
+.dcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
 .app.dk .dcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -325,23 +326,23 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
 .app.dk .dico{background:#2e2820;border-color:#38322a;}
 /* Reminder card */
-.remcard{background:#fff;border-radius:18px;padding:22px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.remcard{background:#fff;border-radius:18px;padding:22px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);animation:cardIn .36s cubic-bezier(.4,0,.2,1) .14s both;}
 .app.dk .remcard{background:#272219;}
 .remico{width:34px;height:34px;border-radius:100px;background:#f6f3ec;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .app.dk .remico{background:#312b25;}
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;}
+.rfcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
 .app.dk .rfcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:6px;margin-top:8px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .14s;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .22s ease;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
 .app.dk .rfin::placeholder{color:#5c554e;}
 /* Save button: grey until active */
-.savebtn{width:100%;padding:12px;border-radius:100px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;cursor:pointer;transition:background .15s;background:#c8c2b8;color:#fff;margin-top:2px;}
+.savebtn{width:100%;padding:12px;border-radius:100px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:300;cursor:pointer;transition:background .28s ease,opacity .28s ease;background:#c8c2b8;color:#fff;margin-top:2px;}
 .savebtn.on{background:#b8924a;}
 /* Past reflections */
 .past-hdr{display:flex;align-items:center;gap:8px;margin:40px 0 14px;}
@@ -358,7 +359,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:492px;z-index:100;}
 .nav{background:#fff;border-radius:100px;display:flex;padding:4px;box-shadow:0 2px 20px rgba(0,0,0,.07);}
 .app.dk .nav{background:#1e1b17;}
-.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .12s;letter-spacing:.01em;}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .22s ease;letter-spacing:.01em;}
 .nb.on{color:#b8924a;}
 .nb svg{width:17px;height:17px;}
 `;
@@ -497,7 +498,7 @@ function JapPage({state,dispatch}){
         h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
         count>0&&h('circle',{ref:arcRef,className:'prog-arc',cx:168,cy:168,r:OUTER_R,fill:'none',stroke:'#b8924a',strokeWidth:'2',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 168 168)',
-          style:{transition:'stroke-dashoffset .3s ease'}})
+          style:{transition:'stroke-dashoffset .4s cubic-bezier(.4,0,.2,1)'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
         done
