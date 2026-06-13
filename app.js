@@ -143,8 +143,8 @@ html,body,#root{height:100%;}
 body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;color:#28211a;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 
 /* ── APP SHELL ── */
-.app{width:100%;max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#f6f3ec;color:#1a1612;position:relative;}
-.app.dk{background:#0f0b08;color:#f3eee7;}
+.app{width:100%;max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:radial-gradient(ellipse 80% 60% at 50% 0%,#f0e8d8 0%,#f5f1e8 55%,#f5f1e8 100%);color:#1a1612;position:relative;}
+.app.dk{background:radial-gradient(ellipse 80% 50% at 50% 0%,#1e170e 0%,#0f0b08 50%,#0f0b08 100%);color:#f3eee7;}
 .app.dk .ttl,.app.dk .ttl-xl,.app.dk .ttl-em{color:#f3eee7;}
 .app.dk .sub{color:rgba(243,238,231,.58);}
 .app.dk .gverse,.app.dk .gq,.app.dk .dmt{color:rgba(243,238,231,.9);}
@@ -171,7 +171,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 @keyframes obOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-6px)}}
 .ob-wrap{
   position:fixed;inset:0;z-index:200;
-  background:#f2ede4;
+  background:#f5f1e8;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:48px 32px 64px;
   transition:opacity .55s ease;
@@ -326,10 +326,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── SETTINGS SHEET ── */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:200;display:flex;align-items:flex-end;justify-content:center;}
-.sh{width:100%;max-width:430px;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 38px;max-height:80vh;overflow-y:auto;}
+.sh{width:100%;max-width:430px;background:#fdfcf9;border-radius:22px 22px 0 0;padding:18px 18px 38px;max-height:80vh;overflow-y:auto;box-shadow:0 -4px 32px rgba(30,20,10,.08);}
 .app.dk .sh{background:#272219;}
 .sh-drag{width:32px;height:3px;border-radius:2px;background:#ddd8ce;margin:0 auto 16px;}
-.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17px;font-weight:400;background:#f5f0e8;border:1.5px solid transparent;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:11px;margin-bottom:7px;cursor:pointer;font-family:'Fraunces',serif;font-size:17px;font-weight:400;background:#f3ede2;border:1.5px solid transparent;color:#3a3128;font-variation-settings:'opsz' 18,'SOFT' 35;}
 .app.dk .mrow{background:#312b25;color:#e4ddd4;}
 .mrow.on{border-color:#b8924a;}
 .madd{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:11px;margin-bottom:18px;cursor:pointer;font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:#9c9080;background:#f5f0e8;}
@@ -348,7 +348,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── EMOTION GRID ── */
 /* Reference: tall cards ~130px, dot top-left, label bottom-left serif */
 .egrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
-.ecard{background:#faf7f2;border-radius:15px;padding:14px 14px 15px;min-height:128px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;border:1.5px solid transparent;transition:border-color .25s ease,background .25s ease;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+.ecard{background:#faf7f2;border-radius:15px;padding:14px 14px 15px;min-height:128px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;border:1.5px solid transparent;transition:border-color .25s ease,background .25s ease;box-shadow:0 2px 8px rgba(30,20,10,.05);}
 .app.dk .ecard{background:#272219;}
 .app.dk .elbl{color:rgba(243,238,231,.92);}
 .app.dk .ecard.on{border-color:#caa56a;background:#2e2419;}
@@ -359,7 +359,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:20px;padding:34px 24px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .1s both;}
+.gcard{background:#fdfcf9;border-radius:20px;padding:34px 24px 30px;box-shadow:0 2px 8px rgba(30,20,10,.05),0 8px 28px rgba(30,20,10,.04);margin-bottom:0;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .1s both;}
 .app.dk .gcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
@@ -376,7 +376,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
 
 /* ── DHARMA CARD ── */
-.dcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:28px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
+.dcard{background:#fdfcf9;border-radius:20px;padding:40px 28px 42px;box-shadow:0 2px 8px rgba(30,20,10,.05),0 8px 28px rgba(30,20,10,.04);margin-bottom:28px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
 .app.dk .dcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .dsrc{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#b8924a;margin-bottom:18px;}
 .dsrc::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#b8924a;flex-shrink:0;}
@@ -392,14 +392,14 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .dico{width:36px;height:36px;border-radius:100px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;border:1px solid #e8e2d8;}
 .app.dk .dico{background:#2e2820;border-color:#38322a;}
 /* Reminder card */
-.remcard{background:#fff;border-radius:18px;padding:22px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);animation:cardIn .36s cubic-bezier(.4,0,.2,1) .14s both;}
+.remcard{background:#fdfcf9;border-radius:18px;padding:22px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 8px rgba(30,20,10,.05),0 8px 28px rgba(30,20,10,.03);animation:cardIn .36s cubic-bezier(.4,0,.2,1) .14s both;}
 .app.dk .remcard{background:#272219;}
 .remico{width:34px;height:34px;border-radius:100px;background:#f6f3ec;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .app.dk .remico{background:#312b25;}
 
 /* ── REFLECTION CARD ── */
 /* Matches ref exactly: white card, underline inputs, Cormorant italic placeholder */
-.rfcard{background:#fff;border-radius:20px;padding:40px 28px 42px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:42px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
+.rfcard{background:#fdfcf9;border-radius:20px;padding:40px 28px 42px;box-shadow:0 2px 8px rgba(30,20,10,.05),0 8px 28px rgba(30,20,10,.04);margin-bottom:42px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
 .app.dk .rfcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:6px;margin-top:8px;display:block;}
 .rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .22s ease;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;}
@@ -423,7 +423,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── BOTTOM NAV — floating pill exactly as reference ── */
 /* Reference: white rounded pill, shadow, no active bg — only color change */
 .nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:492px;z-index:100;}
-.nav{background:#fff;border-radius:100px;display:flex;padding:4px;box-shadow:0 2px 20px rgba(0,0,0,.07);}
+.nav{background:#fdfcf9;border-radius:100px;display:flex;padding:4px;box-shadow:0 4px 28px rgba(30,20,10,.09),0 1px 4px rgba(30,20,10,.05);}
 .app.dk .nav{background:#1e1b17;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .22s ease;letter-spacing:.01em;}
 .nb.on{color:#b8924a;}
