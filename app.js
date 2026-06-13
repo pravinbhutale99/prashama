@@ -84,6 +84,15 @@ function reducer(state,action){
 
 // ── HAPTICS ───────────────────────────────────────────────────
 // Light, native-feeling vibration. No-ops on desktop/unsupported devices.
+// ── COMPACT NUMBER FORMAT ─────────────────────────────────────
+// 11958 -> "11.9K", 120000 -> "120K", 950 -> "950"
+function compactNum(n){
+  if(n>=1000000) return (n/1000000).toFixed(n%1000000===0?0:1)+'M';
+  if(n>=10000)   return Math.round(n/1000)+'K';
+  if(n>=1000)    return (n/1000).toFixed(1)+'K';
+  return String(n);
+}
+
 function haptic(kind){
   try{
     if(typeof navigator==='undefined'||!navigator.vibrate) return;
@@ -463,6 +472,9 @@ function JapPage({state,dispatch}){
       onClick:()=>{if(window.confirm("Reset today's count?"))dispatch({type:'RESET_DAY'});},
       style:{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,color:'#9c9080',fontSize:12,fontFamily:'Inter,sans-serif',fontWeight:300}},
       h(SvgRst),' Reset today'
+    ),
+    h('div',{style:{marginTop:14,fontSize:10,fontWeight:500,letterSpacing:'.16em',textTransform:'uppercase',color:'#bdb3a4',fontVariantNumeric:'tabular-nums'}},
+      `${compactNum(state.totalCount)} lifetime`
     ),
     done&&h('div',{style:{marginTop:24,textAlign:'center'}},
       h('div',{style:{fontFamily:'Fraunces,serif',fontSize:17,fontWeight:500,color:'#b8924a',marginBottom:14,fontVariationSettings:"'opsz' 18,'SOFT' 35"}},'Mala complete'),
