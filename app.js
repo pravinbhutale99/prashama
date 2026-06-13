@@ -82,6 +82,17 @@ function reducer(state,action){
   persist(n); return n;
 }
 
+// ── HAPTICS ───────────────────────────────────────────────────
+// Light, native-feeling vibration. No-ops on desktop/unsupported devices.
+function haptic(kind){
+  try{
+    if(typeof navigator==='undefined'||!navigator.vibrate) return;
+    if(kind==='light') navigator.vibrate(8);
+    else if(kind==='select') navigator.vibrate(4);
+    else if(kind==='success') navigator.vibrate([6,30,10]);
+  }catch(e){}
+}
+
 // ── CSS ───────────────────────────────────────────────────────
 // Every value derived from careful reading of the reference screenshots.
 // No interpretation — pure extraction.
@@ -109,6 +120,10 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* Wrapper for vertically centering the main content block below a fixed header */
 .pg-center{display:flex;flex-direction:column;gap:22px;margin-top:20px;}
 @keyframes fu{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideInL{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInR{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+.pg.slide-l{animation:slideInL .22s cubic-bezier(.22,.61,.36,1)!important;}
+.pg.slide-r{animation:slideInR .22s cubic-bezier(.22,.61,.36,1)!important;}
 
 /* ── EYEBROW — short gold rule + spaced caps ── */
 .eb{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
@@ -374,6 +389,7 @@ function JapPage({state,dispatch}){
   function tap(){
     if(done)return;
     dispatch({type:'TAP'});
+    haptic('light');
     if(pRef.current){pRef.current.classList.remove('go');void pRef.current.offsetWidth;pRef.current.classList.add('go');}
     if(wRef.current){wRef.current.classList.remove('go');void wRef.current.offsetWidth;wRef.current.classList.add('go');}
     const id=Date.now();
@@ -463,7 +479,7 @@ function GuidancePage({state,dispatch}){
     }
   },[]);
 
-  function choose(id){setSel(id);}
+  function choose(id){haptic('select');setSel(id);}
 
   function receive(){
     if(!sel||!WISDOM[sel])return;
@@ -519,7 +535,8 @@ function GuidancePage({state,dispatch}){
 // ── TODAY PAGE ────────────────────────────────────────────────
 function TodayPage({dark}){
   const v=getDayVerse();
-  const [reminder,setReminder]=useState(false);
+  const [reminder,setReminderRaw]=useState(false);
+  const setReminder=v=>{haptic('light');setReminderRaw(v);};
   const d=new Date();
   const eyebrow=`${d.toLocaleDateString('en-US',{weekday:'long'}).toUpperCase()}, ${d.toLocaleDateString('en-US',{month:'long',day:'numeric'}).toUpperCase()}`;
 
@@ -568,6 +585,7 @@ function ReflectionPage({state,dispatch}){
   function doSave(){
     if(!has)return;
     dispatch({type:'SAVE_REFL',p:{date:new Date().toISOString(),grateful:g,peaceful:p,lesson:l}});
+    haptic('success');
     setG('');setP('');setL('');setSaved(true);
     setTimeout(()=>setSaved(false),2000);
   }
@@ -615,8 +633,50 @@ const TABS=[
 // ── APP ───────────────────────────────────────────────────────
 function App(){
   const [tab,setTab]=useState('jap');
+  const [slideDir,setSlideDir]=useState(null); // 'l' | 'r' | null
   const [state,setState]=useState(initState);
   const dispatch=useCallback(a=>setState(p=>reducer(p,a)),[]);
+
+  const tabIds=TABS.map(t=>t.id);
+  const touchRef=useRef({x:0,y:0,active:false});
+
+  function goTab(nextTab,dir){
+    if(nextTab===tab) return;
+    setSlideDir(dir);
+    setTab(nextTab);
+    haptic('select');
+  }
+
+  function onTouchStart(e){
+    const t=e.touches[0];
+    touchRef.current={x:t.clientX,y:t.clientY,active:true};
+  }
+  function onTouchMove(e){
+    // no-op: we decide on touchend to avoid interfering with vertical scroll
+  }
+  function onTouchEnd(e){
+    const ref=touchRef.current;
+    if(!ref.active) return;
+    ref.active=false;
+    const t=e.changedTouches[0];
+    const dx=t.clientX-ref.x;
+    const dy=t.clientY-ref.y;
+    // Require a clearly horizontal, intentional swipe
+    if(Math.abs(dx)<48||Math.abs(dx)<Math.abs(dy)*1.4) return;
+
+    const idx=tabIds.indexOf(tab);
+    if(dx<0){ // swipe left -> next tab
+      if(idx<tabIds.length-1) goTab(tabIds[idx+1],'l');
+    }else{ // swipe right -> previous tab
+      if(idx>0) goTab(tabIds[idx-1],'r');
+    }
+  }
+
+  useEffect(()=>{
+    if(!slideDir) return;
+    const t=setTimeout(()=>setSlideDir(null),240);
+    return ()=>clearTimeout(t);
+  },[tab]);
 
   const pages={
     jap:     h(JapPage,{state,dispatch}),
@@ -625,13 +685,27 @@ function App(){
     reflect: h(ReflectionPage,{state,dispatch}),
   };
 
+  const pgEl=pages[tab];
+  const slideClass=slideDir==='l'?' slide-l':slideDir==='r'?' slide-r':'';
+  const pgWithSlide=slideClass
+    ? React.cloneElement(pgEl,{className:`${pgEl.props.className||''}${slideClass}`})
+    : pgEl;
+
   return h(React.Fragment,null,
     h('style',null,CSS),
-    h('div',{className:`app${state.dark?' dk':''}`},
-      pages[tab],
+    h('div',{
+      className:`app${state.dark?' dk':''}`,
+      onTouchStart,onTouchEnd,
+      style:{touchAction:'pan-y'}
+    },
+      pgWithSlide,
       h('div',{className:'nav-wrap'},
         h('nav',{className:'nav'},
-          TABS.map(t=>h('button',{key:t.id,className:`nb${tab===t.id?' on':''}`,onClick:()=>setTab(t.id)},
+          TABS.map(t=>h('button',{key:t.id,className:`nb${tab===t.id?' on':''}`,onClick:()=>{
+            if(t.id===tab) return;
+            const idx=tabIds.indexOf(tab), nidx=tabIds.indexOf(t.id);
+            goTab(t.id, nidx>idx?'l':'r');
+          }},
             h(t.I), t.label
           ))
         )
