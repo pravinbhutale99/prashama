@@ -250,6 +250,8 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* ── STAT PILLS ── */
 .pills{display:flex;gap:10px;width:100%;margin-top:46px;margin-bottom:34px;}
 .pill{flex:1;background:#efece4;border-radius:100px;padding:13px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.pill-warm{background:#f0e8d4;}
+.pill-warm .pv{color:#b8924a;}
 .app.dk .pill{background:#272219;}
 .pv{font-family:'Fraunces',serif;font-size:27px;font-weight:600;line-height:1;color:#1a1612;font-variation-settings:'opsz' 28,'SOFT' 35;font-variant-numeric:tabular-nums;}
 .app.dk .pv{color:#e4ddd4;}
@@ -550,8 +552,8 @@ function JapPage({state,dispatch}){
     ),
     // stat pills
     h('div',{className:'pills'},
-      [{v:count,l:'Today'},{v:malas,l:'Malas'},{v:`${streak}d`,l:'Streak'}].map(s=>
-        h('div',{key:s.l,className:'pill'},h('div',{className:'pv'},s.v),h('div',{className:'pl'},s.l))
+      [{v:count,l:'Today',k:'today'},{v:malas,l:'Malas',k:'malas'},{v:`${streak}d`,l:'Streak',k:'streak'}].map(s=>
+        h('div',{key:s.k,className:`pill${s.k==='streak'&&streak>1?' pill-warm':''}`},h('div',{className:'pv'},s.v),h('div',{className:'pl'},s.l))
       )
     ),
     // ring — single ring, ref shows one circle with subtle tone
@@ -569,8 +571,8 @@ function JapPage({state,dispatch}){
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
         done
           ? h(React.Fragment,null,
-              h('div',{style:{fontSize:36}},'🙏'),
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:11,color:'#b8924a',marginTop:9,letterSpacing:'.1em',textTransform:'uppercase',fontWeight:400}})
+              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:32,fontWeight:400,letterSpacing:'0',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 36,'SOFT' 35",lineHeight:1.2}},'You\narrived.'),
+              h('div',{style:{fontSize:10,color:'#b8924a',marginTop:10,letterSpacing:'.12em',textTransform:'uppercase',fontWeight:400}},`${state.malas+1} mala`)
             )
           : h(React.Fragment,null,
               h('div',{style:{fontFamily:'Fraunces,serif',fontSize:38,fontWeight:500,letterSpacing:'0',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 44,'SOFT' 35"}},mantra||'Radhe'),
@@ -590,10 +592,10 @@ function JapPage({state,dispatch}){
       `${compactNum(state.totalCount)} lifetime`
     ),
     done&&h('div',{style:{marginTop:24,textAlign:'center'}},
-      h('div',{style:{fontFamily:'Fraunces,serif',fontSize:17,fontWeight:500,color:'#b8924a',marginBottom:14,fontVariationSettings:"'opsz' 18,'SOFT' 35"}},'Mala complete'),
+      h('div',{style:{fontFamily:'Fraunces,serif',fontSize:13,fontStyle:'italic',fontWeight:400,color:'#9c9080',lineHeight:1.8,marginBottom:20,fontVariationSettings:"'opsz' 16,'SOFT' 30"}},'Carry this stillness with you.'),
       h('button',{onClick:()=>dispatch({type:'NEW_MALA'}),
-        style:{background:'#b8924a',color:'#fff',border:'none',borderRadius:'100px',padding:'10px 24px',fontFamily:'Inter,sans-serif',fontSize:12,fontWeight:300,cursor:'pointer'}},
-        'Begin next mala')
+        style:{background:'none',border:'1px solid #e0d8cd',borderRadius:'100px',padding:'9px 22px',fontFamily:'Inter,sans-serif',fontSize:11,fontWeight:300,cursor:'pointer',color:'#9c9080',letterSpacing:'.08em'}},
+        'continue')
     ),
     sheet&&h(SettingsSheet,{state,dispatch,close:()=>setSheet(false)})
   );
@@ -723,7 +725,7 @@ function ReflectionPage({state,dispatch}){
     dispatch({type:'SAVE_REFL',p:{date:new Date().toISOString(),grateful:g,peaceful:p,lesson:l}});
     haptic('success');
     setG('');setP('');setL('');setSaved(true);
-    setTimeout(()=>setSaved(false),2000);
+    setTimeout(()=>setSaved(false),3500);
   }
 
   const cutoff=new Date(); cutoff.setDate(cutoff.getDate()-30);
@@ -740,8 +742,15 @@ function ReflectionPage({state,dispatch}){
       h('input',{className:'rfin',placeholder:'A pause that felt like home…',value:p,onChange:e=>setP(e.target.value)}),
       h('span',{className:'rflbl'},'One lesson'),
       h('input',{className:'rfin',placeholder:'What today gently taught me…',value:l,onChange:e=>setL(e.target.value),style:{marginBottom:48}}),
-      h('button',{className:`savebtn${has?' on':''}`,disabled:!has,onClick:doSave},saved?'Saved ✓':'Save reflection')
+      h('button',{className:`savebtn${has?' on':''}`,disabled:!has||saved,onClick:doSave},saved?'A quiet moment kept.':'Save reflection')
     ),
+    saved&&h('div',{style:{
+      textAlign:'center',padding:'18px 0 0',
+      fontFamily:'Fraunces,serif',fontSize:13,fontStyle:'italic',fontWeight:400,
+      color:'#b8924a',lineHeight:1.8,letterSpacing:'.01em',
+      animation:'fu .45s cubic-bezier(.4,0,.2,1)',
+      fontVariationSettings:"'opsz' 14,'SOFT' 30"
+    }},'Return whenever you need.'),
     h('div',{className:'past-hdr'},
       h('div',{className:'past-line'}),
       h('span',{className:'past-lbl'},'Past reflections'),
