@@ -134,14 +134,13 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
   width:24px; height:24px;
   margin:-12px 0 0 -12px;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(184,146,74,.25) 0%, rgba(184,146,74,0) 70%);
+  background:radial-gradient(circle, rgba(184,146,74,.22) 0%, rgba(184,146,74,0) 70%);
   opacity:0; pointer-events:none;
 }
-.ring-pulse.go{animation:rp .55s cubic-bezier(.22,.61,.36,1) forwards;}
+.ring-pulse.go{animation:rp .9s cubic-bezier(0,0,.2,1) forwards;}
 @keyframes rp{
-  0%{opacity:.7; transform:scale(.3);}
-  60%{opacity:.35; transform:scale(5.5);}
-  100%{opacity:0; transform:scale(8);}
+  0%{opacity:.6; transform:scale(.4);}
+  100%{opacity:0; transform:scale(13);}
 }
 
 .plus-one{
@@ -164,16 +163,17 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 /* Soft ring ripple expanding from center toward the ring edge */
 .ring-wave{
   position:absolute; top:50%; left:50%;
-  width:40px; height:40px;
-  margin:-20px 0 0 -20px;
+  width:24px; height:24px;
+  margin:-12px 0 0 -12px;
   border-radius:50%;
-  border:1px solid rgba(184,146,74,.4);
+  border:1px solid rgba(184,146,74,.38);
   opacity:0; pointer-events:none;
 }
-.ring-wave.go{ animation:wave .75s cubic-bezier(.22,.61,.36,1) forwards; }
+.ring-wave.go{ animation:wave 1.1s cubic-bezier(0,0,.2,1) forwards; }
 @keyframes wave{
-  0%{opacity:.55; transform:scale(1);}
-  100%{opacity:0; transform:scale(8.2);}
+  0%{opacity:.5; transform:scale(1);}
+  70%{opacity:.18; transform:scale(10);}
+  100%{opacity:0; transform:scale(14);}
 }
 
 /* ── TOP-RIGHT ICON BUTTONS ── */
@@ -361,7 +361,7 @@ function JapPage({state,dispatch}){
   const [sheet,setSheet]=useState(false);
   const pRef=useRef(null);
   const wRef=useRef(null);
-  const R=140, circ=2*Math.PI*R, ofs=circ*(1-count/108), done=count>=108;
+  const R=140, OUTER_R=158, circ=2*Math.PI*OUTER_R, ofs=circ*(1-count/108), done=count>=108;
 
   const [pulses,setPulses]=useState([]);
   function tap(){
@@ -406,9 +406,9 @@ function JapPage({state,dispatch}){
       h('svg',{viewBox:'0 0 336 336',width:'100%',height:'100%',style:{position:'absolute',top:0,left:0}},
         h('circle',{cx:168,cy:168,r:158,fill:'none',stroke:dark?'#2e2820':'#dedad2',strokeWidth:'1'}),
         h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:dark?'#38322a':'#d0cbc2',strokeWidth:'1'}),
-        count>0&&h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:'#b8924a',strokeWidth:'1.5',strokeLinecap:'round',
+        count>0&&h('circle',{cx:168,cy:168,r:OUTER_R,fill:'none',stroke:'#b8924a',strokeWidth:'2',strokeLinecap:'round',
           strokeDasharray:circ,strokeDashoffset:ofs,transform:'rotate(-90 168 168)',
-          style:{transition:'stroke-dashoffset .1s ease'}})
+          style:{transition:'stroke-dashoffset .3s ease'}})
       ),
       h('div',{style:{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none'}},
         done
