@@ -153,7 +153,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 
 /* ── PAGE ── */
-.pg{padding:20px 16px 100px;animation:fu .16s ease;padding-left:24px;padding-right:24px;}
+.pg{padding:20px 16px 90px;animation:fu .16s ease;}
 .today-page{padding-top:52px;}
 .reflection-page{padding-top:48px;}
 .jap-page{padding-bottom:72px;}
@@ -292,7 +292,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── GUIDANCE RESULT ── */
 /* White card, very roomy, verse centered Cormorant */
-.gcard{background:#fff;border-radius:20px;padding:42px 28px 40px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;width:100%;}
+.gcard{background:#fff;border-radius:20px;padding:34px 24px 30px;box-shadow:0 1px 6px rgba(0,0,0,.04);margin-bottom:0;width:100%;}
 .app.dk .gcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .gsrc{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;}
 .gsrc-l{width:26px;height:1px;background:#b8924a;flex-shrink:0;}
