@@ -230,7 +230,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 
 /* ── PAGE ── */
-.pg{padding:20px 16px 90px;animation:fu .32s cubic-bezier(.4,0,.2,1);}
+.pg{padding:calc(20px + env(safe-area-inset-top, 0px)) 16px 90px;animation:fu .32s cubic-bezier(.4,0,.2,1);}
 .today-page{padding-top:52px;}
 .reflection-page{padding-top:48px;}
 .jap-page{padding-bottom:72px;}
