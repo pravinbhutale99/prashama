@@ -49,24 +49,101 @@ function getDayVerse(){
 
 // ── PERSISTENCE ───────────────────────────────────────────────
 const SKEY='prashama_v1';
-function load(){try{return JSON.parse(localStorage.getItem(SKEY));}catch{return null;}}
-function persist(s){try{localStorage.setItem(SKEY,JSON.stringify(s));}catch{}}
+const DKEY='prashama_draft_v1';  // separate key for reflection drafts (high-write)
+const NKEY='prashama_nav_v1';    // separate key for last tab
+
+// ── SAFE LOAD ─────────────────────────────────────────────────
+function load(){
+  try{
+    const raw=localStorage.getItem(SKEY);
+    if(!raw)return null;
+    const parsed=JSON.parse(raw);
+    // sanity check — must be an object with at least a lastDate
+    if(typeof parsed!=='object'||parsed===null)return null;
+    return parsed;
+  }catch{return null;}
+}
+
+// ── DEBOUNCED PERSIST ─────────────────────────────────────────
+// During rapid tapping, we batch writes so localStorage isn't hit 108x per mala.
+// Non-TAP actions (settings, reflection save) write immediately.
+let _persistTimer=null;
+let _persistState=null;
+function persist(s,immediate=false){
+  _persistState=s;
+  if(immediate){
+    clearTimeout(_persistTimer);
+    _persistTimer=null;
+    try{localStorage.setItem(SKEY,JSON.stringify(s));}catch{}
+    return;
+  }
+  if(!_persistTimer){
+    _persistTimer=setTimeout(()=>{
+      _persistTimer=null;
+      if(_persistState){
+        try{localStorage.setItem(SKEY,JSON.stringify(_persistState));}catch{}
+      }
+    },400);
+  }
+}
+
+// ── DRAFT PERSISTENCE ─────────────────────────────────────────
+// High-frequency text input — kept separate from main state to avoid
+// polluting the reducer write cycle.
+function saveDraft(d){try{localStorage.setItem(DKEY,JSON.stringify(d));}catch{}}
+function loadDraft(){try{const r=localStorage.getItem(DKEY);return r?JSON.parse(r):{g:'',p:'',l:''};}catch{return{g:'',p:'',l:''};}}
+function clearDraft(){try{localStorage.removeItem(DKEY);}catch{}}
+
+// ── NAV PERSISTENCE ───────────────────────────────────────────
+function saveNav(tab){try{localStorage.setItem(NKEY,tab);}catch{}}
+function loadNav(){try{return localStorage.getItem(NKEY)||'jap';}catch{return'jap';}}
+
+// ── DATE HELPERS ──────────────────────────────────────────────
 function todayStr(){return new Date().toISOString().slice(0,10);}
-function wasYday(ds){if(!ds)return false;const y=new Date();y.setDate(y.getDate()-1);return ds===y.toISOString().slice(0,10);}
+function wasYday(ds){
+  if(!ds)return false;
+  const y=new Date();
+  y.setDate(y.getDate()-1);
+  return ds===y.toISOString().slice(0,10);
+}
+
+// ── STATE INIT ────────────────────────────────────────────────
+// Runs once synchronously before first render — no flicker.
 function initState(){
   const s=load(), t=todayStr(), nd=s&&s.lastDate!==t;
-  const base={count:0,malas:0,lastDate:t,totalCount:0,streak:0,reflections:[],lastGuidance:null,
-    mantra:'Radhe',mantras:[...DEFAULT_MANTRAS],dark:false,beadSound:true,haptic:true};
+  const base={
+    count:0,malas:0,lastDate:t,totalCount:0,streak:0,
+    reflections:[],lastGuidance:null,
+    mantra:'Radhe',mantras:[...DEFAULT_MANTRAS],
+    dark:false,beadSound:true,haptic:true
+  };
   if(!s)return base;
-  return{...base,...s,lastDate:t,
-    count:nd?0:s.count, malas:nd?0:s.malas,
-    streak:nd?(wasYday(s.lastDate)?(s.streak||0)+1:0):(s.streak||0),
-    mantras:s.mantras||[...DEFAULT_MANTRAS]};
+
+  // Daily rollover: reset count/malas, recalculate streak
+  // Streak only increments if yesterday had meaningful practice (count>0 OR malas>0)
+  const hadPractice=nd?(s.count>0||s.malas>0):true;
+  const newStreak=nd
+    ?(wasYday(s.lastDate)&&hadPractice?(s.streak||0)+1:0)
+    :(s.streak||0);
+
+  return{
+    ...base,...s,
+    lastDate:t,
+    count:nd?0:Math.min(s.count||0,108),
+    malas:nd?0:(s.malas||0),
+    totalCount:Math.max(s.totalCount||0,0),
+    streak:newStreak,
+    mantras:Array.isArray(s.mantras)&&s.mantras.length?s.mantras:[...DEFAULT_MANTRAS],
+    reflections:Array.isArray(s.reflections)?s.reflections.slice(-90):[],
+    dark:typeof s.dark==='boolean'?s.dark:false,
+    beadSound:typeof s.beadSound==='boolean'?s.beadSound:true,
+    haptic:typeof s.haptic==='boolean'?s.haptic:true,
+  };
 }
 function reducer(state,action){
   let n;
   switch(action.type){
-    case'TAP':        if(state.count>=108)return state; n={...state,count:state.count+1,totalCount:state.totalCount+1}; break;
+    case'TAP':        if(state.count>=108)return state; n={...state,count:state.count+1,totalCount:state.totalCount+1}; persist(n,false); return n;
     case'NEW_MALA':   n={...state,count:0,malas:state.malas+1}; break;
     case'RESET_DAY':  n={...state,count:0,malas:0}; break;
     case'SET_MANTRA': n={...state,mantra:action.v}; break;
@@ -76,10 +153,10 @@ function reducer(state,action){
     case'SET_BEAD':   n={...state,beadSound:action.v}; break;
     case'SET_HAPTIC': n={...state,haptic:action.v}; break;
     case'SET_GUIDANCE':n={...state,lastGuidance:action.p}; break;
-    case'SAVE_REFL':  n={...state,reflections:[...(state.reflections||[]),action.p]}; break;
+    case'SAVE_REFL':  n={...state,reflections:[...(state.reflections||[]),action.p].slice(-90)}; break;
     default: return state;
   }
-  persist(n); return n;
+  persist(n,true); return n;
 }
 
 // ── HAPTICS ───────────────────────────────────────────────────
@@ -722,16 +799,23 @@ function TodayPage({dark}){
 
 // ── REFLECTION PAGE ───────────────────────────────────────────
 function ReflectionPage({state,dispatch}){
-  const [g,setG]=useState('');
-  const [p,setP]=useState('');
-  const [l,setL]=useState('');
+  const draft=loadDraft();
+  const [g,setG]=useState(draft.g||'');
+  const [p,setP]=useState(draft.p||'');
+  const [l,setL]=useState(draft.l||'');
   const [saved,setSaved]=useState(false);
+
+  // Persist draft whenever input changes
+  function updateG(v){setG(v);saveDraft({g:v,p,l});}
+  function updateP(v){setP(v);saveDraft({g,p:v,l});}
+  function updateL(v){setL(v);saveDraft({g,p,l:v});}
   const has=!!(g.trim()||p.trim()||l.trim());
 
   function doSave(){
     if(!has)return;
     dispatch({type:'SAVE_REFL',p:{date:new Date().toISOString(),grateful:g,peaceful:p,lesson:l}});
     haptic('success');
+    clearDraft();
     setG('');setP('');setL('');setSaved(true);
     setTimeout(()=>setSaved(false),3500);
   }
@@ -745,11 +829,11 @@ function ReflectionPage({state,dispatch}){
     h('p',{className:'sub'},'A small, soft ritual. Write only what comes easily.'),
     h('div',{className:'rfcard'},
       h('span',{className:'rflbl'},'Grateful for'),
-      h('input',{className:'rfin',placeholder:'A quiet morning, an honest conversation…',value:g,onChange:e=>setG(e.target.value)}),
+      h('input',{className:'rfin',placeholder:'A quiet morning, an honest conversation…',value:g,onChange:e=>updateG(e.target.value)}),
       h('span',{className:'rflbl'},'Something peaceful'),
-      h('input',{className:'rfin',placeholder:'A pause that felt like home…',value:p,onChange:e=>setP(e.target.value)}),
+      h('input',{className:'rfin',placeholder:'A pause that felt like home…',value:p,onChange:e=>updateP(e.target.value)}),
       h('span',{className:'rflbl'},'One lesson'),
-      h('input',{className:'rfin',placeholder:'What today gently taught me…',value:l,onChange:e=>setL(e.target.value),style:{marginBottom:48}}),
+      h('input',{className:'rfin',placeholder:'What today gently taught me…',value:l,onChange:e=>updateL(e.target.value),style:{marginBottom:48}}),
       h('button',{className:`savebtn${has?' on':''}`,disabled:!has||saved,onClick:doSave},saved?'A quiet moment kept.':'Save reflection')
     ),
     saved&&h('div',{style:{
@@ -852,7 +936,7 @@ function Onboarding({onDone}){
 }
 
 function App(){
-  const [tab,setTab]=useState('jap');
+  const [tab,setTab]=useState(()=>loadNav());
   const [slideDir,setSlideDir]=useState(null);
   const [state,setState]=useState(initState);
   const dispatch=useCallback(a=>setState(p=>reducer(p,a)),[]);
@@ -862,8 +946,7 @@ function App(){
 
   function finishOnboarding(){
     setShowOb(false);
-    // Persist a minimal state so onboarding never shows again
-    if(load()===null) persist(initState());
+    if(load()===null) persist(initState(),true);
   }
 
   const tabIds=TABS.map(t=>t.id);
@@ -873,6 +956,7 @@ function App(){
     if(nextTab===tab) return;
     setSlideDir(dir);
     setTab(nextTab);
+    saveNav(nextTab);
     haptic('select');
   }
 
