@@ -659,7 +659,6 @@ function JapPage({state,dispatch}){
           )
         ),
         h('circle',{cx:168,cy:168,r:138,fill:'url(#ringGlow)'}),
-        h('circle',{cx:168,cy:168,r:162,fill:'none',stroke:dark?'rgba(255,255,255,.03)':'rgba(200,190,175,.3)',strokeWidth:'1'}),
         h('circle',{ref:outerRef,className:'outer-ring',cx:168,cy:168,r:158,fill:'none',stroke:dark?'#38302a':'#d8d0c4',strokeWidth:'1.2'}),
         h('circle',{cx:168,cy:168,r:R,fill:'none',stroke:dark?'#2e2820':'#ccc4b6',strokeWidth:'.8'}),
         count>0&&h('circle',{ref:arcRef,className:'prog-arc',cx:168,cy:168,r:OUTER_R,fill:'none',stroke:'#c4a060',strokeWidth:'2.2',strokeLinecap:'round',
@@ -732,7 +731,7 @@ function GuidancePage({state,dispatch}){
   if(showResult && sel && WISDOM[sel]){
     const w=WISDOM[sel];
     return h('div',{className:'pg'},
-      h('button',{className:'back-btn',onClick:back},
+      h('button',{className:'back-btn',onClick:back,style:{marginTop:'env(safe-area-inset-top, 0px)'}},
         h('svg',{viewBox:'0 0 16 16',fill:'none',stroke:'currentColor',strokeWidth:'1.5',strokeLinecap:'round',strokeLinejoin:'round'},
           h('path',{d:'M10 12L6 8l4-4'})
         ),
