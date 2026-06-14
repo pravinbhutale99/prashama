@@ -451,7 +451,20 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .gstep{font-size:15px;font-weight:400;line-height:1.82;text-align:center;color:#28211a;letter-spacing:.005em;}
 .app.dk .gstep{color:#ccc6bc;}
 .gaff{font-family:'Fraunces',serif;font-size:12.5px;font-style:italic;font-weight:500;color:#9c9080;text-align:center;line-height:1.85;margin-top:14px;margin-bottom:0;white-space:pre-line;letter-spacing:0;font-variation-settings:'opsz' 14,'SOFT' 30;}
-.back-btn{background:none;border:none;cursor:pointer;font-size:13px;font-weight:300;color:#9c9080;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:0;margin-bottom:14px;}
+.back-btn{
+  background:none;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 10px 6px 2px;margin-bottom:12px;margin-left:-2px;
+  color:#b5a89a;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:300;
+  letter-spacing:.04em;
+  transition:color .22s ease,opacity .22s ease;
+  border-radius:8px;
+  -webkit-tap-highlight-color:transparent;
+  opacity:.85;
+}
+.back-btn:hover,.back-btn:active{color:#3a3128;opacity:1;}
+.back-btn svg{width:14px;height:14px;flex-shrink:0;}
 
 /* ── DHARMA CARD ── */
 .dcard{background:#fdfcf9;border-radius:20px;padding:40px 28px 42px;box-shadow:0 2px 8px rgba(30,20,10,.05),0 8px 28px rgba(30,20,10,.04);margin-bottom:28px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
@@ -719,7 +732,12 @@ function GuidancePage({state,dispatch}){
   if(showResult && sel && WISDOM[sel]){
     const w=WISDOM[sel];
     return h('div',{className:'pg'},
-      h('button',{className:'back-btn',onClick:back},'← return'),
+      h('button',{className:'back-btn',onClick:back},
+        h('svg',{viewBox:'0 0 16 16',fill:'none',stroke:'currentColor',strokeWidth:'1.5',strokeLinecap:'round',strokeLinejoin:'round'},
+          h('path',{d:'M10 12L6 8l4-4'})
+        ),
+        'return'
+      ),
       h('div',{className:'pg-center'},
         h(Eb,{t:'You feel',center:true}),
         h('div',{className:'ttl-em'},w.label),
