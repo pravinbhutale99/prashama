@@ -47,6 +47,94 @@ function getDayVerse(){
   return DHARMA[n%DHARMA.length];
 }
 
+// ── NOTIFICATIONS ─────────────────────────────────────────────
+// V1 scope: two gentle daily local notifications — a morning Sanskrit
+// line, and a night reflection prompt. No streaks, no guilt, no
+// "you missed today" language anywhere in this module.
+
+const NIGHT_PROMPTS = [
+  'One quiet reflection before rest.',
+  'What stayed with you today?',
+  'What brought you peace today?',
+  'A moment of stillness, before sleep.',
+  'What is worth carrying into tomorrow?',
+];
+
+const NOTIF_KEY='prashama_notif_v1';
+
+function loadNotifPrefs(){
+  try{
+    const raw=localStorage.getItem(NOTIF_KEY);
+    if(!raw)return{enabled:false,morningHour:8,morningMinute:0,nightHour:22,nightMinute:0,lastMorning:null,lastNight:null};
+    const p=JSON.parse(raw);
+    return{
+      enabled:!!p.enabled,
+      morningHour:typeof p.morningHour==='number'?p.morningHour:8,
+      morningMinute:typeof p.morningMinute==='number'?p.morningMinute:0,
+      nightHour:typeof p.nightHour==='number'?p.nightHour:22,
+      nightMinute:typeof p.nightMinute==='number'?p.nightMinute:0,
+      lastMorning:p.lastMorning||null,
+      lastNight:p.lastNight||null,
+    };
+  }catch{return{enabled:false,morningHour:8,morningMinute:0,nightHour:22,nightMinute:0,lastMorning:null,lastNight:null};}
+}
+function saveNotifPrefs(p){try{localStorage.setItem(NOTIF_KEY,JSON.stringify(p));}catch{}}
+
+function pickDailyNightPrompt(){
+  const d=new Date(), n=Math.floor((d-new Date(d.getFullYear(),0,0))/86400000);
+  return NIGHT_PROMPTS[n%NIGHT_PROMPTS.length];
+}
+
+// Sends via the service worker if available (keeps icon/badge consistent),
+// falling back to the plain Notification API.
+function fireNotification(title,body,tag){
+  if(typeof Notification==='undefined'||Notification.permission!=='granted')return;
+  if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+    navigator.serviceWorker.controller.postMessage({type:'SHOW_NOTIFICATION',payload:{title,body,tag}});
+  }else{
+    try{new Notification(title,{body,tag,icon:'icons/icon-192.png'});}catch{}
+  }
+}
+
+// Checked once when the app opens/resumes. Because there is no server
+// push in V1, this is a "catch-up" check: if today's morning or night
+// window has already passed and we haven't sent that one yet today,
+// it fires immediately rather than waiting for an exact clock match.
+function checkAndFireNotifications(){
+  const prefs=loadNotifPrefs();
+  if(!prefs.enabled)return;
+  if(typeof Notification==='undefined'||Notification.permission!=='granted')return;
+
+  const now=new Date();
+  const today=todayStr();
+  const morningTarget=new Date(now); morningTarget.setHours(prefs.morningHour,prefs.morningMinute,0,0);
+  const nightTarget=new Date(now);  nightTarget.setHours(prefs.nightHour,prefs.nightMinute,0,0);
+
+  let changed=false;
+
+  if(now>=morningTarget && prefs.lastMorning!==today){
+    const verse=getDayVerse();
+    fireNotification('Prashama', verse.sanskrit, 'prashama-morning');
+    prefs.lastMorning=today; changed=true;
+  }
+  if(now>=nightTarget && prefs.lastNight!==today){
+    fireNotification('Prashama', pickDailyNightPrompt(), 'prashama-night');
+    prefs.lastNight=today; changed=true;
+  }
+
+  if(changed)saveNotifPrefs(prefs);
+}
+
+async function requestNotificationPermission(){
+  if(typeof Notification==='undefined')return'unsupported';
+  if(Notification.permission==='granted')return'granted';
+  if(Notification.permission==='denied')return'denied';
+  try{
+    const result=await Notification.requestPermission();
+    return result;
+  }catch{return'denied';}
+}
+
 // ── PERSISTENCE ───────────────────────────────────────────────
 const SKEY='prashama_v1';
 const DKEY='prashama_draft_v1';  // separate key for reflection drafts (high-write)
@@ -537,6 +625,7 @@ function SvgPls(){return h('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'curren
 function SvgSnd(){return h('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.35',strokeLinecap:'round',strokeLinejoin:'round',width:'14',height:'14'},h('polygon',{points:'11 5 6 9 2 9 2 15 6 15 11 19 11 5'}),h('path',{d:'M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07'}));}
 function SvgVib(){return h('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.35',strokeLinecap:'round',strokeLinejoin:'round',width:'14',height:'14'},h('path',{d:'M8 19H5c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h3'}),h('path',{d:'M16 5h3c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2h-3'}),h('rect',{x:'8',y:'2',width:'8',height:'20',rx:'2'}));}
 function SvgMoon(){return h('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.35',strokeLinecap:'round',strokeLinejoin:'round',width:'14',height:'14'},h('path',{d:'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'}));}
+function SvgBell(){return h('svg',{viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'1.35',strokeLinecap:'round',strokeLinejoin:'round',width:'14',height:'14'},h('path',{d:'M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9'}),h('path',{d:'M13.73 21a2 2 0 0 1-3.46 0'}));}
 
 // ── SMALL COMPONENTS ──────────────────────────────────────────
 function Eb({t,center}){
@@ -552,12 +641,37 @@ function Tog({on,set}){
 function SettingsSheet({state,dispatch,close}){
   const [adding,setAdding]=useState(false);
   const [val,setVal]=useState('');
+  const [notifEnabled,setNotifEnabled]=useState(()=>loadNotifPrefs().enabled);
+  const [notifMsg,setNotifMsg]=useState('');
 
   function add(){
     const v=val.trim();
     if(!v)return;
     dispatch({type:'ADD_MANTRA',v});
     setVal(''); setAdding(false);
+  }
+
+  async function toggleNotif(){
+    if(notifEnabled){
+      const prefs=loadNotifPrefs();
+      prefs.enabled=false;
+      saveNotifPrefs(prefs);
+      setNotifEnabled(false);
+      setNotifMsg('');
+      return;
+    }
+    const result=await requestNotificationPermission();
+    if(result==='granted'){
+      const prefs=loadNotifPrefs();
+      prefs.enabled=true;
+      saveNotifPrefs(prefs);
+      setNotifEnabled(true);
+      setNotifMsg('A quiet morning line, and a night prompt before rest.');
+    }else if(result==='denied'){
+      setNotifMsg('Notifications are turned off in your browser settings.');
+    }else{
+      setNotifMsg('Notifications are not supported in this browser.');
+    }
   }
 
   return h('div',{className:'ov',onClick:e=>{if(e.target===e.currentTarget)close();}},
@@ -584,8 +698,10 @@ function SettingsSheet({state,dispatch,close}){
       h('div',null,
         h('div',{className:'trow'},h('div',{className:'trow-l'},h(SvgSnd),' Bead click sound'),h(Tog,{on:state.beadSound,set:v=>dispatch({type:'SET_BEAD',v})})),
         h('div',{className:'trow'},h('div',{className:'trow-l'},h(SvgVib),' Haptic feedback'),h(Tog,{on:state.haptic,set:v=>dispatch({type:'SET_HAPTIC',v})})),
-        h('div',{className:'trow'},h('div',{className:'trow-l'},h(SvgMoon),' Dark mode'),h(Tog,{on:state.dark,set:()=>dispatch({type:'TOGGLE_DARK'})}))
+        h('div',{className:'trow'},h('div',{className:'trow-l'},h(SvgMoon),' Dark mode'),h(Tog,{on:state.dark,set:()=>dispatch({type:'TOGGLE_DARK'})})),
+        h('div',{className:'trow'},h('div',{className:'trow-l'},h(SvgBell),' Gentle reminders'),h(Tog,{on:notifEnabled,set:toggleNotif}))
       ),
+      notifMsg&&h('p',{style:{fontSize:11,color:'#9c9080',marginTop:10,lineHeight:1.6,fontStyle:'italic'}},notifMsg),
       h('p',{className:'sh-note'},'Volume buttons count inside the mobile app. On web, Space or arrow keys also count.')
     )
   );
@@ -1019,6 +1135,19 @@ function App(){
 
   const tabIds=TABS.map(t=>t.id);
   const touchRef=useRef({x:0,y:0,active:false});
+
+  // Register service worker (for notification display) and run a one-time
+  // catch-up check for today's morning/night notifications on every
+  // app open/resume. No-ops silently if unsupported or not permitted.
+  useEffect(()=>{
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    }
+    checkAndFireNotifications();
+    function onVisible(){if(document.visibilityState==='visible')checkAndFireNotifications();}
+    document.addEventListener('visibilitychange',onVisible);
+    return()=>document.removeEventListener('visibilitychange',onVisible);
+  },[]);
 
   function goTab(nextTab,dir){
     if(nextTab===tab) return;
