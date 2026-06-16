@@ -493,7 +493,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 .rfcard{background:#fdfcf9;border-radius:20px;padding:40px 28px 42px;box-shadow:0 2px 8px rgba(30,20,10,.05),0 8px 28px rgba(30,20,10,.04);margin-bottom:42px;width:100%;animation:cardIn .36s cubic-bezier(.4,0,.2,1) .08s both;}
 .app.dk .rfcard{background:rgba(28,20,14,.92);border:1px solid rgba(255,255,255,.03);box-shadow:0 10px 30px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.02);}
 .rflbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#9c9080;margin-bottom:6px;margin-top:8px;display:block;}
-.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .22s ease;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;}
+.rfin{width:100%;background:none;border:none;border-bottom:1px solid #e8e2d8;padding:3px 0 7px;font-family:'Fraunces',serif;font-size:15px;font-style:italic;font-weight:400;color:#3a3128;outline:none;transition:border-color .22s ease;display:block;margin-bottom:34px;font-variation-settings:'opsz' 16,'SOFT' 35;resize:none;overflow:hidden;line-height:1.6;word-wrap:break-word;-webkit-appearance:none;}
 .rfin::placeholder{color:#b5a99a;font-style:italic;}
 .rfin:focus{border-bottom-color:#b8924a;}
 .app.dk .rfin{color:#e4ddd4;border-bottom-color:#38322a;}
@@ -822,10 +822,22 @@ function ReflectionPage({state,dispatch}){
   const [l,setL]=useState(draft.l||'');
   const [saved,setSaved]=useState(false);
 
+  // Auto-grow: resize a textarea to fit its content, capped so it never runs away
+  function autoGrow(el){
+    if(!el)return;
+    el.style.height='auto';
+    const max=240; // generous cap — long reflections scroll inside the textarea past this
+    const h=Math.min(el.scrollHeight,max);
+    el.style.height=h+'px';
+    el.style.overflowY=el.scrollHeight>max?'auto':'hidden';
+  }
+  const gRef=useRef(null), pRef=useRef(null), lRef=useRef(null);
+  useEffect(()=>{autoGrow(gRef.current);autoGrow(pRef.current);autoGrow(lRef.current);},[]);
+
   // Persist draft whenever input changes
-  function updateG(v){setG(v);saveDraft({g:v,p,l});}
-  function updateP(v){setP(v);saveDraft({g,p:v,l});}
-  function updateL(v){setL(v);saveDraft({g,p,l:v});}
+  function updateG(v,el){setG(v);saveDraft({g:v,p,l});autoGrow(el);}
+  function updateP(v,el){setP(v);saveDraft({g,p:v,l});autoGrow(el);}
+  function updateL(v,el){setL(v);saveDraft({g,p,l:v});autoGrow(el);}
   const has=!!(g.trim()||p.trim()||l.trim());
 
   function doSave(){
@@ -834,6 +846,8 @@ function ReflectionPage({state,dispatch}){
     haptic('success');
     clearDraft();
     setG('');setP('');setL('');setSaved(true);
+    // reset textarea heights immediately so the card collapses back to its calm resting size
+    [gRef,pRef,lRef].forEach(r=>{if(r.current){r.current.style.height='auto';}});
     setTimeout(()=>setSaved(false),3500);
   }
 
@@ -846,11 +860,11 @@ function ReflectionPage({state,dispatch}){
     h('p',{className:'sub'},'A small, soft ritual. Write only what comes easily.'),
     h('div',{className:'rfcard'},
       h('span',{className:'rflbl'},'Grateful for'),
-      h('input',{className:'rfin',placeholder:'A quiet morning, an honest conversation…',value:g,onChange:e=>updateG(e.target.value)}),
+      h('textarea',{ref:gRef,className:'rfin',rows:1,placeholder:'A quiet morning, an honest conversation…',value:g,onChange:e=>updateG(e.target.value,e.target)}),
       h('span',{className:'rflbl'},'Something peaceful'),
-      h('input',{className:'rfin',placeholder:'A pause that felt like home…',value:p,onChange:e=>updateP(e.target.value)}),
+      h('textarea',{ref:pRef,className:'rfin',rows:1,placeholder:'A pause that felt like home…',value:p,onChange:e=>updateP(e.target.value,e.target)}),
       h('span',{className:'rflbl'},'One lesson'),
-      h('input',{className:'rfin',placeholder:'What today gently taught me…',value:l,onChange:e=>updateL(e.target.value),style:{marginBottom:48}}),
+      h('textarea',{ref:lRef,className:'rfin',rows:1,placeholder:'What today gently taught me…',value:l,onChange:e=>updateL(e.target.value,e.target),style:{marginBottom:48}}),
       h('button',{className:`savebtn${has?' on':''}`,disabled:!has||saved,onClick:doSave},saved?'A quiet moment kept.':'Save reflection')
     ),
     saved&&h('div',{style:{
@@ -869,9 +883,9 @@ function ReflectionPage({state,dispatch}){
       ? h('div',{className:'past-empty'},'Your reflections will gather here, quietly.')
       : recent.map((r,i)=>h('div',{key:i,style:{marginBottom:12,paddingBottom:12,borderBottom:'1px solid #e8e2d8'}},
           h('div',{style:{fontSize:10,color:'#9c9080',marginBottom:4,fontWeight:300}},new Date(r.date).toLocaleDateString('en-IN',{day:'numeric',month:'short'})),
-          r.grateful&&h('div',{style:{fontSize:13,fontWeight:300,lineHeight:1.65,marginBottom:2}},r.grateful),
-          r.peaceful&&h('div',{style:{fontSize:13,fontWeight:300,lineHeight:1.65,marginBottom:2}},r.peaceful),
-          r.lesson&&h('div',{style:{fontSize:13,fontWeight:300,lineHeight:1.65}},r.lesson)
+          r.grateful&&h('div',{style:{fontSize:13,fontWeight:300,lineHeight:1.65,marginBottom:2,whiteSpace:'pre-wrap',wordBreak:'break-word'}},r.grateful),
+          r.peaceful&&h('div',{style:{fontSize:13,fontWeight:300,lineHeight:1.65,marginBottom:2,whiteSpace:'pre-wrap',wordBreak:'break-word'}},r.peaceful),
+          r.lesson&&h('div',{style:{fontSize:13,fontWeight:300,lineHeight:1.65,whiteSpace:'pre-wrap',wordBreak:'break-word'}},r.lesson)
         ))
   );
 }
