@@ -601,6 +601,27 @@ function JapPage({state,dispatch}){
   const outerRef=useRef(null);
   const R=140, OUTER_R=158, circ=2*Math.PI*OUTER_R, ofs=circ*(1-count/108), done=count>=108;
 
+  // ── ADAPTIVE MANTRA SIZING ────────────────────────────────────
+  // Scales font-size down as character count grows, and estimates how many
+  // lines the mantra will wrap to, so vertical centering stays balanced.
+  // Tuned for Devanagari + Latin transliteration; comfortably clears the
+  // inner ring (R=140) with consistent padding regardless of length.
+  function mantraStyle(text){
+    const t=(text||'Radhe').trim();
+    const len=t.length;
+    let fontSize, lineHeight, maxWidth;
+    if(len<=8){           // short — e.g. राधे, Radhe, ॐ
+      fontSize=36; lineHeight=1.15; maxWidth=180;
+    }else if(len<=16){    // medium — e.g. ॐ नमः शिवाय
+      fontSize=27; lineHeight=1.25; maxWidth=190;
+    }else if(len<=28){    // long — short phrase, wraps to ~2 lines
+      fontSize=21; lineHeight=1.32; maxWidth=200;
+    }else{                // very long — full Sanskrit verse line, wraps to ~3 lines
+      fontSize=16; lineHeight=1.4; maxWidth=210;
+    }
+    return{fontSize,lineHeight,maxWidth,len};
+  }
+
   const [pulses,setPulses]=useState([]);
   function tap(){
     if(done)return;
@@ -672,7 +693,23 @@ function JapPage({state,dispatch}){
               h('div',{style:{fontSize:9,color:'#c4a060',marginTop:12,letterSpacing:'.14em',textTransform:'uppercase',fontWeight:300,opacity:.85}},`${state.malas>0?state.malas+' mala':'first mala'}`)
             )
           : h(React.Fragment,null,
-              h('div',{style:{fontFamily:'Fraunces,serif',fontSize:36,fontWeight:400,letterSpacing:'.01em',color:dark?'#f3eee7':'#3a3128',fontVariationSettings:"'opsz' 42,'SOFT' 35"}},mantra||'Radhe'),
+              (()=>{const ms=mantraStyle(mantra);
+                return h('div',{style:{
+                  fontFamily:'Fraunces,serif',
+                  fontSize:ms.fontSize,
+                  fontWeight:400,
+                  letterSpacing:'.01em',
+                  color:dark?'#f3eee7':'#3a3128',
+                  fontVariationSettings:`'opsz' ${Math.round(ms.fontSize*1.15)},'SOFT' 35`,
+                  lineHeight:ms.lineHeight,
+                  maxWidth:ms.maxWidth,
+                  textAlign:'center',
+                  overflowWrap:'break-word',
+                  wordBreak:'keep-all',
+                  hyphens:'none',
+                  padding:'0 4px'
+                }},mantra||'Radhe');
+              })(),
               h('div',{style:{fontSize:11,color:dark?'rgba(243,238,231,.45)':'#b5a89a',marginTop:9,letterSpacing:'.08em',fontVariantNumeric:'tabular-nums',fontWeight:300}},`${count} / 108`)
             )
       )
