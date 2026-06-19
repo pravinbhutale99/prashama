@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Prashama brand palette, matching the web app's espresso/gold theme -->
+    <color name="colorPrimary">#11100D</color>
+    <color name="colorPrimaryDark">#11100D</color>
+    <color name="colorAccent">#D2B07A</color>
+
+    <!-- Splash screen background fallback (shown briefly before splash.png paints,
+         prevents a white flash on slower devices) -->
+    <color name="splashBackground">#11100D</color>
+</resources>
