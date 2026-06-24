@@ -48,9 +48,15 @@ function getDayVerse(){
 }
 
 // ── NOTIFICATIONS ─────────────────────────────────────────────
-// V1 scope: two gentle daily local notifications — a morning Sanskrit
-// line, and a night reflection prompt. No streaks, no guilt, no
-// "you missed today" language anywhere in this module.
+// Uses @capacitor/local-notifications so OS-level alarms fire even
+// when the app is fully closed. Falls back gracefully on the web
+// (prashama.vercel.app) where the plugin returns "unavailable".
+//
+// Design: two fixed daily notifications — no guilt, no streaks.
+// IDs are stable integers so re-scheduling always replaces the
+// previous schedule rather than stacking duplicates.
+const NOTIF_ID_MORNING = 1001;
+const NOTIF_ID_NIGHT   = 1002;
 
 const NIGHT_PROMPTS = [
   'One quiet reflection before rest.',
@@ -65,7 +71,7 @@ const NOTIF_KEY='prashama_notif_v1';
 function loadNotifPrefs(){
   try{
     const raw=localStorage.getItem(NOTIF_KEY);
-    if(!raw)return{enabled:false,morningHour:8,morningMinute:0,nightHour:22,nightMinute:0,lastMorning:null,lastNight:null};
+    if(!raw)return{enabled:false,morningHour:8,morningMinute:0,nightHour:22,nightMinute:0};
     const p=JSON.parse(raw);
     return{
       enabled:!!p.enabled,
@@ -73,66 +79,72 @@ function loadNotifPrefs(){
       morningMinute:typeof p.morningMinute==='number'?p.morningMinute:0,
       nightHour:typeof p.nightHour==='number'?p.nightHour:22,
       nightMinute:typeof p.nightMinute==='number'?p.nightMinute:0,
-      lastMorning:p.lastMorning||null,
-      lastNight:p.lastNight||null,
     };
-  }catch{return{enabled:false,morningHour:8,morningMinute:0,nightHour:22,nightMinute:0,lastMorning:null,lastNight:null};}
+  }catch{return{enabled:false,morningHour:8,morningMinute:0,nightHour:22,nightMinute:0};}
 }
 function saveNotifPrefs(p){try{localStorage.setItem(NOTIF_KEY,JSON.stringify(p));}catch{}}
 
-function pickDailyNightPrompt(){
-  const d=new Date(), n=Math.floor((d-new Date(d.getFullYear(),0,0))/86400000);
-  return NIGHT_PROMPTS[n%NIGHT_PROMPTS.length];
+// Get Capacitor plugins registered by entry.js.
+// Returns null on the web where plugins are unavailable.
+function getLocalNotif(){
+  try{ return window._PrashamaPlugins&&window._PrashamaPlugins.LocalNotifications||null; }
+  catch{ return null; }
+}
+function getShare(){
+  try{ return window._PrashamaPlugins&&window._PrashamaPlugins.Share||null; }
+  catch{ return null; }
 }
 
-// Sends via the service worker if available (keeps icon/badge consistent),
-// falling back to the plain Notification API.
-function fireNotification(title,body,tag){
-  if(typeof Notification==='undefined'||Notification.permission!=='granted')return;
-  if(navigator.serviceWorker&&navigator.serviceWorker.controller){
-    navigator.serviceWorker.controller.postMessage({type:'SHOW_NOTIFICATION',payload:{title,body,tag}});
-  }else{
-    try{new Notification(title,{body,tag,icon:'icons/icon-192.png'});}catch{}
-  }
+// Schedule both daily notifications using Capacitor's alarm system.
+// on: 'day' repeats the alarm at the same time every day and survives
+// app restarts, backgrounding, and device reboots (on Android).
+async function scheduleNotifications(prefs){
+  const ln=getLocalNotif();
+  if(!ln)return;   // web fallback — do nothing silently
+  const verse=getDayVerse();
+  const morning=new Date();
+  morning.setHours(prefs.morningHour,prefs.morningMinute,0,0);
+  if(morning<=new Date()) morning.setDate(morning.getDate()+1); // if already past today, start tomorrow
+  const night=new Date();
+  night.setHours(prefs.nightHour,prefs.nightMinute,0,0);
+  if(night<=new Date()) night.setDate(night.getDate()+1);
+  try{
+    await ln.cancel({notifications:[{id:NOTIF_ID_MORNING},{id:NOTIF_ID_NIGHT}]});
+    await ln.schedule({notifications:[
+      {id:NOTIF_ID_MORNING, title:'Prashama', body:verse.sanskrit,
+       schedule:{at:morning, every:'day', allowWhileIdle:true},
+       smallIcon:'ic_stat_icon_config_sample', iconColor:'#D2B07A'},
+      {id:NOTIF_ID_NIGHT,   title:'Prashama', body:'One quiet reflection before rest.',
+       schedule:{at:night,   every:'day', allowWhileIdle:true},
+       smallIcon:'ic_stat_icon_config_sample', iconColor:'#D2B07A'},
+    ]});
+  }catch(e){ console.warn('scheduleNotifications failed:',e); }
 }
 
-// Checked once when the app opens/resumes. Because there is no server
-// push in V1, this is a "catch-up" check: if today's morning or night
-// window has already passed and we haven't sent that one yet today,
-// it fires immediately rather than waiting for an exact clock match.
-function checkAndFireNotifications(){
-  const prefs=loadNotifPrefs();
-  if(!prefs.enabled)return;
-  if(typeof Notification==='undefined'||Notification.permission!=='granted')return;
-
-  const now=new Date();
-  const today=todayStr();
-  const morningTarget=new Date(now); morningTarget.setHours(prefs.morningHour,prefs.morningMinute,0,0);
-  const nightTarget=new Date(now);  nightTarget.setHours(prefs.nightHour,prefs.nightMinute,0,0);
-
-  let changed=false;
-
-  if(now>=morningTarget && prefs.lastMorning!==today){
-    const verse=getDayVerse();
-    fireNotification('Prashama', verse.sanskrit, 'prashama-morning');
-    prefs.lastMorning=today; changed=true;
-  }
-  if(now>=nightTarget && prefs.lastNight!==today){
-    fireNotification('Prashama', pickDailyNightPrompt(), 'prashama-night');
-    prefs.lastNight=today; changed=true;
-  }
-
-  if(changed)saveNotifPrefs(prefs);
+// Cancel both notifications (called when user turns off Gentle Reminders).
+async function cancelNotifications(){
+  const ln=getLocalNotif();
+  if(!ln)return;
+  try{ await ln.cancel({notifications:[{id:NOTIF_ID_MORNING},{id:NOTIF_ID_NIGHT}]}); }
+  catch{}
 }
 
+// Request Android notification permission via Capacitor plugin.
+// On web, falls back to the browser Notification API permission.
 async function requestNotificationPermission(){
+  const ln=getLocalNotif();
+  if(ln){
+    try{
+      const {display}=await ln.requestPermissions();
+      return display==='granted'?'granted':'denied';
+    }catch{ return 'denied'; }
+  }
+  // web fallback
   if(typeof Notification==='undefined')return'unsupported';
   if(Notification.permission==='granted')return'granted';
   if(Notification.permission==='denied')return'denied';
-  try{
-    const result=await Notification.requestPermission();
-    return result;
-  }catch{return'denied';}
+  try{ return await Notification.requestPermission(); }
+  catch{ return'denied'; }
 }
 
 // ── PERSISTENCE ───────────────────────────────────────────────
@@ -318,7 +330,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 
 /* ── PAGE ── */
-.pg{padding:calc(20px + env(safe-area-inset-top, 0px)) 16px 90px;animation:fu .32s cubic-bezier(.4,0,.2,1);}
+.pg{padding:calc(20px + env(safe-area-inset-top, 0px)) 16px calc(90px + env(safe-area-inset-bottom, 0px));animation:fu .32s cubic-bezier(.4,0,.2,1);}
 .today-page{padding-top:52px;}
 .reflection-page{padding-top:48px;}
 .jap-page{padding-bottom:72px;}
@@ -601,7 +613,7 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
 
 /* ── BOTTOM NAV — floating pill exactly as reference ── */
 /* Reference: white rounded pill, shadow, no active bg — only color change */
-.nav-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:492px;z-index:100;}
+.nav-wrap{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom, 0px));left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:492px;z-index:100;}
 .nav{background:#fdfcf9;border-radius:100px;display:flex;padding:4px;box-shadow:0 4px 28px rgba(30,20,10,.09),0 1px 4px rgba(30,20,10,.05);}
 .app.dk .nav{background:#1e1b17;}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 6px;background:none;border:none;cursor:pointer;color:#9c9080;font-family:'Inter',sans-serif;font-size:10px;font-weight:300;border-radius:100px;transition:color .22s ease;letter-spacing:.01em;}
@@ -656,6 +668,7 @@ function SettingsSheet({state,dispatch,close}){
       const prefs=loadNotifPrefs();
       prefs.enabled=false;
       saveNotifPrefs(prefs);
+      await cancelNotifications();
       setNotifEnabled(false);
       setNotifMsg('');
       return;
@@ -665,12 +678,13 @@ function SettingsSheet({state,dispatch,close}){
       const prefs=loadNotifPrefs();
       prefs.enabled=true;
       saveNotifPrefs(prefs);
+      await scheduleNotifications(prefs);
       setNotifEnabled(true);
-      setNotifMsg('A quiet morning line, and a night prompt before rest.');
+      setNotifMsg('Morning Gita verse at 8 AM. Evening reflection at 10 PM.');
     }else if(result==='denied'){
-      setNotifMsg('Notifications are turned off in your browser settings.');
+      setNotifMsg('Enable notifications in Android Settings › Apps › Prashama.');
     }else{
-      setNotifMsg('Notifications are not supported in this browser.');
+      setNotifMsg('Notifications are not available in this browser.');
     }
   }
 
@@ -933,10 +947,24 @@ function TodayPage({dark}){
   const d=new Date();
   const eyebrow=`${d.toLocaleDateString('en-US',{weekday:'long'}).toUpperCase()}, ${d.toLocaleDateString('en-US',{month:'long',day:'numeric'}).toUpperCase()}`;
 
-  function share(){
-    const t=`${v.meaning}\n\n— ${v.source}\n\nPrashama 🙏`;
-    if(navigator.share)navigator.share({title:"Today's Dharma",text:t});
-    else navigator.clipboard?.writeText(t).then(()=>alert('Copied'));
+  async function share(){
+    const t=`${v.meaning}\n\n— ${v.source}\n\nPrashama \uD83D\uDE4F`;
+    // Try Capacitor Share first (works on Android even from WebView)
+    const capShare=getShare();
+    if(capShare){
+      try{ await capShare.share({title:"Today's Dharma",text:t}); return; }
+      catch{}
+    }
+    // Web Share API fallback
+    if(navigator.share){
+      try{ await navigator.share({title:"Today's Dharma",text:t}); return; }
+      catch{}
+    }
+    // Final fallback: clipboard copy
+    try{
+      await navigator.clipboard.writeText(t);
+      haptic('select');
+    }catch{}
   }
 
   return h('div',{className:'pg today-page'},
@@ -1136,17 +1164,13 @@ function App(){
   const tabIds=TABS.map(t=>t.id);
   const touchRef=useRef({x:0,y:0,active:false});
 
-  // Register service worker (for notification display) and run a one-time
-  // catch-up check for today's morning/night notifications on every
-  // app open/resume. No-ops silently if unsupported or not permitted.
+  // Register service worker (for PWA install / web push fallback).
+  // Notification scheduling is now handled by Capacitor LocalNotifications
+  // (OS-level alarms) — no foreground check needed.
   useEffect(()=>{
     if('serviceWorker' in navigator){
       navigator.serviceWorker.register('sw.js').catch(()=>{});
     }
-    checkAndFireNotifications();
-    function onVisible(){if(document.visibilityState==='visible')checkAndFireNotifications();}
-    document.addEventListener('visibilitychange',onVisible);
-    return()=>document.removeEventListener('visibilitychange',onVisible);
   },[]);
 
   function goTab(nextTab,dir){
