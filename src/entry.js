@@ -16,6 +16,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { Share } from '@capacitor/share';
+import { TextToSpeech } from '@capacitor-community/text-to-speech';
 
 window.React = React;
 window.ReactDOM = ReactDOM;
@@ -25,6 +26,6 @@ window.ReactDOM = ReactDOM;
 // global bridge pattern — this ensures they are registered before app.js runs.
 // (The plugins call registerPlugin() internally on import, which registers
 // them with the native bridge; we also expose them explicitly for safety.)
-window._PrashamaPlugins = { LocalNotifications, Share };
+window._PrashamaPlugins = { LocalNotifications, Share, TextToSpeech };
 
 import('./app.js');
