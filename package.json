@@ -1,7 +1,7 @@
 {
   "name": "prashama",
-  "version": "1.0.0",
-  "description": "Prashama — daily stillness",
+  "version": "1.0.2",
+  "description": "Prashama \u2014 daily stillness",
   "private": true,
   "scripts": {
     "build": "node build.js",
@@ -14,7 +14,8 @@
     "@capacitor/local-notifications": "^8.2.0",
     "@capacitor/share": "^8.0.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "@capacitor-community/text-to-speech": "^6.0.0"
   },
   "devDependencies": {
     "esbuild": "^0.23.0"
