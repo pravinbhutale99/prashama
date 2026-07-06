@@ -541,9 +541,11 @@ body{font-family:'Inter',sans-serif;font-weight:300;-webkit-tap-highlight-color:
   background:none;border:none;cursor:pointer;
   font-family:'Fraunces',serif;font-size:14px;font-weight:400;
   color:#9c9080;letter-spacing:.06em;
-  padding:10px 0;
+  padding:12px 32px;
+  min-height:48px;
   font-variation-settings:'opsz' 16,'SOFT' 30;
   transition:color .22s ease;
+  -webkit-tap-highlight-color:transparent;
 }
 .ob-btn:hover,.ob-btn:focus{color:#3a3128;}
 .ob-begin{
@@ -1102,6 +1104,37 @@ function TodayPage({dark}){
   const v=getDayVerse();
   const [reminder,setReminderRaw]=useState(false);
   const setReminder=v=>{haptic('light');setReminderRaw(v);};
+  const [ttsState,setTtsState]=useState('idle');
+
+  async function listenVerse(){
+    const tts=window._PrashamaPlugins&&window._PrashamaPlugins.TextToSpeech;
+    if(ttsState==='playing'){
+      try{ if(tts)await tts.stop(); else window.speechSynthesis&&window.speechSynthesis.cancel(); }catch(e){}
+      setTtsState('idle'); return;
+    }
+    setTtsState('loading');
+    const cleanMeaning=v.meaning.replace(/[“”"‘’]/g,'');
+    const fullText=v.sanskrit+'. '+cleanMeaning+'. '+v.reflection;
+    if(tts){
+      try{
+        setTtsState('playing');
+        await tts.speak({text:fullText,lang:'en-IN',rate:0.82,pitch:1.0,volume:1.0,category:'ambient'});
+        setTtsState('idle');
+      }catch(e){ console.warn('TTS:',e); setTtsState('error'); setTimeout(()=>setTtsState('idle'),3000); }
+    }else if(typeof window!=='undefined'&&window.speechSynthesis){
+      try{
+        window.speechSynthesis.cancel();
+        const u=new SpeechSynthesisUtterance(fullText);
+        u.lang='en-IN';u.rate=0.82;u.pitch=1.0;u.volume=1.0;
+        u.onstart=()=>setTtsState('playing');
+        u.onend=()=>setTtsState('idle');
+        u.onerror=()=>{setTtsState('error');setTimeout(()=>setTtsState('idle'),3000);};
+        window.speechSynthesis.speak(u);
+      }catch(e){ setTtsState('error'); setTimeout(()=>setTtsState('idle'),3000); }
+    }else{
+      setTtsState('error'); setTimeout(()=>setTtsState('idle'),3000);
+    }
+  }
   const d=new Date();
   const eyebrow=`${d.toLocaleDateString('en-US',{weekday:'long'}).toUpperCase()}, ${d.toLocaleDateString('en-US',{month:'long',day:'numeric'}).toUpperCase()}`;
 
@@ -1137,7 +1170,7 @@ function TodayPage({dark}){
       h('div',{className:'drlbl'},'Reflection'),
       h('div',{className:'drefl'},v.reflection),
       h('div',{className:'dacts'},
-        h('button',{className:'dlisten',onClick:()=>{if(typeof window==='undefined'||!window.speechSynthesis)return;window.speechSynthesis.cancel();const go=(voices)=>{const enVoice=voices.find(vv=>/samantha|karen|moira|rishi|daniel/i.test(vv.name))||voices.find(vv=>vv.lang==='en-GB'&&vv.localService)||voices.find(vv=>vv.lang==='en-IN'&&vv.localService)||voices.find(vv=>vv.lang.startsWith('en')&&vv.localService)||voices.find(vv=>vv.lang.startsWith('en'));const hiVoice=voices.find(vv=>vv.lang==='hi-IN'&&vv.localService)||voices.find(vv=>vv.lang.startsWith('hi'));const uttSk=new SpeechSynthesisUtterance(v.sanskrit);uttSk.lang='hi-IN';uttSk.rate=0.55;uttSk.pitch=0.75;uttSk.volume=0.9;if(hiVoice)uttSk.voice=hiVoice;const gap=()=>{const u=new SpeechSynthesisUtterance(' ');u.rate=0.1;u.volume=0;return u;};const cleanMeaning=v.meaning.replace(/[\u201c\u201d\u0022\u2018\u2019]/g,'');const uttEn=new SpeechSynthesisUtterance(cleanMeaning);uttEn.lang='en-GB';uttEn.rate=0.82;uttEn.pitch=1.05;uttEn.volume=1;if(enVoice)uttEn.voice=enVoice;const uttRefl=new SpeechSynthesisUtterance(v.reflection);uttRefl.lang='en-GB';uttRefl.rate=0.72;uttRefl.pitch=0.92;uttRefl.volume=0.88;if(enVoice)uttRefl.voice=enVoice;window.speechSynthesis.speak(uttSk);window.speechSynthesis.speak(gap());window.speechSynthesis.speak(gap());window.speechSynthesis.speak(uttEn);window.speechSynthesis.speak(gap());window.speechSynthesis.speak(uttRefl);};const v2=window.speechSynthesis.getVoices();if(v2.length>0){go(v2);}else{window.speechSynthesis.onvoiceschanged=()=>go(window.speechSynthesis.getVoices());}}},h(SvgPlay),' Listen'),
+        h('button',{className:'dlisten',onClick:listenVerse},ttsState==='loading'?'Loading…':ttsState==='playing'?'■ Stop':h(React.Fragment,null,h(SvgPlay),' Listen')),
         h('div',{className:'dico',onClick:()=>{}},h(SvgBkm)),
         h('div',{className:'dico',onClick:share},h(SvgShr))
       )
