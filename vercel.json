@@ -9,5 +9,10 @@
       "destination": "https://prashama.space/$1",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/landing.html" },
+    { "source": "/app", "destination": "/index.html" },
+    { "source": "/app/(.*)", "destination": "/index.html" }
   ]
 }

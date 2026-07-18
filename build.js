@@ -18,7 +18,7 @@ function copyStatic() {
   fs.mkdirSync(path.join(DIST, 'icons'), { recursive: true });
 
   // Static files served as-is at the site root
-  const rootFiles = ['index.html', 'manifest.json', 'sw.js', 'favicon.ico'];
+  const rootFiles = ['index.html', 'manifest.json', 'sw.js', 'favicon.ico', 'landing.html', 'sitemap.xml', 'robots.txt'];
   for (const f of rootFiles) {
     const src = path.join(__dirname, f);
     if (fs.existsSync(src)) {
